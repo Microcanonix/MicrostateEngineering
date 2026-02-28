@@ -1,5 +1,7 @@
 <Solution>
-  <Folder Name="/Graph/" />
+  <Folder Name="/Graph/">
+    <Project Path="WorkflowGraph/Engine/Engine.csproj" />
+  </Folder>
   <Folder Name="/Utilities/">
     <Project Path="Utilities/IUtilitiesServices/IUtilitiesServices.csproj" />
     <Project Path="Utilities/UtilitiesDomain/UtilitiesDomain.csproj" />
