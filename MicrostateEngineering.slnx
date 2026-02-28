@@ -1,8 +1,9 @@
 <Solution>
+  <Folder Name="/Graph/" />
   <Folder Name="/Utilities/">
     <Project Path="Utilities/IUtilitiesServices/IUtilitiesServices.csproj" />
+    <Project Path="Utilities/UtilitiesDomain/UtilitiesDomain.csproj" />
     <Project Path="Utilities/UtilitiesServices/UtilitiesServices.csproj" />
-    <Project Path="UtilitiesDomain/UtilitiesDomain.csproj" />
   </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
 </Solution>
