@@ -3,6 +3,14 @@
     <Project Path="WorkflowGraph/Engine/Engine.csproj" />
     <Project Path="WorkflowGraph/EngineTests/EngineTests.csproj" />
   </Folder>
+  <Folder Name="/Molecules/" />
+  <Folder Name="/Molecules/ResearchDefinition/">
+    <Project Path="Molecules/ResearchDefinition/IResearchDefinitionRepository/IResearchDefinitionRepository.csproj" />
+    <Project Path="Molecules/ResearchDefinition/IResearchDefintionService/IResearchDefintionService.csproj" />
+    <Project Path="Molecules/ResearchDefinition/ResearchDefinitionDomain/ResearchDefinitionDomain.csproj" />
+    <Project Path="Molecules/ResearchDefinition/ResearchDefinitionRepository/ResearchDefinitionRepository.csproj" />
+    <Project Path="Molecules/ResearchDefinition/ResearchDefinitionService/ResearchDefinitionService.csproj" />
+  </Folder>
   <Folder Name="/Utilities/">
     <Project Path="Utilities/IUtilitiesServices/IUtilitiesServices.csproj" />
     <Project Path="Utilities/UtilitiesDomain/UtilitiesDomain.csproj" />
