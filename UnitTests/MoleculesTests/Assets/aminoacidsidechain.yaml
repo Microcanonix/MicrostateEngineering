@@ -1,0 +1,100 @@
+﻿    name: aminoacidsidechain
+    package_root: "C:\\MoleculesDb"
+    xyzfiles: xyz # xyz file with molecular structure
+    gms_input: input # gamess input file
+    gms_output: output # gamess output file
+    workflow_status_folder: status # file with info about the progress of the workflow
+    molecule_data: molecules # data collected about a molecule
+    basisset: B3_21G
+    molecules:
+        - name: alanine-reference
+          charge: 0
+        - name: arginine-h-sidechain
+          charge: 0
+        - name: arginine-sidechain
+          charge: 0
+        - name: asparagine-sidechain
+          charge: 0
+        - name: aspartate-minus-sidechain
+          charge: 0
+        - name: aspartate-sidechain
+          charge: 0
+        - name: cysteine-sidechain
+          charge: 0
+        - name: glutamaat-sidechain
+          charge: 0
+        - name: glutamate-minus-sidechain
+          charge: -1
+        - name: glutamine-sidechain
+          charge: 0
+        - name: glycine-reference
+          charge: 0
+        - name: histidine-plus-sidechain
+          charge: 1
+        - name: histidine-sidechain
+          charge: 0
+        - name: isoleucine-sidechain
+          charge: 0
+        - name: lysine-plus-sidechain
+          charge: 1
+        - name: lysine-sidechain
+          charge: 0
+        - name: methionine-sidechain
+          charge: 0
+        - name: phenylalanine-sidechain
+          charge: 0
+        - name: serine-sidechain
+          charge: 0
+        - name: threonine-sidechain
+          charge: 0
+        - name: thyrosine-sidechain
+          charge: 0
+        - name: tryptophan-sidechain
+          charge: 0
+        - name: valine-sidechain
+          charge: 0
+    process:
+        - process_type: moleculeproperties
+        - steps: 
+             - id: 0
+             - type: initialize
+             - execute: true
+        - steps:
+            - id: 1
+            - type: geometry_optimization
+            - execute: false
+        - steps:
+            - id: 2
+            - type: electronic_structure
+            - execute: true
+        - steps:
+            - id: 3
+            - type: fukui
+            - execute: true
+            - steps: 
+                - id: 0
+                - type: neutral
+                - execute: true
+            - steps:
+                - id: 1
+                - type: plus
+                - execute: true
+            - steps:
+                - id: 2
+                - type: minus
+                - execute: true
+        - steps:
+            - id: 4
+            - type: charge
+            - execute: true
+            - steps:
+                - id: 0
+                - type: geodisk
+                - execute: true
+            - steps:
+                - id: 2
+                - type: chelpg
+                - execute: true
+
+
+  

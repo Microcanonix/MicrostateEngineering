@@ -1,0 +1,360 @@
+﻿moleculesworkflow:
+    name: medicalplants
+    package_root: "C:\\MoleculesDb"
+    xyzfiles: xyz # xyz file with molecular structure
+    gms_input: input # gammess input file
+    gms_output: output # gammess output file
+    workflow_status_folder: status # file with info about the progress of the workflow
+    molecule_data: molecules # data collected about a molecule
+    basisset: B3_21G
+    molecules:
+        - name: absinthin
+          charge: 0
+        - name: achillin
+          charge: 0
+        - name: aflatoxinb1
+          charge: 0
+        - name: alantolactone
+          charge: 0
+        - name: alfa-d-fructofuranose
+          charge: 0
+        - name: alpha-d-glucopyranose
+          charge: 0
+        - name: amarogentin
+          charge: 0
+        - name: amp
+          charge: 0
+        - name: amygdalin
+          charge: 0
+        - name: andrographolide
+          charge: 0
+        - name: apigenin
+          charge: 0
+        - name: apocynin
+          charge: 0
+        - name: arbutin
+          charge: 0
+        - name: archangelicine
+          charge: 0
+        - name: artemisinin
+          charge: 0
+        - name: asperuloside
+          charge: 0
+        - name: aucubin
+          charge: 0
+        - name: benzoquinone
+          charge: 0
+        - name: bergapten
+          charge: 0
+        - name: beta-d-acetylgalactosamine
+          charge: 0
+        - name: beta-d-acetylglucosamine
+          charge: 0
+        - name: beta-d-fructofuranose
+          charge: 0
+        - name: beta-d-glucopyranose
+          charge: 0
+        - name: bisabolol
+          charge: 0
+        - name: boricacid
+          charge: 0
+        - name: borneol
+          charge: 0
+        - name: c-d-ribose
+          charge: 0
+        - name: c-glucose-6-phosphate
+          charge: 0
+        - name: caffeicacid
+          charge: 0
+        - name: camphene
+          charge: 0
+        - name: camphor
+          charge: 0
+        - name: carnesol
+          charge: 0
+        - name: carotene
+          charge: 0
+        - name: caryophylene
+          charge: 0
+        - name: chamazulene
+          charge: 0
+        - name: cimicifugicacida
+          charge: 0
+        - name: cineole
+          charge: 0
+        - name: cmp
+          charge: 0
+        - name: cnicin
+          charge: 0
+        - name: co2
+          charge: 0
+        - name: coniferylalcohol
+          charge: 0
+        - name: coumarin
+          charge: 0
+        - name: curcumin
+          charge: 0
+        - name: cynarin
+          charge: 0
+        - name: d-fructose
+          charge: 0
+        - name: d-galactose
+          charge: 0
+        - name: d-glucose
+          charge: 0
+        - name: d-glyceraldehyde
+          charge: 0
+        - name: d-hydroxyacetone
+          charge: 0
+        - name: d-mannose
+          charge: 0
+        - name: d-ribose
+          charge: 0
+        - name: dicoumaral
+          charge: 0
+        - name: dioscin
+          charge: 0
+        - name: diosgenin
+          charge: 0
+        - name: diosmine
+          charge: 0
+        - name: echinocoside
+          charge: 0
+        - name: ellagicacid
+          charge: 0
+        - name: enterodiol
+          charge: 0
+        - name: enterolactone
+          charge: 0
+        - name: epicatechin
+          charge: 0
+        - name: estriol
+          charge: 0
+        - name: estrone
+          charge: 0
+        - name: eugenol
+          charge: 0
+        - name: ferulicacid
+          charge: 0
+        - name: flavan-3-ol
+          charge: 0
+        - name: flavan-34-diol
+          charge: 0
+        - name: formicacid
+          charge: 0
+        - name: forskolin
+          charge: 0
+        - name: galacturonic_acid
+          charge: 0
+        - name: gallicacid
+          charge: 0
+        - name: GAP
+          charge: 0
+        - name: gaultherina
+          charge: 0
+        - name: gentiopicroside
+          charge: 0
+        - name: geraniin
+          charge: 0
+        - name: glucose-6-phosphate
+          charge: 0
+        - name: gmp
+          charge: 0
+        - name: gossypol
+          charge: 0
+        - name: hamamelitannin
+          charge: 0
+        - name: hautriwaicacid
+          charge: 0
+        - name: hecogenin
+          charge: 0
+        - name: helenalin
+          charge: 0
+        - name: hf
+          charge: 0
+        - name: hydrogenfluorineref
+          charge: 0
+        - name: hydroquinone
+          charge: 0
+        - name: hypericin
+          charge: 0
+        - name: juglone
+          charge: 0
+        - name: khellin
+          charge: 0
+        - name: lactose
+          charge: 0
+        - name: lapachol
+          charge: 0
+        - name: lariciresinol
+          charge: 0
+        - name: lawsone
+          charge: 0
+        - name: linalool
+          charge: 0
+        - name: linalyl_acetate
+          charge: 0
+        - name: loganin
+          charge: 0          
+        - name: lupane
+          charge: 0
+        - name: lutein
+          charge: 0
+        - name: lycopene
+          charge: 0
+        - name: maltose
+          charge: 0
+        - name: marrubiin
+          charge: 0
+        - name: matairesinol
+          charge: 0
+        - name: menaquinone
+          charge: 0
+        - name: menthone
+          charge: 0
+        - name: methionine
+          charge: 0
+        - name: methol
+          charge: 0
+        - name: methyldodonateA
+          charge: 0
+        - name: methyl_chavicol
+          charge: 0
+        - name: methyl_cinnamate
+          charge: 0
+        - name: methyl_eugenol
+          charge: 0
+        - name: neptalactone
+          charge: 0
+        - name: nerol
+          charge: 0
+        - name: nordihydroguaiaretic_acid
+          charge: 0
+        - name: oleanolicacid
+          charge: 0
+        - name: oleuropein
+          charge: 0
+        - name: paeoniflorin
+          charge: 0
+        - name: parthenolide
+          charge: 0
+        - name: patchoulol
+          charge: 0
+        - name: phenol
+          charge: 0
+        - name: pinoresinol
+          charge: 0
+        - name: plumbagone
+          charge: 0
+        - name: populin
+          charge: 0
+        - name: prunasin
+          charge: 0
+        - name: psoralen
+          charge: 0
+        - name: pyrogallol
+          charge: 0
+        - name: rheumemodin
+          charge: 0
+        - name: rosmaricine
+          charge: 0
+        - name: rosmarinicacid
+          charge: 0
+        - name: salicin
+          charge: 0
+        - name: salicyllicacid
+          charge: 0
+        - name: sambunigrin
+          charge: 0
+        - name: schizandrin
+          charge: 0
+        - name: secoisolariciresinol
+          charge: 0
+        - name: sennoside
+          charge: 0
+        - name: sialic_acid
+          charge: 0
+        - name: silybin
+          charge: 0
+        - name: sinalbin
+          charge: 0
+        - name: sinapicacid
+          charge: 0
+        - name: sitosterol
+          charge: 0
+        - name: solasodine
+          charge: 0
+        - name: spiraein
+          charge: 0
+        - name: stigmast4en3one
+          charge: 0
+        - name: stigmasterol
+          charge: 0
+        - name: sucrose
+          charge: 0
+        - name: syringin
+          charge: 0
+        - name: taxol
+          charge: 0
+        - name: tmp
+          charge: 0
+        - name: tujone
+          charge: 0
+        - name: ubiquinol
+          charge: 0
+        - name: usane
+          charge: 0
+        - name: valepotriate
+          charge: 0
+        - name: verbascoside
+          charge: 0
+        - name: vitaminA
+          charge: 0
+        - name: warfarin
+          charge: 0
+        - name: water
+          charge: 0
+    process:
+        - process_type: moleculeproperties
+        - steps: 
+            - id: 0
+            - type: initialize
+            - execute: true
+        - steps:
+            - id: 1
+            - type: geometry_optimization
+            - execute: false
+        - steps:
+            - id: 2
+            - type: electronic_structure
+            - execute: true
+        - steps:
+            - id: 3
+            - type: fukui
+            - execute: true
+            - steps: 
+                - id: 0
+                - type: neutral
+                - execute: true
+            - steps:
+                - id: 1
+                - type: plus
+                - execute: true
+            - steps:
+                - id: 2
+                - type: minus
+                - execute: true
+        - steps:
+            - id: 4
+            - type: charge
+            - execute: true
+            - steps:
+                - id: 0
+                - type: geodisk
+                - execute: true
+            - steps:
+                - id: 2
+                - type: chelpg
+                - execute: true
+
+    

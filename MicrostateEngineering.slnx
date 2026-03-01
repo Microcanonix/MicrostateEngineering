@@ -1,7 +1,6 @@
 <Solution>
   <Folder Name="/Graph/">
     <Project Path="WorkflowGraph/Engine/Engine.csproj" />
-    <Project Path="WorkflowGraph/EngineTests/EngineTests.csproj" />
   </Folder>
   <Folder Name="/Molecules/" />
   <Folder Name="/Molecules/ResearchDefinition/">

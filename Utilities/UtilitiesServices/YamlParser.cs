@@ -10,7 +10,7 @@ namespace UtilitiesServices
         public Type Parse(string fileContent)
         {
             var deserializer = new DeserializerBuilder()
-                                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                    .WithNamingConvention(UnderscoredNamingConvention.Instance)
                                         .Build();
 
             return deserializer.Deserialize<Type>(fileContent);
@@ -19,7 +19,7 @@ namespace UtilitiesServices
         public string Serialize(Type entity)
         {
             var serializer = new SerializerBuilder()
-                                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                    .WithNamingConvention(UnderscoredNamingConvention.Instance)
                                         .Build();
 
             return serializer.Serialize(entity);
