@@ -1,5 +1,6 @@
 ﻿using IUtilitiesServices;
 using Microsoft.Extensions.DependencyInjection;
+using UtilitiesServices;
 
 namespace UtilityServices
 {
@@ -13,18 +14,21 @@ namespace UtilityServices
                     services.AddScoped<IDirectoryServices, DirectoryServices>();
                     services.AddScoped<IFileServices, FileServices>();
                     services.AddScoped(typeof(IJsonParser<>), typeof(JsonParser<>));
+                    services.AddScoped(typeof(IYamlParser<>), typeof(YamlParser<>));
                     break;
 
                 case ServiceLifetime.Transient:
                     services.AddTransient<IDirectoryServices, DirectoryServices>();
                     services.AddTransient<IFileServices, FileServices>();
                     services.AddTransient(typeof(IJsonParser<>), typeof(JsonParser<>));
+                    services.AddTransient(typeof(IYamlParser<>), typeof(YamlParser<>));
                     break;
 
                 case ServiceLifetime.Singleton:
                     services.AddSingleton<IDirectoryServices, DirectoryServices>();
                     services.AddSingleton<IFileServices, FileServices>();
                     services.AddSingleton(typeof(IJsonParser<>), typeof(JsonParser<>));
+                    services.AddSingleton(typeof(IYamlParser<>), typeof(YamlParser<>));
                     break;
 
                 default:

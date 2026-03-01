@@ -11,6 +11,10 @@
     <Project Path="Molecules/ResearchDefinition/ResearchDefinitionRepository/ResearchDefinitionRepository.csproj" />
     <Project Path="Molecules/ResearchDefinition/ResearchDefinitionService/ResearchDefinitionService.csproj" />
   </Folder>
+  <Folder Name="/UnitTests/">
+    <Project Path="UnitTests/GraphTests/GraphTests.csproj" Id="f1dc4545-1857-49e8-b1b1-e1b9e3812d2c" />
+    <Project Path="UnitTests/MoleculesTests/MoleculesTests.csproj" Id="0aab33cb-e905-4d9e-b2cb-f649ebf76bff" />
+  </Folder>
   <Folder Name="/Utilities/">
     <Project Path="Utilities/IUtilitiesServices/IUtilitiesServices.csproj" />
     <Project Path="Utilities/UtilitiesDomain/UtilitiesDomain.csproj" />

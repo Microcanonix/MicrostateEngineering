@@ -4,7 +4,7 @@
     {
         public static string Section = "ResearchDefinition.Settings";
 
-        public required string Location { get; set; }
+        public required string MoleculesLocation { get; set; }
 
     }
 }
