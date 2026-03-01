@@ -1,5 +1,4 @@
-﻿moleculesworkflow:
-    name: medicalplants
+﻿    name: medicalplants
     package_root: "C:\\MoleculesDb"
     xyzfiles: xyz # xyz file with molecular structure
     gms_input: input # gammess input file
@@ -314,47 +313,26 @@
           charge: 0
         - name: water
           charge: 0
-    process:
-        - process_type: moleculeproperties
-        - steps: 
+    processes:
+        - type: moleculeproperties
+          steps: 
             - id: 0
-            - type: initialize
-            - execute: true
-        - steps:
+              type: import_data
+              can_execute: true
             - id: 1
-            - type: geometry_optimization
-            - execute: false
-        - steps:
+              type: geometry_optimization
+              can_execute: false
             - id: 2
-            - type: electronic_structure
-            - execute: true
-        - steps:
+              type: electronic_structure
+              can_execute: true
             - id: 3
-            - type: fukui
-            - execute: true
-            - steps: 
-                - id: 0
-                - type: neutral
-                - execute: true
-            - steps:
-                - id: 1
-                - type: plus
-                - execute: true
-            - steps:
-                - id: 2
-                - type: minus
-                - execute: true
-        - steps:
+              type: fukui_calculation
+              can_execute: true
             - id: 4
-            - type: charge
-            - execute: true
-            - steps:
-                - id: 0
-                - type: geodisk
-                - execute: true
-            - steps:
-                - id: 2
-                - type: chelpg
-                - execute: true
+              type: charge_geodisk
+              can_execute: true
+            - id: 5
+              type: charge_chelpg
+              can_execute: true
 
     

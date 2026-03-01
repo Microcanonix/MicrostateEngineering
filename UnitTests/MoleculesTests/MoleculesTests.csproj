@@ -9,14 +9,13 @@
 
   <ItemGroup>
     <None Remove="Assets\aminoacidsidechain.yaml" />
-    <None Remove="Assets\medicalplants.yml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\aminoacidsidechain.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\medicalplants.yml">
+    <Content Include="Assets\medicalplants.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

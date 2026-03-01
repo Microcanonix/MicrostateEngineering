@@ -2,11 +2,11 @@
 {
     public sealed record MoleculesResearchDefinitionProcessStep
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
-        public MoleculesResearchDefinitionProcessStepType Type { get; set; }
+        public MoleculesResearchDefinitionProcessStepType Type { get; init; }
 
-        public bool CanExecute { get; set; }
+        public bool CanExecute { get; init; }
 
     }
 }

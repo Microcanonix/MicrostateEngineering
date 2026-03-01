@@ -1,6 +1,6 @@
 ﻿namespace ResearchDefinitionDomain.Molecule
 {
-    public enum MoleculesResearchDefinitionProcessStepType
+    public enum MoleculesResearchDefinitionProcessStepType: uint
     {
         dummy = 0,
         import_data = 1,

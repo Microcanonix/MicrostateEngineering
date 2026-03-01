@@ -2,9 +2,9 @@
 {
     public sealed record MoleculesResearchDefinitionProcess
     {
-        public MoleculesResearchDefinitionProcessType Type { get; set; }
+        public MoleculesResearchDefinitionProcessType Type { get; init; }
 
-        public MoleculesResearchDefinitionProcessStep[] Steps { get; set; } = [];
+        public MoleculesResearchDefinitionProcessStep[] Steps { get; init; } = [];
 
     }
 }
