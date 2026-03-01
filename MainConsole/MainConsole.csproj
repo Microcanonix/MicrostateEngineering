@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Molecules\ResearchDefinition\ResearchDefinitionRepository\ResearchDefinitionRepository.csproj" />
     <ProjectReference Include="..\Molecules\ResearchDefinition\ResearchDefinitionService\ResearchDefinitionService.csproj" />
     <ProjectReference Include="..\Utilities\UtilitiesServices\UtilitiesServices.csproj" />
   </ItemGroup>

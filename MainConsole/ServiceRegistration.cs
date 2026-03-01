@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ResearchDefinitionRepository;
+using ResearchDefinitionService;
 using UtilityServices;
 
 namespace MainConsole
@@ -7,7 +9,10 @@ namespace MainConsole
     {
         public static IServiceCollection Register(this IServiceCollection services, ServiceLifetime serviceLifetime)
         {
-            return services.RegisterUtilities(serviceLifetime);
+            return services
+                    .RegisterUtilities(serviceLifetime)
+                        .RegisterResearchDefinitionRepo(serviceLifetime)
+                        .RegisterResearchDefinitionSvc(serviceLifetime);
                             
         }
     }
