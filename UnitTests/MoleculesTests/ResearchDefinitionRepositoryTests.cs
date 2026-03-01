@@ -13,11 +13,11 @@ namespace MoleculesTests
     public sealed class ResearchDefinitionRepositoryTests
     {
 
-        IResearchDefinitionRepo serviceToTest;
+        private readonly IResearchDefinitionRepo serviceToTest;
 
-        ILogger<ResearchDefinitionRepo> logger;
+        private readonly ILogger<ResearchDefinitionRepo> logger;
 
-        IOptions<ResearchDefinitionSettings> options;
+        private readonly IOptions<ResearchDefinitionSettings> options;
 
 
         public ResearchDefinitionRepositoryTests()
@@ -33,14 +33,12 @@ namespace MoleculesTests
             {
                 MoleculesLocation = Path.GetDirectoryName(candidate) ?? string.Empty
             });
-
-
+            
             serviceToTest = new ResearchDefinitionRepo(new DirectoryServices(),
                                             new FileServices(),
                                                 new YamlParser<MoleculesResearchDefinition>(),
                                                         options,
                                                             logger);
-
         }
 
 
