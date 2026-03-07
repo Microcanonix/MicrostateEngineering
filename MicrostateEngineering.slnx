@@ -4,8 +4,10 @@
   </Folder>
   <Folder Name="/Molecules/" />
   <Folder Name="/Molecules/Molecule/">
+    <Project Path="Molecules/Molecule/IMoleculeFactory/IMoleculeFactory.csproj" Id="f789b652-b2c1-403a-bf05-33b1d5cf8325" />
     <Project Path="Molecules/Molecule/IMoleculeRepository/IMoleculeRepository.csproj" Id="92bacf93-2afb-406e-bcd8-9cef926306e5" />
     <Project Path="Molecules/Molecule/MoleculeDomain/MoleculeDomain.csproj" />
+    <Project Path="Molecules/Molecule/MoleculeFactory/MoleculeFactory.csproj" Id="57f25a1f-e259-43f1-a4cd-dd3e17311e76" />
     <Project Path="Molecules/Molecule/MoleculeRepository/MoleculeRepository.csproj" Id="c4998187-8de8-48e1-a224-097dd27a68e4" />
   </Folder>
   <Folder Name="/Molecules/ResearchDefinition/">
