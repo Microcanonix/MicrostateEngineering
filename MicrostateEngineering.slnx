@@ -3,6 +3,9 @@
     <Project Path="WorkflowGraph/Engine/Engine.csproj" />
   </Folder>
   <Folder Name="/Molecules/" />
+  <Folder Name="/Molecules/Molecule/">
+    <Project Path="Molecules/Molecule/MoleculeDomain/MoleculeDomain.csproj" />
+  </Folder>
   <Folder Name="/Molecules/ResearchDefinition/">
     <Project Path="Molecules/ResearchDefinition/IResearchDefinitionRepository/IResearchDefinitionRepository.csproj" />
     <Project Path="Molecules/ResearchDefinition/IResearchDefintionService/IResearchDefintionService.csproj" />

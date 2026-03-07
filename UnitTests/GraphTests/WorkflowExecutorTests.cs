@@ -33,7 +33,7 @@ public class WorkflowExecutorTests
             MaxDegreeOfParallelism = 2,
             FailFast = true,
             SkipDependentsOnFailure = true
-        });
+        }, TestContext.Current.CancellationToken);
 
         Assert.Null(report.Cycle);
         Assert.Equal(NodeState.Succeeded, report.NodeStates["A"]);
@@ -71,12 +71,22 @@ public class WorkflowExecutorTests
         var readyForApproval = false;
         var waitingObserved = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 
+
+        var ct = TestContext.Current.CancellationToken;
+
+        var wfc = new WorkflowContext();
+        
         var workflow = new Workflow<string>()
-            .AddNode("A", (_, _) =>
+            .AddNode("A", (wfc, ct) =>
             {
+                wfc.Set("test", 10);               
                 return Task.FromResult(readyForApproval ? WorkflowNodeResult.Success : WorkflowNodeResult.WaitingForInput);
             })
-            .AddNode("B", (_, _) => Task.FromResult(WorkflowNodeResult.Success))
+            .AddNode("B", (wfc, ct) =>
+            {
+                var r = wfc.TryGet("test", out int result);
+                return Task.FromResult(WorkflowNodeResult.Success);
+            })
             .AddDependency("A", "B");
 
         var executor = new WorkflowExecutor<string>();
@@ -93,7 +103,7 @@ public class WorkflowExecutorTests
             MaxDegreeOfParallelism = 1,
             FailFast = true,
             SkipDependentsOnFailure = true
-        });
+        }, TestContext.Current.CancellationToken);
 
         await waitingObserved.Task;
         readyForApproval = true;
