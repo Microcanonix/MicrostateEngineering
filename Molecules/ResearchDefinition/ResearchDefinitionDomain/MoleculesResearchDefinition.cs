@@ -1,4 +1,6 @@
-﻿namespace ResearchDefinitionDomain.Molecule
+﻿using ResearchDefinitionDomain.Molecule;
+
+namespace ResearchDefinitionDomain
 {
     public sealed class MoleculesResearchDefinition
     {

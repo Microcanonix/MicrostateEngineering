@@ -2,7 +2,7 @@
 using IResearchDefinitionRepository;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ResearchDefinitionDomain.Molecule;
+using ResearchDefinitionDomain;
 using ResearchDefinitionDomain.Settings;
 using ResearchDefinitionRepository;
 using UtilitiesServices;

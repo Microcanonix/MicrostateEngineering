@@ -1,7 +1,7 @@
 ﻿using IResearchDefinitionRepository;
 using IResearchDefintionService;
 using Microsoft.Extensions.Logging;
-using ResearchDefinitionDomain.Molecule;
+using ResearchDefinitionDomain;
 
 namespace ResearchDefinitionService
 {

@@ -1,4 +1,4 @@
-﻿using ResearchDefinitionDomain.Molecule;
+﻿using ResearchDefinitionDomain;
 
 namespace IResearchDefinitionRepository
 {

@@ -1,4 +1,4 @@
-﻿namespace ResearchDefinitionDomain.Molecule
+﻿namespace ResearchDefinitionDomain
 {
     public sealed record MoleculesResearchDefinitionMolecule
     {
