@@ -19,6 +19,8 @@ namespace MainConsole
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Application running at: {time}", DateTimeOffset.Now);
+                
+                
                 await Task.Delay(2000, stoppingToken);
             }
 
