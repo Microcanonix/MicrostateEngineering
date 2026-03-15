@@ -28,6 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Molecules\Molecule\MoleculeFactory\MoleculeFactory.csproj" />
+    <ProjectReference Include="..\Molecules\Molecule\MoleculeRepository\MoleculeRepository.csproj" />
+    <ProjectReference Include="..\Molecules\Molecule\MoleculeServices\MoleculeServices.csproj" />
+    <ProjectReference Include="..\Molecules\Process\MoleculeProcessFactory\MoleculeProcessFactory.csproj" />
+    <ProjectReference Include="..\Molecules\Process\MoleculeProcessService\MoleculeProcessService.csproj" />
     <ProjectReference Include="..\Molecules\ResearchDefinition\ResearchDefinitionRepository\ResearchDefinitionRepository.csproj" />
     <ProjectReference Include="..\Molecules\ResearchDefinition\ResearchDefinitionService\ResearchDefinitionService.csproj" />
     <ProjectReference Include="..\Utilities\UtilitiesServices\UtilitiesServices.csproj" />

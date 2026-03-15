@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\CommonDomain\CommonDomain.csproj" />
-    <ProjectReference Include="..\..\..\WorkflowGraph\Engine\Engine.csproj" />
-  </ItemGroup>
-
 </Project>

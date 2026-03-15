@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using IMoleculeProcessServices;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace MainConsole
@@ -7,9 +8,13 @@ namespace MainConsole
     {
         private readonly ILogger<Application> _logger;
 
-        public Application(ILogger<Application> logger)
+        private readonly IEnumerable<IMoleculeWorkflowService> _workflowRunners;
+
+        public Application(ILogger<Application> logger, 
+                        IEnumerable<IMoleculeWorkflowService> workFlowRunners)
         {
             _logger = logger;
+            _workflowRunners = workFlowRunners;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -19,11 +24,12 @@ namespace MainConsole
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Application running at: {time}", DateTimeOffset.Now);
-                
-                
-                await Task.Delay(2000, stoppingToken);
+                foreach (var workflow in _workflowRunners)
+                {
+                    await workflow.RunAsync();
+                }
+                await Task.Delay(60000, stoppingToken);
             }
-
             _logger.LogInformation("Application stopping");
 
         }

@@ -9,12 +9,18 @@
   <Folder Name="/Molecules/Molecule/">
     <Project Path="Molecules/Molecule/IMoleculeFactory/IMoleculeFactory.csproj" Id="f789b652-b2c1-403a-bf05-33b1d5cf8325" />
     <Project Path="Molecules/Molecule/IMoleculeRepository/IMoleculeRepository.csproj" Id="92bacf93-2afb-406e-bcd8-9cef926306e5" />
+    <Project Path="Molecules/Molecule/IMoleculeServices/IMoleculeServices.csproj" Id="b33d982a-3eb2-4e71-a1e6-fe37709f2c2f" />
     <Project Path="Molecules/Molecule/MoleculeDomain/MoleculeDomain.csproj" />
     <Project Path="Molecules/Molecule/MoleculeFactory/MoleculeFactory.csproj" Id="57f25a1f-e259-43f1-a4cd-dd3e17311e76" />
     <Project Path="Molecules/Molecule/MoleculeRepository/MoleculeRepository.csproj" Id="c4998187-8de8-48e1-a224-097dd27a68e4" />
+    <Project Path="Molecules/Molecule/MoleculeServices/MoleculeServices.csproj" Id="b4bff03a-9578-42d8-9aba-191bbb38f3d4" />
   </Folder>
   <Folder Name="/Molecules/Process/">
+    <Project Path="Molecules/Process/IMoleculeProcessFactory/IMoleculeProcessFactory.csproj" Id="107dece4-8504-461d-87e4-f958a98e6622" />
+    <Project Path="Molecules/Process/IMoleculeProcessServices/IMoleculeProcessServices.csproj" Id="03b4117c-47d9-406d-b64a-e7769ce8a3b1" />
     <Project Path="Molecules/Process/MoleculeProcessDomain/MoleculeProcessDomain.csproj" Id="28390b13-87c9-46cb-afd5-1d9d53b3435b" />
+    <Project Path="Molecules/Process/MoleculeProcessFactory/MoleculeProcessFactory.csproj" Id="6e7db294-8cc5-4060-98f7-86b33bd4b72c" />
+    <Project Path="Molecules/Process/MoleculeProcessService/MoleculeProcessService.csproj" Id="5b163371-da8e-461a-a944-898270f5c675" />
   </Folder>
   <Folder Name="/Molecules/ResearchDefinition/">
     <Project Path="Molecules/ResearchDefinition/IResearchDefinitionRepository/IResearchDefinitionRepository.csproj" />

@@ -1,7 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MoleculeFactory;
+using MoleculeProcessService;
+using MoleculeRepository;
+using MoleculeServices;
 using ResearchDefinitionRepository;
 using ResearchDefinitionService;
 using UtilityServices;
+using MoleculeProcessFactory;
 
 namespace MainConsole
 {
@@ -12,7 +17,12 @@ namespace MainConsole
             return services
                     .RegisterUtilities(serviceLifetime)
                         .RegisterResearchDefinitionRepo(serviceLifetime)
-                        .RegisterResearchDefinitionSvc(serviceLifetime);
+                        .RegisterResearchDefinitionSvc(serviceLifetime)
+                        .RegisterMoleculeRepository(serviceLifetime)
+                        .RegisterMoleculeFactory(serviceLifetime)
+                        .RegisterMoleculeService(serviceLifetime)
+                        .RegisterMoleculeProcessService(serviceLifetime)
+                        .RegisterMoleculeProcessFactory(serviceLifetime);
                             
         }
     }

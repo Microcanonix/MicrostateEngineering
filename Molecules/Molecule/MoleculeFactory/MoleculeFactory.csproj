@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\CommonDomain\CommonDomain.csproj" />
     <ProjectReference Include="..\..\..\Utilities\IUtilitiesServices\IUtilitiesServices.csproj" />
     <ProjectReference Include="..\IMoleculeFactory\IMoleculeFactory.csproj" />

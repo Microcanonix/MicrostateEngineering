@@ -6,7 +6,7 @@ namespace MoleculeRepository
     public static class MoleculeRepositoryExtensions
     {
 
-        private static IServiceCollection RegisterCoreRepository(this IServiceCollection services, ServiceLifetime serviceLifetime)
+        public static IServiceCollection RegisterMoleculeRepository(this IServiceCollection services, ServiceLifetime serviceLifetime)
         {
             if (serviceLifetime == ServiceLifetime.Transient)
             {

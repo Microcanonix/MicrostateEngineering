@@ -2,7 +2,7 @@
 
 namespace Engine.Workflow
 {
-    public sealed class Workflow<TKey>
+    public class Workflow<TKey>
         where TKey : notnull
     {
         private readonly Dictionary<TKey, WorkflowNode<TKey>> _nodes;
