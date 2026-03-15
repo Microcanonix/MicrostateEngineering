@@ -1,6 +1,6 @@
 ﻿using MoleculeDomain;
 
-namespace CoreFactories.Parsers
+namespace MoleculeFactory.Parsers
 {
     public class GmsCalcValidityParser
     {

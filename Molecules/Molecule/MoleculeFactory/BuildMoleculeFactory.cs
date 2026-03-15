@@ -1,10 +1,12 @@
 ﻿using CoreDomain;
+using CoreFactories.Parsers;
 using IMoleculeFactory;
 using IUtilitiesServices;
 using MoleculeDomain;
 using MoleculeDomain.MoleculeFile;
 using MoleculeDomain.Utilities;
 using MoleculeFactory.Conversion;
+using MoleculeFactory.Parsers;
 
 namespace MoleculeFactory
 {
@@ -41,64 +43,64 @@ namespace MoleculeFactory
             return molecule;
         }
 
-        public Molecule CompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput)
+        public Molecule CompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType fileType)
         {
             if (string.IsNullOrEmpty(moleculeFileGmsOutput.Content)) return molecule;
             List<string> fileLines = moleculeFileGmsOutput.Lines;
-            //switch (moleculeFileGmsOutput.StepType)
-            //{        
-            //    case CommonDomain.Workflow.Enums.StepTypeEnum.geometry_optimization:
-            //        if (GmsCalcValidityParser.TryParse (fileLines, molecule))
-            //        {
-            //            GeoOptParser.Parse(fileLines, molecule);
-            //            GeoOptDftEnergyParser.Parse(fileLines, molecule);
-            //        }
-            //        break;
-                
-            //    case CommonDomain.Workflow.Enums.StepTypeEnum.electronic_structure:
-            //        if (GmsCalcValidityParser.TryParse(fileLines, molecule))
-            //        {
-            //            NeutralPopulationAnalysisParser.GetPopulation(fileLines, molecule);
-            //            molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
-            //        }
-            //        break;
-               
-            //    case CommonDomain.Workflow.Enums.StepTypeEnum.neutral:
-            //        if (GmsCalcValidityParser.TryParse(fileLines, molecule))
-            //        {
-            //            NeutralPopulationAnalysisParser.GetPopulation(fileLines, molecule);
-            //            molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
-            //        }
-            //        break;
-            //    case CommonDomain.Workflow.Enums.StepTypeEnum.plus:
-            //        if (GmsCalcValidityParser.TryParse(fileLines, molecule))
-            //        {
-            //            LewisLUMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);
-            //            molecule.HFEnergyLUMO = FukuiEnergyLewisLUMOParser.GetEnergy(fileLines);
-            //        }
-            //        break;
-            //    case CommonDomain.Workflow.Enums.StepTypeEnum.minus:
-            //        if (GmsCalcValidityParser.TryParse(fileLines, molecule))
-            //        {
-            //            LewisHOMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);
-            //            molecule.HFEnergyHOMO = FukuiEnergyLewisHOMOParser.GetEnergy(fileLines);
-            //        }
-            //        break;
-            //    case CommonDomain.Workflow.Enums.StepTypeEnum.geodisk:
-            //        if (GmsCalcValidityParser.TryParse(fileLines, molecule))
-            //        {
-            //            ChargeParser.Parse(fileLines, molecule);
-            //        }
-            //        break;
-            //    case CommonDomain.Workflow.Enums.StepTypeEnum.chelpg:
-            //        if (GmsCalcValidityParser.TryParse(fileLines, molecule))
-            //        {
-            //            ChargeParser.Parse(fileLines, molecule);
-            //        }
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (fileType)
+            {
+                case OutputFileType.geometry_optimization:
+                    if (GmsCalcValidityParser.TryParse(fileLines, molecule))
+                    {
+                        GeoOptParser.Parse(fileLines, molecule);
+                        GeoOptDftEnergyParser.Parse(fileLines, molecule);
+                    }
+                    break;
+
+                case OutputFileType.electronic_structure:
+                    if (GmsCalcValidityParser.TryParse(fileLines, molecule))
+                    {
+                        NeutralPopulationAnalysisParser.GetPopulation(fileLines, molecule);
+                        molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
+                    }
+                    break;
+
+                case OutputFileType.fukui_calculation_neutral:
+                    if (GmsCalcValidityParser.TryParse(fileLines, molecule))
+                    {
+                        NeutralPopulationAnalysisParser.GetPopulation(fileLines, molecule);
+                        molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
+                    }
+                    break;
+                case OutputFileType.fukui_calculation_plus:
+                    if (GmsCalcValidityParser.TryParse(fileLines, molecule))
+                    {
+                        LewisLUMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);
+                        molecule.HFEnergyLUMO = FukuiEnergyLewisLUMOParser.GetEnergy(fileLines);
+                    }
+                    break;
+                case OutputFileType.fukui_calculation_minus:
+                    if (GmsCalcValidityParser.TryParse(fileLines, molecule))
+                    {
+                        LewisHOMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);
+                        molecule.HFEnergyHOMO = FukuiEnergyLewisHOMOParser.GetEnergy(fileLines);
+                    }
+                    break;
+                case OutputFileType.charge_geodisk:
+                    if (GmsCalcValidityParser.TryParse(fileLines, molecule))
+                    {
+                        ChargeParser.Parse(fileLines, molecule);
+                    }
+                    break;
+                case OutputFileType.charge_chelpg:
+                    if (GmsCalcValidityParser.TryParse(fileLines, molecule))
+                    {
+                        ChargeParser.Parse(fileLines, molecule);
+                    }
+                    break;
+                default:
+                    break;
+            }
             return molecule;
         }
 

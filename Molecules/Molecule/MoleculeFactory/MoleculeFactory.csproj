@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\CommonDomain\CommonDomain.csproj" />
     <ProjectReference Include="..\..\..\Utilities\IUtilitiesServices\IUtilitiesServices.csproj" />
     <ProjectReference Include="..\IMoleculeFactory\IMoleculeFactory.csproj" />
   </ItemGroup>

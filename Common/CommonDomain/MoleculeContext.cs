@@ -1,10 +1,9 @@
-﻿namespace MoleculeProcessDomain
+﻿namespace CommonDomain
 {
     public sealed class MoleculeContext
     {
         public required string Basisset             { get; set; }
         public required string MoleculeName         { get; set; }
-
 
         public required string PackageRoot                  { get; set; }
         public required string XyzfilesFolder             { get; set; }
