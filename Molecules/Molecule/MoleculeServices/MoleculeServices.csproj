@@ -15,6 +15,7 @@
     <ProjectReference Include="..\IMoleculeFactory\IMoleculeFactory.csproj" />
     <ProjectReference Include="..\IMoleculeRepository\IMoleculeRepository.csproj" />
     <ProjectReference Include="..\IMoleculeServices\IMoleculeServices.csproj" />
+    <ProjectReference Include="..\MoleculeFactory\MoleculeFactory.csproj" />
   </ItemGroup>
 
 </Project>

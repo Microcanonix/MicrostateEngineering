@@ -3,6 +3,9 @@ using IMoleculeRepository;
 using IMoleculeServices;
 using Microsoft.Extensions.Logging;
 using MoleculeDomain;
+using MoleculeDomain.MoleculeFile;
+using MoleculeDomain.Utilities;
+using MoleculeFactory.Conversion;
 
 namespace MoleculeServices
 {
@@ -14,13 +17,18 @@ namespace MoleculeServices
 
         private readonly IMoleculeXyzRepository _moleculeXyzRepository;
 
+        private readonly IMoleculeDataRepository _moleculeDataRepository;
+
         public MoleculeService(ILogger<MoleculeService> logger,
                                 IBuildMoleculeFactory buildMoleculeFactory,
-                                    IMoleculeXyzRepository moleculeXyzRepository)
+                                    IMoleculeXyzRepository moleculeXyzRepository,
+                                    IMoleculeDataRepository moleculeDataRepository )
+ 
         {
             _logger = logger;
             _buildMoleculeFactory = buildMoleculeFactory;
             _moleculeXyzRepository = moleculeXyzRepository;
+            _moleculeDataRepository = moleculeDataRepository;
         }
 
         public async Task<Molecule> InitMoleculeFromXyzFileAsync(string xyzFileDirectory, string moleculeName, int charge)
@@ -31,14 +39,22 @@ namespace MoleculeServices
             return await Task.FromResult(result);
         }
 
-        public Task SaveMoleculesAsXyzFileAsync(List<Molecule> molecules, string xyzFileDirectory)
+        public async Task SaveMoleculesAsXyzFileAsync(List<Molecule> molecules, string xyzFileDirectory)
         {
-            throw new NotImplementedException();
+            foreach(var molecule in molecules)
+            {
+                _moleculeXyzRepository.SaveMoleculeXyzFile(xyzFileDirectory, _buildMoleculeFactory.BuildMoleculeXyzFile(molecule));
+            }
+            await Task.CompletedTask;
         }
 
-        public Task SaveMoleculesAsync(List<Molecule> molecules, string moleculesDataDirectory)
+        public async Task SaveMoleculesAsync(List<Molecule> molecules, string moleculesDataDirectory)
         {
-            throw new NotImplementedException();
+            foreach(Molecule molecule in molecules)
+            {
+                _moleculeDataRepository.SaveMoleculeDataFile(moleculesDataDirectory, _buildMoleculeFactory.BuildMoleculeDataFile(molecule));
+            }
+            await Task.CompletedTask;
         }
     }
 }
