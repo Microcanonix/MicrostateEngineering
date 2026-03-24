@@ -9,16 +9,19 @@ namespace MoleculeFactory
         {
             if (serviceLifetime == ServiceLifetime.Transient)
             {
-                services.AddTransient<IBuildMoleculeFactory, BuildMoleculeFactory>();
+                services.AddTransient<IMoleculesFactory, MoleculesFactory>();
+                services.AddTransient<IGmsCalcInputFactory, GmsCalcInputFactory>();
             }
             else if (serviceLifetime == ServiceLifetime.Scoped)
             {
-                services.AddScoped<IBuildMoleculeFactory, BuildMoleculeFactory>();
+                services.AddScoped<IMoleculesFactory, MoleculesFactory>();
+                services.AddScoped<IGmsCalcInputFactory, GmsCalcInputFactory>();
 
             }
             else if (serviceLifetime == ServiceLifetime.Singleton)
             {
-                services.AddSingleton<IBuildMoleculeFactory, BuildMoleculeFactory>();
+                services.AddSingleton<IMoleculesFactory, MoleculesFactory>();
+                services.AddSingleton<IGmsCalcInputFactory, GmsCalcInputFactory>();
             }
             return services;
         }

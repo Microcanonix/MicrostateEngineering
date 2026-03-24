@@ -10,11 +10,11 @@ using MoleculeFactory.Parsers;
 
 namespace MoleculeFactory
 {
-    public sealed class BuildMoleculeFactory : IBuildMoleculeFactory
+    public sealed class MoleculesFactory : IMoleculeFactory.IMoleculesFactory
     {
         private readonly IJsonParser<Molecule> _jsonParser;
 
-        public BuildMoleculeFactory(IJsonParser<Molecule> jsonParser)
+        public MoleculesFactory(IJsonParser<Molecule> jsonParser)
         {
             _jsonParser = jsonParser;
         }

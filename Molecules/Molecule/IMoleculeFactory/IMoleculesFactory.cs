@@ -4,7 +4,7 @@ using MoleculeDomain.MoleculeFile;
 
 namespace IMoleculeFactory
 {
-    public interface IBuildMoleculeFactory
+    public interface IMoleculesFactory
     {
         Molecule BuildMolecule(MoleculeFileMoleculeData moleculeData);
 

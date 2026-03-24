@@ -13,14 +13,14 @@ namespace MoleculeServices
     {
         private readonly ILogger<MoleculeService> _logger;
 
-        private readonly IBuildMoleculeFactory _buildMoleculeFactory;
+        private readonly IMoleculeFactory.IMoleculesFactory _buildMoleculeFactory;
 
         private readonly IMoleculeXyzRepository _moleculeXyzRepository;
 
         private readonly IMoleculeDataRepository _moleculeDataRepository;
 
         public MoleculeService(ILogger<MoleculeService> logger,
-                                IBuildMoleculeFactory buildMoleculeFactory,
+                                IMoleculeFactory.IMoleculesFactory buildMoleculeFactory,
                                     IMoleculeXyzRepository moleculeXyzRepository,
                                     IMoleculeDataRepository moleculeDataRepository )
  
