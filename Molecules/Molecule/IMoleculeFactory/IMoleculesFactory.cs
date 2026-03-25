@@ -1,5 +1,4 @@
-﻿using CommonDomain;
-using MoleculeDomain;
+﻿using MoleculeDomain;
 using MoleculeDomain.MoleculeFile;
 
 namespace IMoleculeFactory
@@ -10,7 +9,7 @@ namespace IMoleculeFactory
 
         Molecule BuildMolecule(MoleculeFileXyz moleculeFileXyz, string name, int charge);
 
-        Molecule CompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType stepType);
+        Molecule CompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType outputFileType);
 
         MoleculeFileMoleculeData BuildMoleculeDataFile(Molecule molecule);
 
