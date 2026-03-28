@@ -3,9 +3,6 @@ using IMoleculeRepository;
 using IMoleculeServices;
 using Microsoft.Extensions.Logging;
 using MoleculeDomain;
-using MoleculeDomain.MoleculeFile;
-using MoleculeDomain.Utilities;
-using MoleculeFactory.Conversion;
 
 namespace MoleculeServices
 {
@@ -13,7 +10,7 @@ namespace MoleculeServices
     {
         private readonly ILogger<MoleculeService> _logger;
 
-        private readonly IMoleculeFactory.IMoleculesFactory _buildMoleculeFactory;
+        private readonly IMoleculesFactory _buildMoleculeFactory;
 
         private readonly IMoleculeXyzRepository _moleculeXyzRepository;
 
@@ -29,6 +26,13 @@ namespace MoleculeServices
             _buildMoleculeFactory = buildMoleculeFactory;
             _moleculeXyzRepository = moleculeXyzRepository;
             _moleculeDataRepository = moleculeDataRepository;
+        }
+
+        public Molecule? GetMolecule(string moleculesDataDirectory, string moleculeName)
+        {
+            var moleculeData = _moleculeDataRepository.GetMoleculeDataFile(moleculesDataDirectory, moleculeName);
+            if (moleculeData is null) return null;
+            return _buildMoleculeFactory.BuildMolecule(moleculeData);
         }
 
         public async Task<Molecule> InitMoleculeFromXyzFileAsync(string xyzFileDirectory, string moleculeName, int charge)

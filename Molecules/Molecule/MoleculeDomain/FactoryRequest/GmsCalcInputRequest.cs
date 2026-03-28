@@ -6,8 +6,6 @@ namespace MoleculeDomain.FactoryRequest
 {
     public sealed class GmsCalcInputRequest
     {
-        public required StepType StepType { get; set; }
-
         public required string MoleculeName { get; set; }
 
         public required int Charge { get; set; }

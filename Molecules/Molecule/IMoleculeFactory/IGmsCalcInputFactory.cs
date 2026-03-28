@@ -7,7 +7,7 @@ namespace IMoleculeFactory
     {
         MoleculeFileGmsInput BuildGeoOptGmsInput(GmsCalcInputRequest request);
 
-        MoleculeFileGmsInput BuildNeutralInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildFukuiNeutralInput(GmsCalcInputRequest request);
 
         MoleculeFileGmsInput BuildFukuiLUMOInput(GmsCalcInputRequest request);
 
@@ -17,5 +17,6 @@ namespace IMoleculeFactory
 
         MoleculeFileGmsInput BuildCHelpGChargeInput(GmsCalcInputRequest request);
 
+        MoleculeFileGmsInput BuildElectronicStructureInput(GmsCalcInputRequest request);
     }
 }

@@ -10,5 +10,7 @@ namespace IMoleculeServices
 
         Task SaveMoleculesAsXyzFileAsync(List<Molecule> molecules, string xyzFileDirectory);
 
+        Molecule? GetMolecule(string moleculesDataDirectory, string moleculeName);
+
     }
 }

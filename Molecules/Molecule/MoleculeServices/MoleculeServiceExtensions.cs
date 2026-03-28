@@ -10,14 +10,17 @@ namespace MoleculeServices
             if (serviceLifetime == ServiceLifetime.Transient)
             {
                 services.AddTransient<IMoleculeService, MoleculeService>();
+                services.AddTransient<IGmsInputService, GmsInputService>();
             }
             else if (serviceLifetime == ServiceLifetime.Scoped)
             {
                 services.AddScoped<IMoleculeService, MoleculeService>();
+                services.AddScoped<IGmsInputService, GmsInputService>();
             }
             else if (serviceLifetime == ServiceLifetime.Singleton)
             {
                 services.AddSingleton<IMoleculeService, MoleculeService>();
+                services.AddSingleton<IGmsInputService, GmsInputService>();
             }
             return services;
         }

@@ -1,4 +1,5 @@
-﻿using IMoleculeFactory;
+﻿using CommonDomain;
+using IMoleculeFactory;
 using MoleculeDomain.FactoryRequest;
 using MoleculeDomain.MoleculeFile;
 using MoleculeDomain.Utilities;
@@ -9,17 +10,17 @@ namespace MoleculeFactory
     public sealed class GmsCalcInputFactory : IGmsCalcInputFactory
     {
         
-        private MoleculeFileGmsInput Init(GmsCalcInputRequest request)
+        private MoleculeFileGmsInput Init(GmsCalcInputRequest request, StepType stepType, string additionalSymbol = "")
         {
             return new MoleculeFileGmsInput()
             {
-                Name = $"{request.MoleculeName}_{request.Charge}_{request.BasisSet}_{request.StepType}"
+                Name = $"{request.MoleculeName}_{request.Charge}_{request.BasisSet}_{stepType}{additionalSymbol}"
             };
         }
 
         public MoleculeFileGmsInput BuildCHelpGChargeInput(GmsCalcInputRequest request)
         {
-            var result = Init(request);
+            var result = Init(request, StepType.charge_chelpg);
 
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
@@ -43,7 +44,7 @@ namespace MoleculeFactory
 
         public MoleculeFileGmsInput BuildFukuiHOMOInput(GmsCalcInputRequest request)
         {
-            var result = Init(request);
+            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Plus);
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
@@ -65,7 +66,7 @@ namespace MoleculeFactory
 
         public MoleculeFileGmsInput BuildFukuiLUMOInput(GmsCalcInputRequest request)
         {
-            var result = Init(request);
+            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Minus);
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
@@ -87,7 +88,7 @@ namespace MoleculeFactory
 
         public MoleculeFileGmsInput BuildGeoDiskChargeInput(GmsCalcInputRequest request)
         {
-            var result = Init(request);
+            var result = Init(request, StepType.charge_geodisk);
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
@@ -110,7 +111,7 @@ namespace MoleculeFactory
 
         public MoleculeFileGmsInput BuildGeoOptGmsInput(GmsCalcInputRequest request)
         {
-            var result = Init(request);
+            var result = Init(request, StepType.geometry_optimization);
             StringBuilder retval = new();
             var basisSetInout = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInout}");
@@ -130,9 +131,30 @@ namespace MoleculeFactory
             return result;
         }
 
-        public MoleculeFileGmsInput BuildNeutralInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildFukuiNeutralInput(GmsCalcInputRequest request)
         {
-            var result = Init(request);
+            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Neutral);
+            StringBuilder retval = new();
+            var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
+            retval.AppendLine($" {basisSetInput}");
+            retval.AppendLine($" $CONTRL SCFTYP=RHF MAXIT=60 MULT=1 ICHARG={request.Charge} $END");
+            retval.AppendLine($" $SYSTEM MEMDDI=1000 MWORDS=30 $END");
+            retval.AppendLine($" $SCF DIRSCF=.TRUE. $END");
+            retval.AppendLine(" $DATA");
+            retval.AppendLine();
+            retval.AppendLine("C1");
+            foreach (var moleculeAtom in request.Atoms)
+            {
+                retval.AppendLine($"{moleculeAtom.Atom.Name} {moleculeAtom.Atom.AtomNumber:0.0} {moleculeAtom.Pos.PosX} {moleculeAtom.Pos.PosY} {moleculeAtom.Pos.PosZ}".Replace(",", "."));
+            }
+            retval.AppendLine(" $END");
+            result.Content = retval.ToString();
+            return result;
+        }
+
+        public MoleculeFileGmsInput BuildElectronicStructureInput(GmsCalcInputRequest request)
+        {
+            var result = Init(request, StepType.electronic_structure);
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
