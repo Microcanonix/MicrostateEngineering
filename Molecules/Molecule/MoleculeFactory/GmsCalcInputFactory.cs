@@ -10,7 +10,7 @@ namespace MoleculeFactory
     public sealed class GmsCalcInputFactory : IGmsCalcInputFactory
     {
         
-        private MoleculeFileGmsInput Init(GmsCalcInputRequest request, StepType stepType, string additionalSymbol = "")
+        private MoleculeFileGmsInput Init(GmsCalcInputFactoryRequest request, StepType stepType, string additionalSymbol = "")
         {
             return new MoleculeFileGmsInput()
             {
@@ -18,7 +18,7 @@ namespace MoleculeFactory
             };
         }
 
-        public MoleculeFileGmsInput BuildCHelpGChargeInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildCHelpGChargeInput(GmsCalcInputFactoryRequest request)
         {
             var result = Init(request, StepType.charge_chelpg);
 
@@ -42,7 +42,7 @@ namespace MoleculeFactory
             return result;
         }
 
-        public MoleculeFileGmsInput BuildFukuiHOMOInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildFukuiHOMOInput(GmsCalcInputFactoryRequest request)
         {
             var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Plus);
             StringBuilder retval = new();
@@ -64,7 +64,7 @@ namespace MoleculeFactory
             return result;
         }
 
-        public MoleculeFileGmsInput BuildFukuiLUMOInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildFukuiLUMOInput(GmsCalcInputFactoryRequest request)
         {
             var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Minus);
             StringBuilder retval = new();
@@ -86,7 +86,7 @@ namespace MoleculeFactory
             return result;
         }
 
-        public MoleculeFileGmsInput BuildGeoDiskChargeInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildGeoDiskChargeInput(GmsCalcInputFactoryRequest request)
         {
             var result = Init(request, StepType.charge_geodisk);
             StringBuilder retval = new();
@@ -109,7 +109,7 @@ namespace MoleculeFactory
             return result;
         }
 
-        public MoleculeFileGmsInput BuildGeoOptGmsInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildGeoOptGmsInput(GmsCalcInputFactoryRequest request)
         {
             var result = Init(request, StepType.geometry_optimization);
             StringBuilder retval = new();
@@ -131,7 +131,7 @@ namespace MoleculeFactory
             return result;
         }
 
-        public MoleculeFileGmsInput BuildFukuiNeutralInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildFukuiNeutralInput(GmsCalcInputFactoryRequest request)
         {
             var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Neutral);
             StringBuilder retval = new();
@@ -152,7 +152,7 @@ namespace MoleculeFactory
             return result;
         }
 
-        public MoleculeFileGmsInput BuildElectronicStructureInput(GmsCalcInputRequest request)
+        public MoleculeFileGmsInput BuildElectronicStructureInput(GmsCalcInputFactoryRequest request)
         {
             var result = Init(request, StepType.electronic_structure);
             StringBuilder retval = new();

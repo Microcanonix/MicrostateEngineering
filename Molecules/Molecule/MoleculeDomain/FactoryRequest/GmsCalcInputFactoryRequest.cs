@@ -4,7 +4,7 @@ using MoleculeDomain.Utilities;
 
 namespace MoleculeDomain.FactoryRequest
 {
-    public sealed class GmsCalcInputRequest
+    public sealed class GmsCalcInputFactoryRequest
     {
         public required string MoleculeName { get; set; }
 

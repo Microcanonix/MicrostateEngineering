@@ -5,18 +5,18 @@ namespace IMoleculeFactory
 {
     public interface IGmsCalcInputFactory
     {
-        MoleculeFileGmsInput BuildGeoOptGmsInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildGeoOptGmsInput(GmsCalcInputFactoryRequest request);
 
-        MoleculeFileGmsInput BuildFukuiNeutralInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildFukuiNeutralInput(GmsCalcInputFactoryRequest request);
 
-        MoleculeFileGmsInput BuildFukuiLUMOInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildFukuiLUMOInput(GmsCalcInputFactoryRequest request);
 
-        MoleculeFileGmsInput BuildFukuiHOMOInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildFukuiHOMOInput(GmsCalcInputFactoryRequest request);
 
-        MoleculeFileGmsInput BuildGeoDiskChargeInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildGeoDiskChargeInput(GmsCalcInputFactoryRequest request);
 
-        MoleculeFileGmsInput BuildCHelpGChargeInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildCHelpGChargeInput(GmsCalcInputFactoryRequest request);
 
-        MoleculeFileGmsInput BuildElectronicStructureInput(GmsCalcInputRequest request);
+        MoleculeFileGmsInput BuildElectronicStructureInput(GmsCalcInputFactoryRequest request);
     }
 }

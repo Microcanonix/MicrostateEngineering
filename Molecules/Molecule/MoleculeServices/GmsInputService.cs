@@ -1,8 +1,9 @@
 ﻿using IMoleculeFactory;
 using IMoleculeRepository;
 using IMoleculeServices;
+using MoleculeDomain.FactoryRequest;
 using MoleculeDomain.MoleculeFile;
-using MoleculeDomain.Utilities;
+using MoleculeDomain.ServiceRequest;
 
 namespace MoleculeServices
 {
@@ -25,18 +26,22 @@ namespace MoleculeServices
             _moleculeGmsInputRepository = moleculeGmsInputRepository;
         }
 
-        public MoleculeFileGmsInput? CreateGmsInput(string gmsInputDirectory, string moleculeDirectory,
-                                                            string moleculeName, CalcBasisSetCodeEnum basisSet)
+        public MoleculeFileGmsInput? CreateElectronicStructureGmsInput(GmsCalcInputServiceRequest request)
         {
-            var molecule = _moleculeService.GetMolecule(moleculeDirectory, moleculeName);
+            var molecule = _moleculeService.GetMolecule(request.MoleculeFileDirectory, request.MoleculeName);
             if (molecule is null) return null;
+            
+            var result = _gmsCalcInputFactory.BuildElectronicStructureInput(new GmsCalcInputFactoryRequest()
+            {
+                MoleculeName = request.MoleculeName,
+                Charge = request.Charge,
+                BasisSet = request.BasisSet,
+                Atoms = molecule.Atoms.OrderBy(x => x.PositionInMolecule).ToList()
+            });
 
-            //_gmsCalcInputFactory.BuildFukuiHOMOInput(new GmsCalcInputRequest()
-            //{
+            _moleculeGmsInputRepository.SaveMoleculeGmsInputFile(request.GmsInputFileDirectory, result);
 
-            //});
-
-            return null;
+            return result;
         }
     }
 }
