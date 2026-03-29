@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IMoleculeProcessFactory\IMoleculeProcessFactory.csproj" />
+    <ProjectReference Include="..\IMoleculeProcessServices\IMoleculeProcessServices.csproj" />
   </ItemGroup>
 
 </Project>

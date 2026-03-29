@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\CommonDomain\CommonDomain.csproj" />
+    <ProjectReference Include="..\MoleculeProcessDomain\MoleculeProcessDomain.csproj" />
   </ItemGroup>
 
 </Project>

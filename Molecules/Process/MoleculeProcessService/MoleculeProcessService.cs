@@ -2,82 +2,79 @@
 using IMoleculeProcessServices;
 using IMoleculeServices;
 using Microsoft.Extensions.Logging;
+using MoleculeProcessDomain;
 
 namespace MoleculeProcessService
 {
     public sealed class MoleculeProcessService : IMoleculeProcessService
     {
-
         private readonly ILogger<MoleculeProcessService> _logger;
 
         private readonly IMoleculeService _moleculeService;
 
+        private readonly IGmsInputService _gmsInputService;
 
         public MoleculeProcessService(ILogger<MoleculeProcessService> logger,
-                                        IMoleculeService moleculeService )
+                                        IMoleculeService moleculeService,
+                                            IGmsInputService gmsInputService )
         {
             _logger = logger;
             _moleculeService = moleculeService;
+            _gmsInputService = gmsInputService;
         }
 
-
-        public Task InitilializeXyzFilesAsync(MoleculeContext context)
+        public async Task<MoleculeGmsResult> HandleImportData(MoleculeContext context)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new MoleculeGmsResult()
+            {
+                IsSuccess = false,
+                Message = "NotImplemented"
+            });
         }
 
-
-
-        public Task GenerateChelpgChargeGmsInputAsync(MoleculeContext context)
+        public async Task<MoleculeGmsResult> HandleGeometryOptimization(MoleculeContext context)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new MoleculeGmsResult()
+            {
+                IsSuccess = false,
+                Message = "NotImplemented"
+            });
         }
 
-        public Task GenerateElecStructGmsInputAsync(MoleculeContext context)
+        public async Task<MoleculeGmsResult> HandleElectronicStructure(MoleculeContext context)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new MoleculeGmsResult()
+            {
+                IsSuccess = false,
+                Message = "NotImplemented"
+            });
         }
 
-        public Task GenerateFukuiGmsInputAsync(MoleculeContext context)
+        public async Task<MoleculeGmsResult> HandleFukui(MoleculeContext context)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new MoleculeGmsResult()
+            {
+                IsSuccess = false,
+                Message = "NotImplemented"
+            });
         }
 
-        public Task GenerateGeoDiskChargeGmsInputAsync(MoleculeContext context)
+        public async Task<MoleculeGmsResult> HandleChelpGCharge(MoleculeContext context)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new MoleculeGmsResult()
+            {
+                IsSuccess = false,
+                Message = "NotImplemented"
+            });
         }
 
-        public Task GenerateGeoOptGmsInputAsync(MoleculeContext context)
+        public async Task<MoleculeGmsResult> HandleGeoDiskCharge(MoleculeContext context)
         {
-            throw new NotImplementedException();
-        }
-
-
-
-        public Task ProcessChelpgChargeGmsInputAsync(MoleculeContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ProcessElecStructGmsInputAsync(MoleculeContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ProcessFukuiGmsInputAsync(MoleculeContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ProcessGeoDiskChargeGmsInputAsync(MoleculeContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ProcessGeoOptGmsdOutputFileAsync(MoleculeContext context)
-        {
-            throw new NotImplementedException();
+            return await Task.FromResult(new MoleculeGmsResult()
+            {
+                IsSuccess = false,
+                Message = "NotImplemented"
+            });
         }
     }
 }

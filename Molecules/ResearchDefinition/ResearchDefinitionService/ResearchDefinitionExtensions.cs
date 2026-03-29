@@ -11,15 +11,15 @@ namespace ResearchDefinitionService
             switch (serviceLifetime)
             {
                 case ServiceLifetime.Scoped:
-                    services.AddScoped<IResearchDefinitionSvc, ResearchDefinitionSvc>();
+                    services.AddScoped<IResearchDefinitionService, ResearchDefinitionService>();
                     break;
 
                 case ServiceLifetime.Transient:
-                    services.AddTransient<IResearchDefinitionSvc, ResearchDefinitionSvc>();
+                    services.AddTransient<IResearchDefinitionService, ResearchDefinitionService>();
                     break;
 
                 case ServiceLifetime.Singleton:
-                    services.AddSingleton<IResearchDefinitionSvc, ResearchDefinitionSvc>();
+                    services.AddSingleton<IResearchDefinitionService, ResearchDefinitionService>();
                     break;
 
                 default:

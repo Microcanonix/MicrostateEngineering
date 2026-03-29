@@ -1,30 +1,21 @@
 ﻿using CommonDomain;
+using MoleculeProcessDomain;
 
 namespace IMoleculeProcessServices
 {
     public interface IMoleculeProcessService
     {
-        Task InitilializeXyzFilesAsync(MoleculeContext context);
+        Task<MoleculeGmsResult> HandleImportData(MoleculeContext context);
 
-        Task GenerateGeoOptGmsInputAsync(MoleculeContext context);
+        Task<MoleculeGmsResult> HandleGeometryOptimization(MoleculeContext context);
 
-        Task GenerateElecStructGmsInputAsync(MoleculeContext context);
+        Task<MoleculeGmsResult> HandleElectronicStructure(MoleculeContext context);
 
-        Task GenerateFukuiGmsInputAsync(MoleculeContext context);
+        Task<MoleculeGmsResult> HandleFukui(MoleculeContext context);
 
-        Task GenerateGeoDiskChargeGmsInputAsync(MoleculeContext context);
+        Task<MoleculeGmsResult> HandleGeoDiskCharge(MoleculeContext context);
 
-        Task GenerateChelpgChargeGmsInputAsync(MoleculeContext context);
-
-        Task ProcessGeoOptGmsdOutputFileAsync(MoleculeContext context);
-
-        Task ProcessElecStructGmsInputAsync(MoleculeContext context);
-
-        Task ProcessFukuiGmsInputAsync(MoleculeContext context);
-
-        Task ProcessGeoDiskChargeGmsInputAsync(MoleculeContext context);
-
-        Task ProcessChelpgChargeGmsInputAsync(MoleculeContext context);
+        Task<MoleculeGmsResult> HandleChelpGCharge(MoleculeContext context);
 
     }
 }

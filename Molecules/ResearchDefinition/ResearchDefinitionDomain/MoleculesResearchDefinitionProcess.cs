@@ -8,5 +8,7 @@ namespace ResearchDefinitionDomain.Molecule
 
         public MoleculesResearchDefinitionProcessStep[] Steps { get; init; } = [];
 
+        public MoleculesResearchDefinitionProcessDependency[] Dependencies { get; init; } = [];
+
     }
 }

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\ResearchDefinition\ResearchDefinitionDomain\ResearchDefinitionDomain.csproj" />
+    <ProjectReference Include="..\MoleculeProcessDomain\MoleculeProcessDomain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -5,15 +5,15 @@ using ResearchDefinitionDomain;
 
 namespace ResearchDefinitionService
 {
-    public sealed class ResearchDefinitionSvc : IResearchDefinitionSvc
+    public sealed class ResearchDefinitionService : IResearchDefinitionService
     {
-        private readonly ILogger<ResearchDefinitionSvc> _logger;
+        private readonly ILogger<ResearchDefinitionService> _logger;
 
         private readonly IResearchDefinitionRepo        _repository;
 
-        public ResearchDefinitionSvc(
+        public ResearchDefinitionService(
                             IResearchDefinitionRepo repository,
-                            ILogger<ResearchDefinitionSvc> logger
+                            ILogger<ResearchDefinitionService> logger
                                 )
         {
             _logger = logger;

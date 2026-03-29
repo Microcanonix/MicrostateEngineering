@@ -74,6 +74,18 @@
             - id: 5
               type: charge_chelpg
               can_execute: true
+          dependencies:
+            - dependency: import_data
+              dependant: geometry_optimization
+            - dependency: geometry_optimization
+              dependant: electronic_structure
+            - dependency: geometry_optimization
+              dependant: fukui_calculation
+            - dependency: geometry_optimization
+              dependant: charge_geodisk
+            - dependency: geometry_optimization
+              dependant: charge_chelpg
+    
 
 
   

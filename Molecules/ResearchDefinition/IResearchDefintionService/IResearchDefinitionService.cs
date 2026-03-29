@@ -2,7 +2,7 @@
 
 namespace IResearchDefintionService
 {
-    public interface IResearchDefinitionSvc
+    public interface IResearchDefinitionService
     {
         List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions();
     }

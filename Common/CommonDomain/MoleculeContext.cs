@@ -1,6 +1,6 @@
 ﻿namespace CommonDomain
 {
-    public sealed class MoleculeContext
+    public sealed record MoleculeContext
     {
         public required string Basisset        { get; set; }
         public required string PackageRoot     { get; set; }
@@ -9,6 +9,9 @@
         public required string GmsOutputFolder { get; set; }
         public required string WorkflowStatusFolder { get; set; }
         public required string MoleculeDataFolder   { get; set; }
+        public required string MoleculeName { get; set; }
+        public required int Charge { get; set; }
+        public bool CanExecute { get; set; } = true;
 
     }
 }
