@@ -1,4 +1,6 @@
-﻿using IMoleculeProcessServices;
+﻿using CommonDomain;
+using Engine.WorkflowExecution;
+using IMoleculeProcessServices;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MoleculeProcessService
@@ -21,8 +23,10 @@ namespace MoleculeProcessService
             else if (serviceLifetime == ServiceLifetime.Singleton)
             {
                 services.AddSingleton<IMoleculeProcessService, MoleculeProcessService>();
-                services.AddScoped<IMoleculeWorkflowService, MoleculeGmsWorkflowService>();
+                services.AddSingleton<IMoleculeWorkflowService, MoleculeGmsWorkflowService>();
             }
+
+            services.AddSingleton<MoleculeGmsWorkflowExecutor>();
             return services;
         }
     }

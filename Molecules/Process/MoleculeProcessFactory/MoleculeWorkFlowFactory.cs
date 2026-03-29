@@ -41,52 +41,53 @@ namespace MoleculeProcessFactory
                             Charge = molecule.Charge
                         };
 
-                        foreach(var step in process.Steps)
+
+                        foreach (var step in process.Steps)
                         {
                             switch (step.Type)
                             {
                                 case StepType.dummy:
                                     break;
                                 case StepType.import_data:
-                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (ct) =>
+                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (wfcontext, ct) =>
                                     {
                                         var result = await _moleculeProcessService.HandleImportData(context with { CanExecute = step.CanExecute });
-                                        return result.IsSuccess ? NodeResult.Success(result.Message) : NodeResult.Failure(result.Message);
+                                        return result.IsSuccess ? WorkflowNodeResult.Success : WorkflowNodeResult.Failure;
                                     }));
                                     break;
                                 case StepType.geometry_optimization:
-                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (ct) =>
+                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (wfcontext, ct) =>
                                     {
                                         var result = await _moleculeProcessService.HandleGeometryOptimization(context with { CanExecute = step.CanExecute });
-                                        return result.IsSuccess ? NodeResult.Success(result.Message) : NodeResult.Failure(result.Message);
+                                        return result.IsSuccess ? WorkflowNodeResult.Success : WorkflowNodeResult.Failure;
                                     }));
                                     break;
                                 case StepType.electronic_structure:
-                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (ct) =>
+                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (wfcontect, ct) =>
                                     {
                                         var result = await _moleculeProcessService.HandleElectronicStructure(context with { CanExecute = step.CanExecute });
-                                        return result.IsSuccess ? NodeResult.Success(result.Message) : NodeResult.Failure(result.Message);
+                                        return result.IsSuccess ? WorkflowNodeResult.Success : WorkflowNodeResult.Failure;
                                     }));
                                     break;
                                 case StepType.fukui_calculation:
-                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (ct) =>
+                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (wfContext, ct) =>
                                     {
                                         var result = await _moleculeProcessService.HandleFukui(context with { CanExecute = step.CanExecute });
-                                        return result.IsSuccess ? NodeResult.Success(result.Message) : NodeResult.Failure(result.Message);
+                                        return result.IsSuccess ? WorkflowNodeResult.Success : WorkflowNodeResult.Failure;
                                     }));
                                     break;
                                 case StepType.charge_geodisk:
-                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (ct) =>
+                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (wfContext, ct) =>
                                     {
                                         var result = await _moleculeProcessService.HandleGeoDiskCharge(context with { CanExecute = step.CanExecute });
-                                        return result.IsSuccess ? NodeResult.Success(result.Message) : NodeResult.Failure(result.Message); ;
+                                        return result.IsSuccess ? WorkflowNodeResult.Success : WorkflowNodeResult.Failure;
                                     }));
                                     break;
                                 case StepType.charge_chelpg:
-                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (ct) =>
+                                    currentWorkflow.AddNode(new WorkflowNode<StepType>(step.Type, async (wfContext, ct) =>
                                     {
                                         var result = await _moleculeProcessService.HandleChelpGCharge(context with { CanExecute = step.CanExecute });
-                                        return result.IsSuccess ? NodeResult.Success(result.Message) : NodeResult.Failure(result.Message);
+                                        return result.IsSuccess ? WorkflowNodeResult.Success : WorkflowNodeResult.Failure;
                                     }));
                                     break;
                             }

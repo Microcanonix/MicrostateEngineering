@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Engine.WorkflowExecution
 {
-    public sealed class WorkflowExecutor<TKey>
+    public class WorkflowExecutor<TKey>
         where TKey : notnull
     {
         private readonly object _sync = new();

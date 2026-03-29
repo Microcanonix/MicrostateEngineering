@@ -1,4 +1,5 @@
 ﻿using CommonDomain;
+using Engine.Workflow;
 using Engine.WorkflowExecution;
 using IMoleculeProcessFactory;
 using IMoleculeProcessServices;
@@ -16,18 +17,20 @@ namespace MoleculeProcessService
 
         private readonly IMoleculeWorkFlowFactory _moleculeWorkFlowFactory;
 
+        private readonly MoleculeGmsWorkflowExecutor _workflowExecutor;
+
 
         public MoleculeGmsWorkflowService(ILogger<MoleculeGmsWorkflowService> logger,
                                             IResearchDefinitionService researchDefinitionService,
-                                            IMoleculeWorkFlowFactory moleculeWorkFlowFactory)
+                                            IMoleculeWorkFlowFactory moleculeWorkFlowFactory,
+                                            MoleculeGmsWorkflowExecutor workflowExecutor)
         {
 
             _logger = logger;
             _researchDefinitionService = researchDefinitionService;
             _moleculeWorkFlowFactory = moleculeWorkFlowFactory;
+            _workflowExecutor = workflowExecutor;
         }
-
-
 
         public async Task RunAsync()
         {
@@ -36,10 +39,9 @@ namespace MoleculeProcessService
             foreach(var researchDefintion in researchDefinitions)
             {
                 var workflows = _moleculeWorkFlowFactory.BuildGmsWorkflow(researchDefintion);
-                var executor = new WorkflowExecutor<StepType>();
                 foreach(var workflow in workflows)
                 {
-                    var workflowReport = await executor.RunAsync(workflow, new WorkflowExecutorOptions()
+                    var workflowReport = await _workflowExecutor.RunAsync(workflow, new WorkflowExecutorOptions()
                     {
                         MaxDegreeOfParallelism = 1,
                         FailFast = true,
@@ -48,7 +50,14 @@ namespace MoleculeProcessService
                     });
                 }
             }
-            await Task.CompletedTask;
+        }
+
+        private void Executor_NodeStateChanged(object? sender, WorkflowNodeStateChangedEventArgs<StepType> e)
+        {
+            if ( e.NodeId == StepType.import_data && e.State == NodeState.WaitingForInput)
+            {
+
+            }
         }
     }
 }
