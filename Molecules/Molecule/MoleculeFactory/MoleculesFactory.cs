@@ -46,7 +46,7 @@ namespace MoleculeFactory
         public Molecule CompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType fileType)
         {
             if (string.IsNullOrEmpty(moleculeFileGmsOutput.Content)) return molecule;
-            List<string> fileLines = moleculeFileGmsOutput.Lines;
+            List<string> fileLines = moleculeFileGmsOutput.GetLines();
             switch (fileType)
             {
                 case OutputFileType.geometry_optimization:
@@ -56,7 +56,6 @@ namespace MoleculeFactory
                         GeoOptDftEnergyParser.Parse(fileLines, molecule);
                     }
                     break;
-
                 case OutputFileType.electronic_structure:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
@@ -64,7 +63,6 @@ namespace MoleculeFactory
                         molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
                     }
                     break;
-
                 case OutputFileType.fukui_calculation_neutral:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
@@ -72,14 +70,14 @@ namespace MoleculeFactory
                         molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
                     }
                     break;
-                case OutputFileType.fukui_calculation_plus:
+                case OutputFileType.fukui_calculation_lumo:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         LewisLUMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);
                         molecule.HFEnergyLUMO = FukuiEnergyLewisLUMOParser.GetEnergy(fileLines);
                     }
                     break;
-                case OutputFileType.fukui_calculation_minus:
+                case OutputFileType.fukui_calculation_homo:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         LewisHOMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);

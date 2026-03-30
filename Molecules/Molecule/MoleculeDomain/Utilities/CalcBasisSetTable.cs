@@ -35,6 +35,11 @@ namespace MoleculeDomain.Utilities
             return GetCalcBasisSet(code)?.GmsInput ?? string.Empty;
         }
 
+        public static CalcBasisSetCodeEnum GetCalcBasisSetEnum(string code)
+        {
+            return Enum.Parse<CalcBasisSetCodeEnum>(code);
+        }
+
         private static CalcBasisSet? GetCalcBasisSet(CalcBasisSetCodeEnum code)
         {
             return _calcBasisSets.FirstOrDefault(s => s.Code == code);

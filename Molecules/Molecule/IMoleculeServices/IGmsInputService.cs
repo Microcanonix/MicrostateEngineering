@@ -13,6 +13,6 @@ namespace IMoleculeServices
 
         MoleculeFileGmsInput? CreateChelpGChargeGmsInput(GmsCalcInputServiceRequest request);
 
-        MoleculeFileGmsInput? CreateGoDiskChargeGmsInput(GmsCalcInputServiceRequest request);
+        MoleculeFileGmsInput? CreateGeoDiskChargeGmsInput(GmsCalcInputServiceRequest request);
     }
 }

@@ -5,8 +5,8 @@
         geometry_optimization,
         electronic_structure,
         fukui_calculation_neutral,
-        fukui_calculation_minus,
-        fukui_calculation_plus,
+        fukui_calculation_homo,
+        fukui_calculation_lumo,
         charge_geodisk,
         charge_chelpg
     }

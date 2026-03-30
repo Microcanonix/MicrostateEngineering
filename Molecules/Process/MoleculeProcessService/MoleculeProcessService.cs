@@ -3,6 +3,8 @@ using IMoleculeProcessServices;
 using IMoleculeServices;
 using Microsoft.Extensions.Logging;
 using MoleculeDomain;
+using MoleculeDomain.ServiceRequest;
+using MoleculeDomain.Utilities;
 using MoleculeProcessDomain;
 
 namespace MoleculeProcessService
@@ -74,47 +76,210 @@ namespace MoleculeProcessService
 
         public async Task<MoleculeGmsResult> HandleGeometryOptimization(MoleculeContext context)
         {
-            return await Task.FromResult(new MoleculeGmsResult()
+            if (!context.CanExecute)
             {
-                IsSuccess = false,
-                Message = "NotImplemented"
-            });
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"Molecule {context.MoleculeName} was skipped"
+                };
+            }
+            try
+            {
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                
+                var result = _gmsInputService.CreateGeoOptGmsInput(new GmsCalcInputServiceRequest()
+                {
+                    GmsInputFileDirectory = gmsInputPath,
+                    MoleculeFileDirectory = moleculesDataPath,
+                    MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+                
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $" {nameof(HandleGeometryOptimization)} succeeded for {context.MoleculeName}"
+                };
+            }
+            catch(Exception e)
+            {
+                _logger.LogCritical(e, $"Error while {nameof(HandleGeometryOptimization)} for molecule {context.MoleculeName}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
         }
 
         public async Task<MoleculeGmsResult> HandleElectronicStructure(MoleculeContext context)
         {
-            return await Task.FromResult(new MoleculeGmsResult()
+            if (!context.CanExecute)
             {
-                IsSuccess = false,
-                Message = "NotImplemented"
-            });
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"Molecule {context.MoleculeName} was skipped"
+                };
+            }
+
+            try
+            {
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var result = _gmsInputService.CreateElectronicStructureGmsInput(new GmsCalcInputServiceRequest()
+                {
+                    GmsInputFileDirectory = gmsInputPath,
+                    MoleculeFileDirectory = moleculesDataPath,
+                    MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"{nameof(HandleElectronicStructure)} was successfully executed for molecule {context.MoleculeName}"
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e, $"Error while {nameof(HandleElectronicStructure)} for molecule {context.MoleculeName}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
         }
 
         public async Task<MoleculeGmsResult> HandleFukui(MoleculeContext context)
         {
-            return await Task.FromResult(new MoleculeGmsResult()
+            if (!context.CanExecute)
             {
-                IsSuccess = false,
-                Message = "NotImplemented"
-            });
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"Molecule {context.MoleculeName} was skipped"
+                };
+            }
+
+            try
+            {
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var result = _gmsInputService.CreateFukuiGmsInput(new GmsCalcInputServiceRequest()
+                {
+                    GmsInputFileDirectory = gmsInputPath,
+                    MoleculeFileDirectory = moleculesDataPath,
+                    MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"{nameof(HandleFukui)} was successfully executed for molecule {context.MoleculeName}"
+                };
+
+            }
+            catch(Exception e)
+            {
+                _logger.LogCritical(e, $"Failed to executie {nameof(HandleFukui)} for molecule {context.MoleculeName}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
         }
 
         public async Task<MoleculeGmsResult> HandleChelpGCharge(MoleculeContext context)
         {
-            return await Task.FromResult(new MoleculeGmsResult()
+            if (!context.CanExecute)
             {
-                IsSuccess = false,
-                Message = "NotImplemented"
-            });
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"Molecule {context.MoleculeName} was skipped"
+                };
+            }
+
+            try
+            {
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var result = _gmsInputService.CreateChelpGChargeGmsInput(new GmsCalcInputServiceRequest()
+                {
+                    GmsInputFileDirectory = gmsInputPath,
+                    MoleculeFileDirectory = moleculesDataPath,
+                    MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"{nameof(HandleChelpGCharge)} was successfully executed for molecule {context.MoleculeName}"
+                };
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e, $"Failed to executie {nameof(HandleChelpGCharge)} for molecule {context.MoleculeName}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
         }
 
         public async Task<MoleculeGmsResult> HandleGeoDiskCharge(MoleculeContext context)
         {
-            return await Task.FromResult(new MoleculeGmsResult()
+            if (!context.CanExecute)
             {
-                IsSuccess = false,
-                Message = "NotImplemented"
-            });
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"Molecule {context.MoleculeName} was skipped"
+                };
+            }
+
+            try
+            {
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var result = _gmsInputService.CreateGeoDiskChargeGmsInput(new GmsCalcInputServiceRequest()
+                {
+                    GmsInputFileDirectory = gmsInputPath,
+                    MoleculeFileDirectory = moleculesDataPath,
+                    MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = true,
+                    Message = $"{nameof(HandleGeoDiskCharge)} was successfully executed for molecule {context.MoleculeName}"
+                };
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e, $"Failed to executie {nameof(HandleGeoDiskCharge)} for molecule {context.MoleculeName}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
         }
     }
 }

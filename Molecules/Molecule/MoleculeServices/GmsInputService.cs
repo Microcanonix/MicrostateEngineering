@@ -118,7 +118,7 @@ namespace MoleculeServices
             return result;
         }
 
-        public MoleculeFileGmsInput? CreateGoDiskChargeGmsInput(GmsCalcInputServiceRequest request)
+        public MoleculeFileGmsInput? CreateGeoDiskChargeGmsInput(GmsCalcInputServiceRequest request)
         {
             var molecule = _moleculeService.GetMolecule(request.MoleculeFileDirectory, request.MoleculeName);
             if (molecule is null) return null;

@@ -6,6 +6,6 @@
 
         public static string Extension => $".log";
 
-        public List<string> Lines => Content.Split(_returns, StringSplitOptions.None).ToList();
+        public List<string> GetLines() => Content.Split(_returns, StringSplitOptions.None).ToList();
     }
 }
