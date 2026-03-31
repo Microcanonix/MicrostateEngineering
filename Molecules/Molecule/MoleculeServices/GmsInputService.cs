@@ -1,4 +1,5 @@
-﻿using IMoleculeFactory;
+﻿using CommonDomain;
+using IMoleculeFactory;
 using IMoleculeRepository;
 using IMoleculeServices;
 using MoleculeDomain.FactoryRequest;
@@ -26,10 +27,10 @@ namespace MoleculeServices
             _moleculeGmsInputRepository = moleculeGmsInputRepository;
         }
 
-        public MoleculeFileGmsInput? CreateChelpGChargeGmsInput(GmsCalcInputServiceRequest request)
+        public MoleculeFileGmsInput CreateChelpGChargeGmsInput(GmsCalcInputServiceRequest request)
         {
             var molecule = _moleculeService.GetMolecule(request.MoleculeFileDirectory, request.MoleculeName);
-            if (molecule is null) return null;
+            if (molecule is null) throw new ServiceException($"{nameof(GmsInputService)}", $"Molecule {request} does not exist!");
 
             var result = _gmsCalcInputFactory.BuildCHelpGChargeInput(new GmsCalcInputFactoryRequest()
             {
@@ -44,11 +45,12 @@ namespace MoleculeServices
             return result;
         }
 
-        public MoleculeFileGmsInput? CreateElectronicStructureGmsInput(GmsCalcInputServiceRequest request)
+        public MoleculeFileGmsInput CreateElectronicStructureGmsInput(GmsCalcInputServiceRequest request)
         {
             var molecule = _moleculeService.GetMolecule(request.MoleculeFileDirectory, request.MoleculeName);
-            if (molecule is null) return null;
-            
+            if (molecule is null) throw new ServiceException($"{nameof(GmsInputService)}", $"Molecule {request} does not exist!");
+
+
             var result = _gmsCalcInputFactory.BuildElectronicStructureInput(new GmsCalcInputFactoryRequest()
             {
                 MoleculeName = request.MoleculeName,
@@ -62,10 +64,10 @@ namespace MoleculeServices
             return result;
         }
 
-        public (MoleculeFileGmsInput? Neutral, MoleculeFileGmsInput? Homo, MoleculeFileGmsInput? Lumo) CreateFukuiGmsInput(GmsCalcInputServiceRequest request)
+        public (MoleculeFileGmsInput Neutral, MoleculeFileGmsInput Homo, MoleculeFileGmsInput Lumo) CreateFukuiGmsInput(GmsCalcInputServiceRequest request)
         {
             var molecule = _moleculeService.GetMolecule(request.MoleculeFileDirectory, request.MoleculeName);
-            if (molecule is null) return (null,null,null);
+            if (molecule is null) throw new ServiceException($"{nameof(GmsInputService)}", $"Molecule {request} does not exist!");
 
             var resultNeutral = _gmsCalcInputFactory.BuildFukuiNeutralInput(new GmsCalcInputFactoryRequest()
             {
@@ -100,11 +102,10 @@ namespace MoleculeServices
             return (resultNeutral, resultHomo, resultLumo);
         }
 
-        public MoleculeFileGmsInput? CreateGeoOptGmsInput(GmsCalcInputServiceRequest request)
+        public MoleculeFileGmsInput CreateGeoOptGmsInput(GmsCalcInputServiceRequest request)
         {
             var molecule = _moleculeService.GetMolecule(request.MoleculeFileDirectory, request.MoleculeName);
-            if (molecule is null) return null;
-
+            if (molecule is null) throw new ServiceException($"{nameof(GmsInputService)}",$"Molecule {request} does not exist!");
             var result = _gmsCalcInputFactory.BuildGeoOptGmsInput(new GmsCalcInputFactoryRequest()
             {
                 MoleculeName = request.MoleculeName,
@@ -112,17 +113,14 @@ namespace MoleculeServices
                 BasisSet = request.BasisSet,
                 Atoms = molecule.Atoms.OrderBy(x => x.PositionInMolecule).ToList()
             });
-
             _moleculeGmsInputRepository.SaveMoleculeGmsInputFile(request.GmsInputFileDirectory, result);
-
             return result;
         }
 
-        public MoleculeFileGmsInput? CreateGeoDiskChargeGmsInput(GmsCalcInputServiceRequest request)
+        public MoleculeFileGmsInput CreateGeoDiskChargeGmsInput(GmsCalcInputServiceRequest request)
         {
             var molecule = _moleculeService.GetMolecule(request.MoleculeFileDirectory, request.MoleculeName);
-            if (molecule is null) return null;
-
+            if (molecule is null) throw new ServiceException($"{nameof(GmsInputService)}", $"Molecule {request} does not exist!");
             var result = _gmsCalcInputFactory.BuildGeoDiskChargeInput(new GmsCalcInputFactoryRequest()
             {
                 MoleculeName = request.MoleculeName,
@@ -130,9 +128,7 @@ namespace MoleculeServices
                 BasisSet = request.BasisSet,
                 Atoms = molecule.Atoms.OrderBy(x => x.PositionInMolecule).ToList()
             });
-
             _moleculeGmsInputRepository.SaveMoleculeGmsInputFile(request.GmsInputFileDirectory, result);
-
             return result;
         }
     }

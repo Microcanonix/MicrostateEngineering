@@ -17,9 +17,9 @@ namespace MoleculeServices
         private readonly IMoleculeDataRepository _moleculeDataRepository;
 
         public MoleculeService(ILogger<MoleculeService> logger,
-                                IMoleculeFactory.IMoleculesFactory buildMoleculeFactory,
+                                IMoleculesFactory buildMoleculeFactory,
                                     IMoleculeXyzRepository moleculeXyzRepository,
-                                    IMoleculeDataRepository moleculeDataRepository )
+                                        IMoleculeDataRepository moleculeDataRepository )
  
         {
             _logger = logger;
@@ -60,5 +60,12 @@ namespace MoleculeServices
             }
             await Task.CompletedTask;
         }
+    
+    
+    
+    
+    
+    
+    
     }
 }

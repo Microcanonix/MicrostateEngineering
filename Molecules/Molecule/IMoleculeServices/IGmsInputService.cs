@@ -5,14 +5,14 @@ namespace IMoleculeServices
 {
     public interface IGmsInputService
     {
-        MoleculeFileGmsInput? CreateElectronicStructureGmsInput(GmsCalcInputServiceRequest request);
+        MoleculeFileGmsInput CreateElectronicStructureGmsInput(GmsCalcInputServiceRequest request);
 
-        ( MoleculeFileGmsInput? Neutral, MoleculeFileGmsInput? Homo, MoleculeFileGmsInput? Lumo ) CreateFukuiGmsInput(GmsCalcInputServiceRequest request);
+        ( MoleculeFileGmsInput Neutral, MoleculeFileGmsInput Homo, MoleculeFileGmsInput Lumo ) CreateFukuiGmsInput(GmsCalcInputServiceRequest request);
 
-        MoleculeFileGmsInput? CreateGeoOptGmsInput(GmsCalcInputServiceRequest request);
+        MoleculeFileGmsInput CreateGeoOptGmsInput(GmsCalcInputServiceRequest request);
 
-        MoleculeFileGmsInput? CreateChelpGChargeGmsInput(GmsCalcInputServiceRequest request);
+        MoleculeFileGmsInput CreateChelpGChargeGmsInput(GmsCalcInputServiceRequest request);
 
-        MoleculeFileGmsInput? CreateGeoDiskChargeGmsInput(GmsCalcInputServiceRequest request);
+        MoleculeFileGmsInput CreateGeoDiskChargeGmsInput(GmsCalcInputServiceRequest request);
     }
 }
