@@ -2,6 +2,7 @@
 {
     public enum CalcBasisSetCodeEnum
     {
+        Dummy = 0,
         BSTO3G = 1,
         B3_21G = 2,
         B6_311plusplus2dp = 3,

@@ -34,7 +34,28 @@ namespace MoleculeDomain.MoleculeFile
 
         public static MoleculeFileName Parse(string fileName)
         {
-            throw new NotImplementedException();
+            var segments = fileName.Split('_', StringSplitOptions.RemoveEmptyEntries);
+            if ( segments.Length == 1)
+            {
+                return new MoleculeFileName(segments[0]);
+            }
+            if ( segments.Length == 4 )
+            {
+                string moleculeName = segments[0];
+                int charge = int.TryParse(segments[1], out int lccharge) ? lccharge : 0;
+                CalcBasisSetCodeEnum basisSet = Enum.TryParse<CalcBasisSetCodeEnum>(segments[2], out var lcbasisSet) ? lcbasisSet : CalcBasisSetCodeEnum.Dummy;
+                StepType stepType = Enum.TryParse<StepType>(segments[3], out var lcStepType) ? lcStepType : CommonDomain.StepType.dummy;
+                return new MoleculeFileName(moleculeName, charge, basisSet, stepType);
+            }
+            if (segments.Length == 5)
+            {
+                string moleculeName = segments[0];
+                int charge = int.TryParse(segments[1], out int lccharge) ? lccharge : 0;
+                CalcBasisSetCodeEnum basisSet = Enum.TryParse<CalcBasisSetCodeEnum>(segments[2], out var lcbasisSet) ? lcbasisSet : CalcBasisSetCodeEnum.Dummy;
+                StepType stepType = Enum.TryParse<StepType>(segments[3], out var lcStepType) ? lcStepType : CommonDomain.StepType.dummy;
+                return new MoleculeFileName(moleculeName, charge, basisSet, stepType, segments[4]);
+            }
+            throw new ArgumentException(fileName);
         }
 
         public string MoleculeName { get; set; }
@@ -56,7 +77,6 @@ namespace MoleculeDomain.MoleculeFile
             {
                 fileName.Append($"_{Charge}");
             }
-            
 
             if ( BasisSet.HasValue)
             {
@@ -68,7 +88,11 @@ namespace MoleculeDomain.MoleculeFile
                 fileName.Append($"_{StepType}");
             }
 
-            fileName.Append(AdditionalSymbol);
+            if ( !string.IsNullOrEmpty(AdditionalSymbol))
+            {
+                fileName.Append("_" + AdditionalSymbol);
+            }
+           
 
             return fileName.ToString();
         }
