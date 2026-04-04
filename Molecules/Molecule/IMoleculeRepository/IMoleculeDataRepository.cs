@@ -4,7 +4,7 @@ namespace IMoleculeRepository
 {
     public interface IMoleculeDataRepository
     {
-        MoleculeFileMoleculeData GetMoleculeDataFile(string directoryPath, string moleculeName);
+        MoleculeFileMoleculeData GetMoleculeDataFile(string directoryPath, MoleculeFileName moleculeName);
 
         List<MoleculeFileMoleculeData> GetMoleculeDataFiles(string directoryPath);
 

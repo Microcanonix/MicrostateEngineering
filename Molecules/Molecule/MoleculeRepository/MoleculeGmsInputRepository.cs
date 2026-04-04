@@ -11,7 +11,7 @@ namespace MoleculeRepository
             : base(fileServices, directoryServices) { }
 
 
-        public MoleculeFileGmsInput GetMoleculeGmsInputFile(string directoryPath, string moleculeName)
+        public MoleculeFileGmsInput GetMoleculeGmsInputFile(string directoryPath, MoleculeFileName moleculeName)
         {
             return GetMoleculeFile(directoryPath, moleculeName);
         }

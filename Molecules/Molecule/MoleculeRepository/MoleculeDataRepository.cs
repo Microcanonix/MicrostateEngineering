@@ -9,7 +9,7 @@ namespace MoleculeRepository
         public MoleculeDataRepository(IFileServices fileServices, IDirectoryServices directoryServices)
             :base(fileServices, directoryServices) { }
 
-        public MoleculeFileMoleculeData GetMoleculeDataFile(string directoryPath, string moleculeName)
+        public MoleculeFileMoleculeData GetMoleculeDataFile(string directoryPath, MoleculeFileName moleculeName)
         {
             return GetMoleculeFile(directoryPath, moleculeName);
         }

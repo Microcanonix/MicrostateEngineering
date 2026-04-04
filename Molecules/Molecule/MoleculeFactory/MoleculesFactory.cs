@@ -106,7 +106,7 @@ namespace MoleculeFactory
         {
             return new MoleculeFileMoleculeData()
             {
-                Name = molecule.Name,
+                Name = new MoleculeFileName(molecule.Name),
                 Content = _jsonParser.Serialize(molecule)
             };
         }
@@ -115,7 +115,7 @@ namespace MoleculeFactory
         {
             return new MoleculeFileXyz()
             {
-                Name = molecule.Name,
+                Name = new MoleculeFileName(molecule.Name),
                 Content = GetXyzFileData(molecule)
             };
         }

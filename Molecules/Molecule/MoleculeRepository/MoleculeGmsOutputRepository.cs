@@ -12,7 +12,7 @@ namespace MoleculeRepository
 
         }
 
-        public MoleculeFileGmsOutput GetMoleculeGmsOutputFile(string directoryPath, string moleculeName)
+        public MoleculeFileGmsOutput GetMoleculeGmsOutputFile(string directoryPath, MoleculeFileName moleculeName)
         {
             return GetMoleculeFile(directoryPath, moleculeName);
         }

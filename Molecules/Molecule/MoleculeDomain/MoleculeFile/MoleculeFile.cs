@@ -2,7 +2,7 @@
 {
     public abstract record MoleculeFile
     {
-        public string Name { get; set; } = string.Empty;
+        public MoleculeFileName? Name { get; set; }
         public string Content { get; set; } = string.Empty;
     }
 }

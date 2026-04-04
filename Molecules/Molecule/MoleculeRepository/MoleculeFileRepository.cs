@@ -17,14 +17,14 @@ namespace MoleculeRepository
             _directoryServices = directoryServices;
         }
 
-        protected TFile GetMoleculeFile(string directoryPath, string name)
+        protected TFile GetMoleculeFile(string directoryPath, MoleculeFileName name)
         {
-            var filePath = Path.Combine(directoryPath, name + Extension);
+            var filePath = Path.Combine(directoryPath, name.ToString() + Extension);
             if (_fileServices.FileExists(filePath))
             {
                 return new TFile
                 {
-                    Name = name,
+                    Name =  name,
                     Content = _fileServices.ReadFile(filePath)
                 };
             }
@@ -39,7 +39,7 @@ namespace MoleculeRepository
             {
                 result.Add(new TFile
                 {
-                    Name = Path.GetFileNameWithoutExtension(file),
+                    Name = MoleculeFileName.Parse(Path.GetFileNameWithoutExtension(file)),
                     Content = _fileServices.ReadFile(file)
                 });
             }
@@ -48,7 +48,7 @@ namespace MoleculeRepository
 
         protected void SaveMoleculeFile(string directoryPath, TFile file)
         {
-            var filePath = Path.Combine(directoryPath, file.Name + Extension);
+            var filePath = Path.Combine(directoryPath, file.Name?.ToString() + Extension);
             Directory.CreateDirectory(directoryPath);
             _fileServices.WriteFile(filePath, file.Content);
         }

@@ -4,7 +4,7 @@ namespace IMoleculeRepository
 {
     public interface IMoleculeXyzRepository
     {
-        MoleculeFileXyz GetMoleculeXyzFile(string directoryPath, string moleculeName);
+        MoleculeFileXyz GetMoleculeXyzFile(string directoryPath, MoleculeFileName moleculeName);
 
         List<MoleculeFileXyz> GetMoleculeXyzFiles(string directoryPath);
 

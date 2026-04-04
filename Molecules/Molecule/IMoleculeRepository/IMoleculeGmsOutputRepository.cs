@@ -4,7 +4,7 @@ namespace IMoleculeRepository
 {
     public interface IMoleculeGmsOutputRepository
     {
-        MoleculeFileGmsOutput GetMoleculeGmsOutputFile(string directoryPath, string moleculeName);
+        MoleculeFileGmsOutput GetMoleculeGmsOutputFile(string directoryPath, MoleculeFileName moleculeName);
 
         List<MoleculeFileGmsOutput> GetMoleculeGmsOutputFiles(string directoryPath);
 

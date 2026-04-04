@@ -14,7 +14,7 @@ namespace MoleculeFactory
         {
             return new MoleculeFileGmsInput()
             {
-                Name = $"{request.MoleculeName}_{request.Charge}_{request.BasisSet}_{stepType}{additionalSymbol}"
+                Name = new MoleculeFileName(request.MoleculeName, request.Charge, request.BasisSet, stepType, additionalSymbol)
             };
         }
 
