@@ -10,7 +10,7 @@ using MoleculeFactory.Parsers;
 
 namespace MoleculeFactory
 {
-    public sealed class MoleculesFactory : IMoleculeFactory.IMoleculesFactory
+    public sealed class MoleculesFactory : IMoleculesFactory
     {
         private readonly IJsonParser<Molecule> _jsonParser;
 
@@ -43,9 +43,9 @@ namespace MoleculeFactory
             return molecule;
         }
 
-        public Molecule CompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType fileType)
+        public bool TryCompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType fileType)
         {
-            if (string.IsNullOrEmpty(moleculeFileGmsOutput.Content)) return molecule;
+            if (string.IsNullOrEmpty(moleculeFileGmsOutput.Content)) return false;
             List<string> fileLines = moleculeFileGmsOutput.GetLines();
             switch (fileType)
             {
@@ -54,52 +54,59 @@ namespace MoleculeFactory
                     {
                         GeoOptParser.Parse(fileLines, molecule);
                         GeoOptDftEnergyParser.Parse(fileLines, molecule);
+                        return true;
                     }
-                    break;
+                    return false;
                 case OutputFileType.electronic_structure:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         NeutralPopulationAnalysisParser.GetPopulation(fileLines, molecule);
                         molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
+                        return true;
                     }
-                    break;
+                    return false;
                 case OutputFileType.fukui_calculation_neutral:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         NeutralPopulationAnalysisParser.GetPopulation(fileLines, molecule);
                         molecule.HFEnergy = FukuiEnergyNeutralParser.GetEnergy(fileLines);
+                        return true;
                     }
-                    break;
+                    return false;
                 case OutputFileType.fukui_calculation_lumo:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         LewisLUMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);
                         molecule.HFEnergyLUMO = FukuiEnergyLewisLUMOParser.GetEnergy(fileLines);
+                        return true;
                     }
-                    break;
+                    return false;
                 case OutputFileType.fukui_calculation_homo:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         LewisHOMOPopulationAnalysisParser.GetPopulation(fileLines, molecule);
                         molecule.HFEnergyHOMO = FukuiEnergyLewisHOMOParser.GetEnergy(fileLines);
+                        return true;
                     }
-                    break;
+                    return false;
                 case OutputFileType.charge_geodisk:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         ChargeParser.Parse(fileLines, molecule);
+                        return true;
                     }
-                    break;
+                    return false;
                 case OutputFileType.charge_chelpg:
                     if (GmsCalcValidityParser.TryParse(fileLines, molecule))
                     {
                         ChargeParser.Parse(fileLines, molecule);
+                        return true;
                     }
-                    break;
+                    return false;
                 default:
                     break;
             }
-            return molecule;
+            return false;
         }
 
         public MoleculeFileMoleculeData BuildMoleculeDataFile(Molecule molecule)

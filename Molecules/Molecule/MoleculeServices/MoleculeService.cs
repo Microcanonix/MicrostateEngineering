@@ -42,69 +42,74 @@ namespace MoleculeServices
             return _buildMoleculeFactory.BuildMolecule(moleculeData);
         }
 
-        public async Task SaveMoleculesAsXyzFileAsync(List<Molecule> molecules, string xyzFileDirectory)
+        public void SaveMoleculesAsXyzFile(List<Molecule> molecules, string xyzFileDirectory)
         {
             foreach (var molecule in molecules)
             {
                 _moleculeXyzRepository.SaveMoleculeXyzFile(xyzFileDirectory, _buildMoleculeFactory.BuildMoleculeXyzFile(molecule));
             }
-            await Task.CompletedTask;
         }
 
-        public async Task SaveMoleculesAsync(List<Molecule> molecules, string moleculesDataDirectory)
+        public void SaveMolecules(List<Molecule> molecules, string moleculesDataDirectory)
         {
             foreach (Molecule molecule in molecules)
             {
                 _moleculeDataRepository.SaveMoleculeDataFile(moleculesDataDirectory, _buildMoleculeFactory.BuildMoleculeDataFile(molecule));
             }
-            await Task.CompletedTask;
         }
 
-        public async Task<Molecule> InitMoleculeFromXyzFileAsync(string xyzFileDirectory, string moleculeName, int charge)
+        public Molecule InitMoleculeFromXyzFile(string xyzFileDirectory, string moleculeName, int charge)
         {
-            _logger.LogInformation($"{nameof(InitMoleculeFromXyzFileAsync)} {xyzFileDirectory} {moleculeName} {charge}");
+            _logger.LogInformation($"{nameof(InitMoleculeFromXyzFile)} {xyzFileDirectory} {moleculeName} {charge}");
             var moleculeXyzFile = _moleculeXyzRepository.GetMoleculeXyzFile(xyzFileDirectory, new MoleculeFileName(moleculeName));
             var result =  _buildMoleculeFactory.BuildMolecule(moleculeXyzFile, moleculeName, charge);
-            return await Task.FromResult(result);
+            return result;
         }
 
 
-        public Task<Molecule> UpdateMoleculeFromGmsOutputsChargeChelpG(GmsCalcCompleteMoleculeRequest request)
+        public Molecule UpdateMoleculeFromGmsOutputsChargeChelpG(GmsCalcCompleteMoleculeRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Molecule> UpdateMoleculeFromGmsOutputsChargeGeoDisk(GmsCalcCompleteMoleculeRequest request)
+        public Molecule UpdateMoleculeFromGmsOutputsChargeGeoDisk(GmsCalcCompleteMoleculeRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Molecule> UpdateMoleculeFromGmsOutputsElectronicStructuren(GmsCalcCompleteMoleculeRequest request)
+        public Molecule UpdateMoleculeFromGmsOutputsElectronicStructuren(GmsCalcCompleteMoleculeRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Molecule> UpdateMoleculeFromGmsOutputsFukui(GmsCalcCompleteMoleculeRequest request)
+        public Molecule UpdateMoleculeFromGmsOutputsFukui(GmsCalcCompleteMoleculeRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Molecule> UpdateMoleculeFromGmsOutputsGeometryOptimizaion(GmsCalcCompleteMoleculeRequest request)
+        public Molecule UpdateMoleculeFromGmsOutputsGeometryOptimization(GmsCalcCompleteMoleculeRequest request)
         {
-            var existingMolecule = GetMolecule(request.MoleculeDataFileDirectory, request.MoleculeName);
-            if ( existingMolecule is null)
+            var molecule = GetMolecule(request.MoleculeDataFileDirectory, request.MoleculeName);
+            if (molecule is null)
             {
                 throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} does not exist");
             }
-            var outputFile = _moleculeGmsOutputRepository.GetMoleculeGmsOutputFile(request.GmsOutputFileDirectory, 
-                                                    new MoleculeFileName(request.MoleculeName,
-                                                                            existingMolecule.Charge,
-                                                                                request.BasisSet,
-                                                                                    StepType.geometry_optimization));
+            
+            var outputFile = _moleculeGmsOutputRepository.
+                                        GetMoleculeGmsOutputFile(request.GmsOutputFileDirectory, 
+                                                                    new MoleculeFileName(request.MoleculeName,
+                                                                                            molecule.Charge,
+                                                                                            request.BasisSet,
+                                                                                            StepType.geometry_optimization));
 
-            var resultMolecule = _buildMoleculeFactory.CompleteMolecule(existingMolecule, outputFile, OutputFileType.geometry_optimization);
+            if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFile, OutputFileType.geometry_optimization))
+            {
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+            }
 
-            return resultMolecule;
+            SaveMolecules([molecule], request.MoleculeDataFileDirectory);
+
+            return molecule;
         }
     }
 }

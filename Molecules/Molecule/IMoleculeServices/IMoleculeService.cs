@@ -5,21 +5,21 @@ namespace IMoleculeServices
 {
     public interface IMoleculeService
     {
-        Task<Molecule> InitMoleculeFromXyzFileAsync(string xyzFileDirectory, string moleculeName, int charge);
+        Molecule InitMoleculeFromXyzFile(string xyzFileDirectory, string moleculeName, int charge);
 
-        Task<Molecule> UpdateMoleculeFromGmsOutputsGeometryOptimizaion(GmsCalcCompleteMoleculeRequest request);
+        Molecule UpdateMoleculeFromGmsOutputsGeometryOptimization(GmsCalcCompleteMoleculeRequest request);
 
-        Task<Molecule> UpdateMoleculeFromGmsOutputsElectronicStructuren(GmsCalcCompleteMoleculeRequest request);
+        Molecule UpdateMoleculeFromGmsOutputsElectronicStructuren(GmsCalcCompleteMoleculeRequest request);
 
-        Task<Molecule> UpdateMoleculeFromGmsOutputsFukui(GmsCalcCompleteMoleculeRequest request);
+        Molecule UpdateMoleculeFromGmsOutputsFukui(GmsCalcCompleteMoleculeRequest request);
 
-        Task<Molecule> UpdateMoleculeFromGmsOutputsChargeGeoDisk(GmsCalcCompleteMoleculeRequest request);
+        Molecule UpdateMoleculeFromGmsOutputsChargeGeoDisk(GmsCalcCompleteMoleculeRequest request);
 
-        Task<Molecule> UpdateMoleculeFromGmsOutputsChargeChelpG(GmsCalcCompleteMoleculeRequest request);
+        Molecule UpdateMoleculeFromGmsOutputsChargeChelpG(GmsCalcCompleteMoleculeRequest request);
 
-        Task SaveMoleculesAsync(List<Molecule> molecules, string moleculesDataDirectory);
+        void SaveMolecules(List<Molecule> molecules, string moleculesDataDirectory);
 
-        Task SaveMoleculesAsXyzFileAsync(List<Molecule> molecules, string xyzFileDirectory);
+        void SaveMoleculesAsXyzFile(List<Molecule> molecules, string xyzFileDirectory);
 
         Molecule? GetMolecule(string moleculesDataDirectory, string moleculeName);
 

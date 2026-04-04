@@ -26,7 +26,7 @@ namespace MoleculeProcessService
             _gmsInputService = gmsInputService;
         }
 
-        public async Task<MoleculeGmsResult> HandleImportData(MoleculeContext context)
+        public MoleculeGmsResult HandleImportData(MoleculeContext context)
         {
             try
             {
@@ -45,8 +45,8 @@ namespace MoleculeProcessService
                 var existingMolecule = _moleculeService.GetMolecule(moleculeDirectory, context.MoleculeName);
                 if (existingMolecule is null )
                 {
-                    var moleculeFromXyzFile = await _moleculeService.InitMoleculeFromXyzFileAsync(xyzDirectory, context.MoleculeName, context.Charge);
-                    await _moleculeService.SaveMoleculesAsync(new List<Molecule>() { moleculeFromXyzFile }, moleculeDirectory); 
+                    var moleculeFromXyzFile = _moleculeService.InitMoleculeFromXyzFile(xyzDirectory, context.MoleculeName, context.Charge);
+                    _moleculeService.SaveMolecules(new List<Molecule>() { moleculeFromXyzFile }, moleculeDirectory); 
                     result = new MoleculeGmsResult()
                     {
                         IsSuccess = true,
@@ -74,7 +74,7 @@ namespace MoleculeProcessService
             }
         }
 
-        public async Task<MoleculeGmsResult> HandleGeometryOptimization(MoleculeContext context)
+        public MoleculeGmsResult HandleGeometryOptimization(MoleculeContext context)
         {
             if (!context.CanExecute)
             {
@@ -116,7 +116,7 @@ namespace MoleculeProcessService
             }
         }
 
-        public async Task<MoleculeGmsResult> HandleElectronicStructure(MoleculeContext context)
+        public MoleculeGmsResult HandleElectronicStructure(MoleculeContext context)
         {
             if (!context.CanExecute)
             {
@@ -157,7 +157,7 @@ namespace MoleculeProcessService
             }
         }
 
-        public async Task<MoleculeGmsResult> HandleFukui(MoleculeContext context)
+        public MoleculeGmsResult HandleFukui(MoleculeContext context)
         {
             if (!context.CanExecute)
             {
@@ -199,7 +199,7 @@ namespace MoleculeProcessService
             }
         }
 
-        public async Task<MoleculeGmsResult> HandleChelpGCharge(MoleculeContext context)
+        public MoleculeGmsResult HandleChelpGCharge(MoleculeContext context)
         {
             if (!context.CanExecute)
             {
@@ -241,7 +241,7 @@ namespace MoleculeProcessService
             }
         }
 
-        public async Task<MoleculeGmsResult> HandleGeoDiskCharge(MoleculeContext context)
+        public MoleculeGmsResult HandleGeoDiskCharge(MoleculeContext context)
         {
             if (!context.CanExecute)
             {

@@ -9,7 +9,7 @@ namespace IMoleculeFactory
 
         Molecule BuildMolecule(MoleculeFileXyz moleculeFileXyz, string name, int charge);
 
-        Molecule CompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType outputFileType);
+        bool TryCompleteMolecule(Molecule molecule, MoleculeFileGmsOutput moleculeFileGmsOutput, OutputFileType outputFileType);
 
         MoleculeFileMoleculeData BuildMoleculeDataFile(Molecule molecule);
 
