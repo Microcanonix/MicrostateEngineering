@@ -88,6 +88,7 @@ namespace MoleculeProcessService
             {
                 var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
                 var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
                 
                 _ = _gmsInputService.CreateGeoOptGmsInput(new GmsCalcInputServiceRequest()
                 {
@@ -95,6 +96,14 @@ namespace MoleculeProcessService
                     MoleculeFileDirectory = moleculesDataPath,
                     MoleculeName = context.MoleculeName,
                     Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                _ = _moleculeService.UpdateMoleculeFromGmsOutputsGeometryOptimization(new GmsCalcCompleteMoleculeRequest()
+                {
+                    MoleculeDataFileDirectory = moleculesDataPath,
+                    GmsOutputFileDirectory = gmsOutputPath,
+                    MoleculeName = context.MoleculeName,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
@@ -131,12 +140,22 @@ namespace MoleculeProcessService
             {
                 var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
                 var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
+
                 _ = _gmsInputService.CreateElectronicStructureGmsInput(new GmsCalcInputServiceRequest()
                 {
                     GmsInputFileDirectory = gmsInputPath,
                     MoleculeFileDirectory = moleculesDataPath,
                     MoleculeName = context.MoleculeName,
                     Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                _ = _moleculeService.UpdateMoleculeFromGmsOutputsElectronicStructure(new GmsCalcCompleteMoleculeRequest()
+                {
+                    MoleculeDataFileDirectory = moleculesDataPath,
+                    GmsOutputFileDirectory = gmsOutputPath,
+                    MoleculeName = context.MoleculeName,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
@@ -172,12 +191,21 @@ namespace MoleculeProcessService
             {
                 var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
                 var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
                 _ = _gmsInputService.CreateFukuiGmsInput(new GmsCalcInputServiceRequest()
                 {
                     GmsInputFileDirectory = gmsInputPath,
                     MoleculeFileDirectory = moleculesDataPath,
                     MoleculeName = context.MoleculeName,
                     Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                _ = _moleculeService.UpdateMoleculeFromGmsOutputsFukui(new GmsCalcCompleteMoleculeRequest()
+                {
+                    MoleculeDataFileDirectory = moleculesDataPath,
+                    GmsOutputFileDirectory = gmsOutputPath,
+                    MoleculeName = context.MoleculeName,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
@@ -214,12 +242,21 @@ namespace MoleculeProcessService
             {
                 var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
                 var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
                 _ = _gmsInputService.CreateChelpGChargeGmsInput(new GmsCalcInputServiceRequest()
                 {
                     GmsInputFileDirectory = gmsInputPath,
                     MoleculeFileDirectory = moleculesDataPath,
                     MoleculeName = context.MoleculeName,
                     Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                _ = _moleculeService.UpdateMoleculeFromGmsOutputsChargeChelpG(new GmsCalcCompleteMoleculeRequest()
+                {
+                    MoleculeDataFileDirectory = moleculesDataPath,
+                    GmsOutputFileDirectory = gmsOutputPath,
+                    MoleculeName = context.MoleculeName,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
@@ -256,12 +293,21 @@ namespace MoleculeProcessService
             {
                 var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
                 var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
                 _ = _gmsInputService.CreateGeoDiskChargeGmsInput(new GmsCalcInputServiceRequest()
                 {
                     GmsInputFileDirectory = gmsInputPath,
                     MoleculeFileDirectory = moleculesDataPath,
                     MoleculeName = context.MoleculeName,
                     Charge = context.Charge,
+                    BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
+                });
+
+                _ = _moleculeService.UpdateMoleculeFromGmsOutputsChargeGeoDisk(new GmsCalcCompleteMoleculeRequest()
+                {
+                    MoleculeDataFileDirectory = moleculesDataPath,
+                    GmsOutputFileDirectory = gmsOutputPath,
+                    MoleculeName = context.MoleculeName,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 

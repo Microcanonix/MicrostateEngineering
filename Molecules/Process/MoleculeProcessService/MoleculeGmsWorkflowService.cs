@@ -46,7 +46,6 @@ namespace MoleculeProcessService
                         MaxDegreeOfParallelism = 1,
                         FailFast = true,
                         SkipDependentsOnFailure = true
-
                     });
                 }
             }

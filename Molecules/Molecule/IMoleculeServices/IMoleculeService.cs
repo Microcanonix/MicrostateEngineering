@@ -9,7 +9,7 @@ namespace IMoleculeServices
 
         Molecule UpdateMoleculeFromGmsOutputsGeometryOptimization(GmsCalcCompleteMoleculeRequest request);
 
-        Molecule UpdateMoleculeFromGmsOutputsElectronicStructuren(GmsCalcCompleteMoleculeRequest request);
+        Molecule UpdateMoleculeFromGmsOutputsElectronicStructure(GmsCalcCompleteMoleculeRequest request);
 
         Molecule UpdateMoleculeFromGmsOutputsFukui(GmsCalcCompleteMoleculeRequest request);
 
