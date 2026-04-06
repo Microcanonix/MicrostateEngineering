@@ -162,7 +162,7 @@ namespace MoleculeProcessService
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = true,
+                    IsSuccess = false,
                     Message = $"{nameof(HandleElectronicStructure)} was successfully executed for molecule {context.MoleculeName}"
                 };
             }
@@ -212,7 +212,7 @@ namespace MoleculeProcessService
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = true,
+                    IsSuccess = false,
                     Message = $"{nameof(HandleFukui)} was successfully executed for molecule {context.MoleculeName}"
                 };
 
@@ -263,7 +263,7 @@ namespace MoleculeProcessService
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = true,
+                    IsSuccess = false,
                     Message = $"{nameof(HandleChelpGCharge)} was successfully executed for molecule {context.MoleculeName}"
                 };
 
@@ -314,7 +314,7 @@ namespace MoleculeProcessService
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = true,
+                    IsSuccess = false,
                     Message = $"{nameof(HandleGeoDiskCharge)} was successfully executed for molecule {context.MoleculeName}"
                 };
 

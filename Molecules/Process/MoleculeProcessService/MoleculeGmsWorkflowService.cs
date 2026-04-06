@@ -61,26 +61,19 @@ namespace MoleculeProcessService
                 foreach (var workflow in workflows)
                 {
                     var item = currentReport.MoleculeResult.Find(x => x.MoleculeName == workflow.MoleculeName);
-                    if ( item is not null && !item.Succeeded)
+                    var workflowReport = await _workflowExecutor.RunAsync(workflow, new WorkflowExecutorOptions()
                     {
-                        var workflowReport = await _workflowExecutor.RunAsync(workflow, new WorkflowExecutorOptions()
-                        {
-                            MaxDegreeOfParallelism = 1,
-                            FailFast = true,
-                            SkipDependentsOnFailure = true
-                        });
-                        
-                        if (workflowReport.Succeeded)
-                        {
-                            item.Succeeded = true;
-                        }
-                        
-                        _researchDefinitionReportService.Save(currentReport);
-                    }
-                    else
+                        MaxDegreeOfParallelism = 1,
+                        FailFast = false,
+                        SkipDependentsOnFailure = true
+                    });
+
+                    if (workflowReport.Succeeded)
                     {
-                        _logger.LogInformation($"Skipped workflow {researchDefinition.Name} for molecule {workflow.MoleculeName}");
+                        item?.Succeeded = true;
                     }
+
+                    _researchDefinitionReportService.Save(currentReport);
                 }
                 _logger.LogInformation($"End Running workflow {researchDefinition.Name}");
             }
