@@ -10,6 +10,8 @@ namespace MoleculeDomain.ServiceRequest
 
         public required string MoleculeName { get; set; }
 
+        public required int Charge { get; set; }
+
         public required CalcBasisSetCodeEnum BasisSet { get; set; }
     }
 

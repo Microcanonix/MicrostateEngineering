@@ -72,6 +72,10 @@ namespace MoleculeProcessService
                     {
                         item?.Succeeded = true;
                     }
+                    else
+                    {
+                        item?.Succeeded = false;
+                    }
 
                     _researchDefinitionReportService.Save(currentReport);
                 }

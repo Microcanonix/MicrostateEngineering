@@ -105,6 +105,7 @@ namespace MoleculeProcessService
                     MoleculeDataFileDirectory = moleculesDataPath,
                     GmsOutputFileDirectory = gmsOutputPath,
                     MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
@@ -157,12 +158,13 @@ namespace MoleculeProcessService
                     MoleculeDataFileDirectory = moleculesDataPath,
                     GmsOutputFileDirectory = gmsOutputPath,
                     MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = false,
+                    IsSuccess = true,
                     Message = $"{nameof(HandleElectronicStructure)} was successfully executed for molecule {context.MoleculeName}"
                 };
             }
@@ -207,12 +209,13 @@ namespace MoleculeProcessService
                     MoleculeDataFileDirectory = moleculesDataPath,
                     GmsOutputFileDirectory = gmsOutputPath,
                     MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = false,
+                    IsSuccess = true,
                     Message = $"{nameof(HandleFukui)} was successfully executed for molecule {context.MoleculeName}"
                 };
 
@@ -258,12 +261,13 @@ namespace MoleculeProcessService
                     MoleculeDataFileDirectory = moleculesDataPath,
                     GmsOutputFileDirectory = gmsOutputPath,
                     MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = false,
+                    IsSuccess = true,
                     Message = $"{nameof(HandleChelpGCharge)} was successfully executed for molecule {context.MoleculeName}"
                 };
 
@@ -309,12 +313,13 @@ namespace MoleculeProcessService
                     MoleculeDataFileDirectory = moleculesDataPath,
                     GmsOutputFileDirectory = gmsOutputPath,
                     MoleculeName = context.MoleculeName,
+                    Charge = context.Charge,
                     BasisSet = CalcBasisSetTable.GetCalcBasisSetEnum(context.Basisset)
                 });
 
                 return new MoleculeGmsResult()
                 {
-                    IsSuccess = false,
+                    IsSuccess = true,
                     Message = $"{nameof(HandleGeoDiskCharge)} was successfully executed for molecule {context.MoleculeName}"
                 };
 
