@@ -23,7 +23,10 @@ namespace MoleculeProcessFactory
 
             foreach (var molecule in researchDefinition.Molecules)
             {
-                var currentWorkflow = new MoleculeGmsWorkflow();
+                var currentWorkflow = new MoleculeGmsWorkflow()
+                {
+                    MoleculeName = molecule.Name
+                };
                 foreach(var process in researchDefinition.Processes)
                 {
                     if ( process.Type == ProcessType.moleculeproperties )
@@ -37,6 +40,7 @@ namespace MoleculeProcessFactory
                             GmsOutputFolder = researchDefinition.GmsOutput,
                             MoleculeDataFolder = researchDefinition.MoleculeData,
                             WorkflowStatusFolder = researchDefinition.WorkflowStatusFolder,
+                            ResearchName = researchDefinition.Name,
                             MoleculeName = molecule.Name,
                             Charge = molecule.Charge
                         };

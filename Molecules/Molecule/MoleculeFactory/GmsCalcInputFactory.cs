@@ -44,7 +44,7 @@ namespace MoleculeFactory
 
         public MoleculeFileGmsInput BuildFukuiHOMOInput(GmsCalcInputFactoryRequest request)
         {
-            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Plus);
+            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.plus);
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
@@ -66,7 +66,7 @@ namespace MoleculeFactory
 
         public MoleculeFileGmsInput BuildFukuiLUMOInput(GmsCalcInputFactoryRequest request)
         {
-            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Minus);
+            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.minus);
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
@@ -133,7 +133,7 @@ namespace MoleculeFactory
 
         public MoleculeFileGmsInput BuildFukuiNeutralInput(GmsCalcInputFactoryRequest request)
         {
-            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.Neutral);
+            var result = Init(request, StepType.fukui_calculation, AdditionalSymbols.neutral);
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");

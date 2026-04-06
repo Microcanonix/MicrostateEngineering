@@ -5,6 +5,7 @@ namespace MoleculeProcessDomain
 {
     public sealed class MoleculeGmsWorkflow: Workflow<StepType>
     {
+        public required string MoleculeName { get; set; }
     
     }
 }

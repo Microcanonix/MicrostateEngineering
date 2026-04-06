@@ -2,10 +2,19 @@
 {
     public static class AdditionalSymbols
     {
-        public const string Neutral = nameof(Neutral);
+        /// <summary>
+        /// No additonal charge
+        /// </summary>
+        public const string neutral = nameof(neutral);
 
-        public const string Plus = nameof(Plus);
+        /// <summary>
+        /// One electron less, positive charge HOMO
+        /// </summary>
+        public const string plus = nameof(plus);
 
-        public const string Minus = nameof(Minus);
+        /// <summary>
+        /// One electrin more , negative charge LUMO
+        /// </summary>
+        public const string minus = nameof(minus);
     }
 }

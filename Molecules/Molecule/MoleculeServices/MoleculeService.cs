@@ -38,7 +38,7 @@ namespace MoleculeServices
         public Molecule? GetMolecule(string moleculesDataDirectory, string moleculeName)
         {
             var moleculeData = _moleculeDataRepository.GetMoleculeDataFile(moleculesDataDirectory, new MoleculeFileName(moleculeName));
-            if (moleculeData is null) return null;
+            if (moleculeData is null || string.IsNullOrWhiteSpace(moleculeData.Content)) return null;
             return _buildMoleculeFactory.BuildMolecule(moleculeData);
         }
 
@@ -65,7 +65,6 @@ namespace MoleculeServices
             var result =  _buildMoleculeFactory.BuildMolecule(moleculeXyzFile, moleculeName, charge);
             return result;
         }
-
 
         public Molecule UpdateMoleculeFromGmsOutputsChargeChelpG(GmsCalcCompleteMoleculeRequest request)
         {
@@ -160,7 +159,7 @@ namespace MoleculeServices
                                                                                                     molecule.Charge,
                                                                                                     request.BasisSet,
                                                                                                     StepType.fukui_calculation,
-                                                                                                    AdditionalSymbols.Plus));
+                                                                                                    AdditionalSymbols.plus));
 
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiPlus, OutputFileType.fukui_calculation_homo))
@@ -174,7 +173,7 @@ namespace MoleculeServices
                                                                                         molecule.Charge,
                                                                                         request.BasisSet,
                                                                                         StepType.fukui_calculation,
-                                                                                        AdditionalSymbols.Minus));
+                                                                                        AdditionalSymbols.minus));
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiMin, OutputFileType.fukui_calculation_lumo))
             {
@@ -188,8 +187,8 @@ namespace MoleculeServices
                                                                                      molecule.Charge,
                                                                                         request.BasisSet,
                                                                                         StepType.fukui_calculation,
-                                                                                        AdditionalSymbols.Neutral));
-            if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiNeutral, OutputFileType.fukui_calculation_lumo))
+                                                                                        AdditionalSymbols.neutral));
+            if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiNeutral, OutputFileType.fukui_calculation_neutral))
             {
                 throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
             }

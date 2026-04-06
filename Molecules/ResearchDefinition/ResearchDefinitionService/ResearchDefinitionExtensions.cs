@@ -12,14 +12,17 @@ namespace ResearchDefinitionService
             {
                 case ServiceLifetime.Scoped:
                     services.AddScoped<IResearchDefinitionService, ResearchDefinitionService>();
+                    services.AddScoped<IResearchDefinitionReportService, ResearchDefinitionReportService>();
                     break;
 
                 case ServiceLifetime.Transient:
                     services.AddTransient<IResearchDefinitionService, ResearchDefinitionService>();
+                    services.AddTransient<IResearchDefinitionReportService, ResearchDefinitionReportService>();
                     break;
 
                 case ServiceLifetime.Singleton:
                     services.AddSingleton<IResearchDefinitionService, ResearchDefinitionService>();
+                    services.AddSingleton<IResearchDefinitionReportService, ResearchDefinitionReportService>();
                     break;
 
                 default:

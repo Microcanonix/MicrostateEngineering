@@ -5,6 +5,7 @@ using IMoleculeProcessFactory;
 using IMoleculeProcessServices;
 using IResearchDefintionService;
 using Microsoft.Extensions.Logging;
+using ResearchDefinitionDomain.Report;
 
 namespace MoleculeProcessService
 {
@@ -15,6 +16,8 @@ namespace MoleculeProcessService
 
         private readonly IResearchDefinitionService _researchDefinitionService;
 
+        private readonly IResearchDefinitionReportService _researchDefinitionReportService;
+
         private readonly IMoleculeWorkFlowFactory _moleculeWorkFlowFactory;
 
         private readonly MoleculeGmsWorkflowExecutor _workflowExecutor;
@@ -22,6 +25,7 @@ namespace MoleculeProcessService
 
         public MoleculeGmsWorkflowService(ILogger<MoleculeGmsWorkflowService> logger,
                                             IResearchDefinitionService researchDefinitionService,
+                                            IResearchDefinitionReportService researchDefinitionReportService,
                                             IMoleculeWorkFlowFactory moleculeWorkFlowFactory,
                                             MoleculeGmsWorkflowExecutor workflowExecutor)
         {
@@ -30,25 +34,58 @@ namespace MoleculeProcessService
             _researchDefinitionService = researchDefinitionService;
             _moleculeWorkFlowFactory = moleculeWorkFlowFactory;
             _workflowExecutor = workflowExecutor;
+            _researchDefinitionReportService = researchDefinitionReportService;
         }
 
         public async Task RunAsync()
-        {
-            _logger.LogInformation("Start Running workflow");
+        {          
             var researchDefinitions = _researchDefinitionService.GetMoleculesResearchDefinitions();
-            foreach(var researchDefintion in researchDefinitions)
+            foreach(var researchDefinition in researchDefinitions)
             {
-                var workflows = _moleculeWorkFlowFactory.BuildGmsWorkflow(researchDefintion);
-                foreach(var workflow in workflows)
+                _logger.LogInformation($"Start Running workflow {researchDefinition.Name}");
+                var currentReport =_researchDefinitionReportService.Read(researchDefinition.Name);
+                if ( currentReport is null )
                 {
-                    var workflowReport = await _workflowExecutor.RunAsync(workflow, new WorkflowExecutorOptions()
+                    currentReport = new MoleculeResearchDefinitionReport()
                     {
-                        MaxDegreeOfParallelism = 1,
-                        FailFast = true,
-                        SkipDependentsOnFailure = true
-                    });
+                        Name = researchDefinition.Name,
+                        MoleculeResult = researchDefinition.Molecules.Select(x => new MoleculeResearchDefinitionReportItem()
+                        {
+                            MoleculeName = x.Name,
+                            Succeeded = false
+                        }).ToList()
+                    };
                 }
+
+                var workflows = _moleculeWorkFlowFactory.BuildGmsWorkflow(researchDefinition);
+                foreach (var workflow in workflows)
+                {
+                    var item = currentReport.MoleculeResult.Find(x => x.MoleculeName == workflow.MoleculeName);
+                    if ( item is not null && !item.Succeeded)
+                    {
+                        var workflowReport = await _workflowExecutor.RunAsync(workflow, new WorkflowExecutorOptions()
+                        {
+                            MaxDegreeOfParallelism = 1,
+                            FailFast = true,
+                            SkipDependentsOnFailure = true
+                        });
+                        
+                        if (workflowReport.Succeeded)
+                        {
+                            item.Succeeded = true;
+                        }
+                        
+                        _researchDefinitionReportService.Save(currentReport);
+                    }
+                    else
+                    {
+                        _logger.LogInformation($"Skipped workflow {researchDefinition.Name} for molecule {workflow.MoleculeName}");
+                    }
+                }
+                _logger.LogInformation($"End Running workflow {researchDefinition.Name}");
             }
+
+            _logger.LogInformation("Finished Running workflow");
         }
 
         private void Executor_NodeStateChanged(object? sender, WorkflowNodeStateChangedEventArgs<StepType> e)

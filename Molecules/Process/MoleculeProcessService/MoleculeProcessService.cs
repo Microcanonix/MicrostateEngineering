@@ -40,8 +40,9 @@ namespace MoleculeProcessService
                 }
 
                 MoleculeGmsResult result;
-                var xyzDirectory = Path.Combine(context.PackageRoot, context.XyzfilesFolder);
-                var moleculeDirectory = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
+
+                var xyzDirectory = Path.Combine(context.PackageRoot, context.ResearchName, context.XyzfilesFolder);
+                var moleculeDirectory = Path.Combine(context.PackageRoot, context.ResearchName, context.MoleculeDataFolder);
                 var existingMolecule = _moleculeService.GetMolecule(moleculeDirectory, context.MoleculeName);
                 if (existingMolecule is null )
                 {
@@ -86,9 +87,9 @@ namespace MoleculeProcessService
             }
             try
             {
-                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
-                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
-                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.ResearchName, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsOutputFolder);
                 
                 _ = _gmsInputService.CreateGeoOptGmsInput(new GmsCalcInputServiceRequest()
                 {
@@ -138,9 +139,9 @@ namespace MoleculeProcessService
 
             try
             {
-                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
-                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
-                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.ResearchName, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsOutputFolder);
 
                 _ = _gmsInputService.CreateElectronicStructureGmsInput(new GmsCalcInputServiceRequest()
                 {
@@ -189,9 +190,9 @@ namespace MoleculeProcessService
 
             try
             {
-                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
-                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
-                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.ResearchName, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsOutputFolder);
                 _ = _gmsInputService.CreateFukuiGmsInput(new GmsCalcInputServiceRequest()
                 {
                     GmsInputFileDirectory = gmsInputPath,
@@ -240,9 +241,9 @@ namespace MoleculeProcessService
 
             try
             {
-                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
-                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
-                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.ResearchName, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsOutputFolder);
                 _ = _gmsInputService.CreateChelpGChargeGmsInput(new GmsCalcInputServiceRequest()
                 {
                     GmsInputFileDirectory = gmsInputPath,
@@ -291,9 +292,9 @@ namespace MoleculeProcessService
 
             try
             {
-                var moleculesDataPath = Path.Combine(context.PackageRoot, context.MoleculeDataFolder);
-                var gmsInputPath = Path.Combine(context.PackageRoot, context.GmsInputFolder);
-                var gmsOutputPath = Path.Combine(context.PackageRoot, context.GmsOutputFolder);
+                var moleculesDataPath = Path.Combine(context.PackageRoot, context.ResearchName, context.MoleculeDataFolder);
+                var gmsInputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsInputFolder);
+                var gmsOutputPath = Path.Combine(context.PackageRoot, context.ResearchName, context.GmsOutputFolder);
                 _ = _gmsInputService.CreateGeoDiskChargeGmsInput(new GmsCalcInputServiceRequest()
                 {
                     GmsInputFileDirectory = gmsInputPath,

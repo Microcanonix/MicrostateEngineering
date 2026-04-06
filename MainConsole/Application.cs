@@ -28,7 +28,7 @@ namespace MainConsole
                 {
                     await workflow.RunAsync();
                 }
-                await Task.Delay(60000, stoppingToken);
+                await Task.Delay(3600000, stoppingToken);
             }
             _logger.LogInformation("Application stopping");
 
