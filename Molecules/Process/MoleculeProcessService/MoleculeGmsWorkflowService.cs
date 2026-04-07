@@ -5,7 +5,7 @@ using IMoleculeProcessFactory;
 using IMoleculeProcessServices;
 using IResearchDefintionService;
 using Microsoft.Extensions.Logging;
-using ResearchDefinitionDomain.Report;
+using ResearchDefinitionDomain.GamessCalculation.Report;
 
 namespace MoleculeProcessService
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ResearchDefinitionDomain.Settings;
+using ResearchDefinitionDomain.GamessCalculation;
 using Serilog;
 
 namespace MainConsole

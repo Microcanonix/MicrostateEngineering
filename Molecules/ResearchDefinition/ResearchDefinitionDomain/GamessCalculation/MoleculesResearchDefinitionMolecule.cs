@@ -1,4 +1,4 @@
-﻿namespace ResearchDefinitionDomain
+﻿namespace ResearchDefinitionDomain.GamessCalculation
 {
     public sealed record MoleculesResearchDefinitionMolecule
     {

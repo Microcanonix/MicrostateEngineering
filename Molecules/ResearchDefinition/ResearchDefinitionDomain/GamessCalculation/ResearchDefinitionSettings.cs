@@ -1,4 +1,4 @@
-﻿namespace ResearchDefinitionDomain.Settings
+﻿namespace ResearchDefinitionDomain.GamessCalculation
 {
     public sealed class ResearchDefinitionSettings
     {

@@ -3,7 +3,7 @@ using Engine.Workflow;
 using IMoleculeProcessFactory;
 using IMoleculeProcessServices;
 using MoleculeProcessDomain;
-using ResearchDefinitionDomain;
+using ResearchDefinitionDomain.GamessCalculation;
 
 namespace MoleculeProcessFactory
 {

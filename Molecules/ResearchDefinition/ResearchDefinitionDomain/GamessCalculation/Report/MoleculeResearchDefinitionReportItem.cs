@@ -1,4 +1,4 @@
-﻿namespace ResearchDefinitionDomain.Report
+﻿namespace ResearchDefinitionDomain.GamessCalculation.Report
 {
     public sealed class MoleculeResearchDefinitionReportItem
     {

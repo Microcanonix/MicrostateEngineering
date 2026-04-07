@@ -2,8 +2,7 @@
 using IResearchDefinitionRepository;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ResearchDefinitionDomain;
-using ResearchDefinitionDomain.Settings;
+using ResearchDefinitionDomain.GamessCalculation;
 using ResearchDefinitionRepository;
 using UtilitiesServices;
 using UtilityServices;

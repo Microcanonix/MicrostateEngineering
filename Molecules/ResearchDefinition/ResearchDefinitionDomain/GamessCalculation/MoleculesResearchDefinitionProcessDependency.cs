@@ -1,6 +1,6 @@
 ﻿using CommonDomain;
 
-namespace ResearchDefinitionDomain
+namespace ResearchDefinitionDomain.GamessCalculation
 {
     public sealed class MoleculesResearchDefinitionProcessDependency
     {

@@ -1,8 +1,8 @@
 ﻿using IResearchDefinitionRepository;
 using IUtilitiesServices;
 using Microsoft.Extensions.Options;
-using ResearchDefinitionDomain.Report;
-using ResearchDefinitionDomain.Settings;
+using ResearchDefinitionDomain.GamessCalculation;
+using ResearchDefinitionDomain.GamessCalculation.Report;
 using System.Xml.Linq;
 
 namespace ResearchDefinitionRepository

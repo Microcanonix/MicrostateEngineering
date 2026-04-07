@@ -1,6 +1,4 @@
-﻿using ResearchDefinitionDomain.Molecule;
-
-namespace ResearchDefinitionDomain
+﻿namespace ResearchDefinitionDomain.GamessCalculation
 {
     public sealed class MoleculesResearchDefinition
     {

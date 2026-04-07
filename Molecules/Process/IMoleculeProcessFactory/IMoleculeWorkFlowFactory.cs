@@ -1,5 +1,5 @@
 ﻿using MoleculeProcessDomain;
-using ResearchDefinitionDomain;
+using ResearchDefinitionDomain.GamessCalculation;
 
 namespace IMoleculeProcessFactory
 {

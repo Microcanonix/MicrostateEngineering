@@ -1,6 +1,6 @@
 ﻿using CommonDomain;
 
-namespace ResearchDefinitionDomain.Molecule
+namespace ResearchDefinitionDomain.GamessCalculation
 {
     public sealed record MoleculesResearchDefinitionProcessStep
     {

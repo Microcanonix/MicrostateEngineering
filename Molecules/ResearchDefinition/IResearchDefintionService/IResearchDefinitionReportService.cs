@@ -1,4 +1,4 @@
-﻿using ResearchDefinitionDomain.Report;
+﻿using ResearchDefinitionDomain.GamessCalculation.Report;
 
 namespace IResearchDefintionService
 {
