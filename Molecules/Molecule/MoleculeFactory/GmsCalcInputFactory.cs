@@ -48,7 +48,7 @@ namespace MoleculeFactory
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
-            retval.AppendLine($" $CONTRL SCFTYP=UHF MAXIT=60 MULT=2 ICHARG={request.Charge + 1} $END");
+            retval.AppendLine($" $CONTRL SCFTYP=UHF MAXIT=200 MULT=2 ICHARG={request.Charge + 1} $END");
             retval.AppendLine($" $SYSTEM MEMDDI=1000 MWORDS=30 $END");
             retval.AppendLine($" $SCF DIRSCF=.TRUE. $END");
             retval.AppendLine(" $STATPT OPTTOL=0.0001 NSTEP=999 $END");
@@ -70,7 +70,7 @@ namespace MoleculeFactory
             StringBuilder retval = new();
             var basisSetInput = CalcBasisSetTable.GetCalcBasisSetGmsInput(request.BasisSet);
             retval.AppendLine($" {basisSetInput}");
-            retval.AppendLine($" $CONTRL SCFTYP=UHF MAXIT=60 MULT=2 ICHARG={request.Charge - 1} $END");
+            retval.AppendLine($" $CONTRL SCFTYP=UHF MAXIT=200 MULT=2 ICHARG={request.Charge - 1} $END");
             retval.AppendLine($" $SYSTEM MEMDDI=1000 MWORDS=30 $END");
             retval.AppendLine($" $SCF DIRSCF=.TRUE. $END");
             retval.AppendLine(" $STATPT OPTTOL=0.0001 NSTEP=999 $END");

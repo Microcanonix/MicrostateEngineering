@@ -60,6 +60,13 @@ namespace MoleculeProcessService
                 var workflows = _moleculeWorkFlowFactory.BuildGmsWorkflow(researchDefinition);
                 foreach (var workflow in workflows)
                 {
+
+                    if (currentReport.MoleculeResult.Any(x => x.Succeeded && x.MoleculeName == workflow.MoleculeName))
+                    {
+                        continue;
+                    }
+
+
                     var item = currentReport.MoleculeResult.Find(x => x.MoleculeName == workflow.MoleculeName);
                     var workflowReport = await _workflowExecutor.RunAsync(workflow, new WorkflowExecutorOptions()
                     {

@@ -64,7 +64,16 @@ namespace MoleculeProcessService
                 }
                 return result;
             }
-            catch(Exception exc)
+            catch (ServiceException e)
+            {
+                _logger.LogError($"Error while {nameof(HandleImportData)} for molecule {context.MoleculeName} with message {e.Message}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
+            catch (Exception exc)
             {
                 _logger.LogCritical(exc, "An error occured while Importing Data");
                 return new MoleculeGmsResult()
@@ -116,6 +125,15 @@ namespace MoleculeProcessService
                 };
 
             }
+            catch(ServiceException e)
+            {
+                _logger.LogError($"Error while {nameof(HandleGeometryOptimization)} for molecule {context.MoleculeName} with message {e.Message}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
             catch(Exception e)
             {
                 _logger.LogCritical(e, $"Error while {nameof(HandleGeometryOptimization)} for molecule {context.MoleculeName}");
@@ -166,6 +184,15 @@ namespace MoleculeProcessService
                 {
                     IsSuccess = true,
                     Message = $"{nameof(HandleElectronicStructure)} was successfully executed for molecule {context.MoleculeName}"
+                };
+            }
+            catch (ServiceException e)
+            {
+                _logger.LogError($"Error while {nameof(HandleElectronicStructure)} for molecule {context.MoleculeName} with message {e.Message}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
                 };
             }
             catch (Exception e)
@@ -220,7 +247,16 @@ namespace MoleculeProcessService
                 };
 
             }
-            catch(Exception e)
+            catch (ServiceException e)
+            {
+                _logger.LogError($"Error while {nameof(HandleFukui)} for molecule {context.MoleculeName} with message {e.Message}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }
+            catch (Exception e)
             {
                 _logger.LogCritical(e, $"Failed to executie {nameof(HandleFukui)} for molecule {context.MoleculeName}");
                 return new MoleculeGmsResult()
@@ -271,6 +307,15 @@ namespace MoleculeProcessService
                     Message = $"{nameof(HandleChelpGCharge)} was successfully executed for molecule {context.MoleculeName}"
                 };
 
+            }
+            catch (ServiceException e)
+            {
+                _logger.LogError($"Error while {nameof(HandleChelpGCharge)} for molecule {context.MoleculeName} with message {e.Message}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
             }
             catch (Exception e)
             {
@@ -323,6 +368,15 @@ namespace MoleculeProcessService
                     Message = $"{nameof(HandleGeoDiskCharge)} was successfully executed for molecule {context.MoleculeName}"
                 };
 
+            }
+            catch (ServiceException e)
+            {
+                _logger.LogError($"Error while {nameof(HandleGeoDiskCharge)} for molecule {context.MoleculeName} with message {e.Message}");
+                return new MoleculeGmsResult()
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
             }
             catch (Exception e)
             {

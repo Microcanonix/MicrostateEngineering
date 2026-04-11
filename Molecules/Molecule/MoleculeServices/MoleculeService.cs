@@ -83,7 +83,7 @@ namespace MoleculeServices
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFile, OutputFileType.charge_chelpg))
             {
-                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName}  {OutputFileType.charge_chelpg} failed to complete, gs output data is invalid");
             }
 
             SaveMolecules([molecule], request.MoleculeDataFileDirectory);
@@ -109,7 +109,7 @@ namespace MoleculeServices
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFile, OutputFileType.charge_geodisk))
             {
-                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {OutputFileType.charge_geodisk} failed to complete, gs output data is invalid");
             }
 
             SaveMolecules([molecule], request.MoleculeDataFileDirectory);
@@ -136,7 +136,7 @@ namespace MoleculeServices
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFile, OutputFileType.electronic_structure))
             {
-                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {StepType.electronic_structure} failed to complete, gs output data is invalid");
             }
 
             SaveMolecules([molecule], request.MoleculeDataFileDirectory);
@@ -164,7 +164,7 @@ namespace MoleculeServices
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiPlus, OutputFileType.fukui_calculation_homo))
             {
-                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {OutputFileType.fukui_calculation_homo} failed to complete, gs output data is invalid");
             }
 
             var outputFileFukuiMin = _moleculeGmsOutputRepository.
@@ -177,7 +177,7 @@ namespace MoleculeServices
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiMin, OutputFileType.fukui_calculation_lumo))
             {
-                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {OutputFileType.fukui_calculation_lumo} failed to complete, gs output data is invalid");
             }
 
 
@@ -190,7 +190,7 @@ namespace MoleculeServices
                                                                                         AdditionalSymbols.neutral));
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiNeutral, OutputFileType.fukui_calculation_neutral))
             {
-                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {OutputFileType.fukui_calculation_neutral} failed to complete, gs output data is invalid");
             }
 
 
@@ -216,7 +216,7 @@ namespace MoleculeServices
 
             if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFile, OutputFileType.geometry_optimization))
             {
-                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} failed to complete, gs output data is invalid");
+                throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {OutputFileType.geometry_optimization} failed to complete, gs output data is invalid");
             }
 
             SaveMolecules([molecule], request.MoleculeDataFileDirectory);
