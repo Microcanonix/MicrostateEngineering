@@ -18,15 +18,15 @@ namespace MoleculeDomain
 
         public double? BondOrder { get; set; }
 
-        public double? BondOrderMinus1 { get; set; }
+        public double? BondOrderMinus1Electron { get; set; }
 
-        public double? BondOrderPlus1 { get; set; }
-
-        [JsonIgnore]
-        public double? BondOrderHOMO => BondOrder - BondOrderMinus1;
+        public double? BondOrderPlus1Electron { get; set; }
 
         [JsonIgnore]
-        public double? BondOrderLUMO => BondOrderPlus1 - BondOrder;
+        public double? BondOrderHOMO => BondOrder - BondOrderMinus1Electron;
+
+        [JsonIgnore]
+        public double? BondOrderLUMO => BondOrderPlus1Electron - BondOrder;
 
         [JsonIgnore]
         public string BondSymbol

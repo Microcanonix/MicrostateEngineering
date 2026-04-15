@@ -153,7 +153,7 @@ namespace MoleculeServices
             }
 
 
-            var outputFileFukuiPlus = _moleculeGmsOutputRepository.
+            var outputFileFukuiChargePlusOne = _moleculeGmsOutputRepository.
                                                 GetMoleculeGmsOutputFile(request.GmsOutputFileDirectory,
                                                                              new MoleculeFileName(request.MoleculeName,
                                                                                                     molecule.Charge,
@@ -162,12 +162,12 @@ namespace MoleculeServices
                                                                                                     AdditionalSymbols.plus));
 
 
-            if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiPlus, OutputFileType.fukui_calculation_homo))
+            if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiChargePlusOne, OutputFileType.fukui_calculation_homo))
             {
                 throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {OutputFileType.fukui_calculation_homo} failed to complete, gs output data is invalid");
             }
 
-            var outputFileFukuiMin = _moleculeGmsOutputRepository.
+            var outputFileFukuiChargeMinusOne = _moleculeGmsOutputRepository.
                                                 GetMoleculeGmsOutputFile(request.GmsOutputFileDirectory,
                                                                              new MoleculeFileName(request.MoleculeName,
                                                                                         molecule.Charge,
@@ -175,7 +175,7 @@ namespace MoleculeServices
                                                                                         StepType.fukui_calculation,
                                                                                         AdditionalSymbols.minus));
 
-            if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiMin, OutputFileType.fukui_calculation_lumo))
+            if (!_buildMoleculeFactory.TryCompleteMolecule(molecule, outputFileFukuiChargeMinusOne, OutputFileType.fukui_calculation_lumo))
             {
                 throw new ServiceException($"{nameof(MoleculeService)}", $"Molecule {request.MoleculeName} {OutputFileType.fukui_calculation_lumo} failed to complete, gs output data is invalid");
             }

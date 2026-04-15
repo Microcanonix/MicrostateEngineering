@@ -123,14 +123,14 @@ namespace MoleculeFactory.Parsers
                                             }
                                         case PopulationAnalysisType.lewisLUMO:
                                             {
-                                                orbital.MullikenPopulation.PopulationPlus1 = mulliken;
-                                                orbital.LowdinPopulation.PopulationPlus1 = lowdin;
+                                                orbital.MullikenPopulation.PopulationPlus1Electron = mulliken;
+                                                orbital.LowdinPopulation.PopulationPlus1Electron = lowdin;
                                                 break;
                                             }
                                         case PopulationAnalysisType.lewisHOMO:
                                             {
-                                                orbital.MullikenPopulation.PopulationMinus1 = mulliken;
-                                                orbital.LowdinPopulation.PopulationMinus1 = lowdin;
+                                                orbital.MullikenPopulation.PopulationMinus1Electron = mulliken;
+                                                orbital.LowdinPopulation.PopulationMinus1Electron = lowdin;
                                                 break;
                                             }
                                     }
@@ -156,8 +156,8 @@ namespace MoleculeFactory.Parsers
                                                 {
                                                     Symbol = orbitalSymbol,
                                                     Position = orbitalpos,
-                                                    LowdinPopulation = new ElectronPopulation() { PopulationPlus1 = lowdin },
-                                                    MullikenPopulation = new ElectronPopulation() { PopulationPlus1 = mulliken }
+                                                    LowdinPopulation = new ElectronPopulation() { PopulationPlus1Electron = lowdin },
+                                                    MullikenPopulation = new ElectronPopulation() { PopulationPlus1Electron = mulliken }
                                                 });
                                                 break;
                                             }
@@ -167,8 +167,8 @@ namespace MoleculeFactory.Parsers
                                                 {
                                                     Symbol = orbitalSymbol,
                                                     Position = orbitalpos,
-                                                    LowdinPopulation = new ElectronPopulation() { PopulationMinus1 = lowdin },
-                                                    MullikenPopulation = new ElectronPopulation() { PopulationMinus1 = mulliken }
+                                                    LowdinPopulation = new ElectronPopulation() { PopulationMinus1Electron = lowdin },
+                                                    MullikenPopulation = new ElectronPopulation() { PopulationMinus1Electron = mulliken }
                                                 });
                                                 break;
                                             }
@@ -241,7 +241,7 @@ namespace MoleculeFactory.Parsers
                                                 {
                                                     Atom1Position = int.Parse(data[0]),
                                                     Atom2Position = blockCount * 5 + pos,
-                                                    OverlapPopulation = new ElectronPopulation() {  PopulationPlus1 = StringConversion.ToDouble(data[pos].Trim()) }
+                                                    OverlapPopulation = new ElectronPopulation() {  PopulationPlus1Electron = StringConversion.ToDouble(data[pos].Trim()) }
                                                 };
 
 
@@ -253,7 +253,7 @@ namespace MoleculeFactory.Parsers
                                                 {
                                                     Atom1Position = int.Parse(data[0]),
                                                     Atom2Position = blockCount * 5 + pos,
-                                                    OverlapPopulation = new ElectronPopulation() { PopulationMinus1 = StringConversion.ToDouble(data[pos].Trim()) }
+                                                    OverlapPopulation = new ElectronPopulation() { PopulationMinus1Electron = StringConversion.ToDouble(data[pos].Trim()) }
                                                 };
                                                 break;
                                             }
@@ -287,11 +287,11 @@ namespace MoleculeFactory.Parsers
                             }
                             if (GetPopulationStatus() == PopulationAnalysisType.lewisLUMO)
                             {
-                                found.OverlapPopulation.PopulationPlus1 = bond.OverlapPopulation?.PopulationPlus1;
+                                found.OverlapPopulation.PopulationPlus1Electron = bond.OverlapPopulation?.PopulationPlus1Electron;
                             }
                             if (GetPopulationStatus() == PopulationAnalysisType.lewisHOMO)
                             {
-                                found.OverlapPopulation.PopulationMinus1 = bond.OverlapPopulation?.PopulationMinus1;
+                                found.OverlapPopulation.PopulationMinus1Electron = bond.OverlapPopulation?.PopulationMinus1Electron;
                             }
                         }
                         else
@@ -371,7 +371,7 @@ namespace MoleculeFactory.Parsers
                                         if (b != null)
                                         {
                                             b.BondOrder ??= new MoleculeBondOrder();
-                                            b.BondOrder.BondOrderPlus1 = bondorder;
+                                            b.BondOrder.BondOrderPlus1Electron = bondorder;
                                             b.Distance = dist;
                                         }
                                         break;
@@ -382,7 +382,7 @@ namespace MoleculeFactory.Parsers
                                         if (b != null)
                                         {
                                             b.BondOrder ??= new MoleculeBondOrder();
-                                            b.BondOrder.BondOrderMinus1 = bondorder;
+                                            b.BondOrder.BondOrderMinus1Electron = bondorder;
                                             b.Distance = dist;
                                         }
                                         break;
@@ -441,9 +441,9 @@ namespace MoleculeFactory.Parsers
                                         if (atom != null)
                                         {
                                             atom.MullikenPopulation ??= new ElectronPopulation();
-                                            atom.MullikenPopulation.PopulationPlus1 = mullpop;
+                                            atom.MullikenPopulation.PopulationPlus1Electron = mullpop;
                                             atom.LowdinPopulation ??= new ElectronPopulation();
-                                            atom.LowdinPopulation.PopulationPlus1 = lowdinpop;
+                                            atom.LowdinPopulation.PopulationPlus1Electron = lowdinpop;
                                         }
                                         break;
                                     }
@@ -453,9 +453,9 @@ namespace MoleculeFactory.Parsers
                                         if (atom != null)
                                         {
                                             atom.MullikenPopulation ??= new ElectronPopulation();
-                                            atom.MullikenPopulation.PopulationMinus1 = mullpop;
+                                            atom.MullikenPopulation.PopulationMinus1Electron = mullpop;
                                             atom.LowdinPopulation ??= new ElectronPopulation();
-                                            atom.LowdinPopulation.PopulationMinus1 = lowdinpop;
+                                            atom.LowdinPopulation.PopulationMinus1Electron = lowdinpop;
                                         }
                                         break;
                                     }

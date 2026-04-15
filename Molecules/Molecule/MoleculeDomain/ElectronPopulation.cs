@@ -6,14 +6,14 @@ namespace MoleculeDomain
     {
         public double? Population { get; set; }
 
-        public double? PopulationMinus1 { get; set; }
+        public double? PopulationMinus1Electron { get; set; }
 
-        public double? PopulationPlus1 { get; set; }
-
-        [JsonIgnore]
-        public double? PopulationLUMO => PopulationPlus1 - Population;
+        public double? PopulationPlus1Electron { get; set; }
 
         [JsonIgnore]
-        public double? PopulationHOMO => Population - PopulationMinus1;
+        public double? PopulationLUMO => PopulationPlus1Electron - Population;
+
+        [JsonIgnore]
+        public double? PopulationHOMO => Population - PopulationMinus1Electron;
     }
 }
