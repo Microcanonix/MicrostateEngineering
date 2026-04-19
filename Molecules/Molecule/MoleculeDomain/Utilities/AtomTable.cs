@@ -31,7 +31,15 @@ namespace MoleculeDomain.Utilities
 
         public static Atom? GetAtomProperties(string symbol)
         {
-            return _atomProperties.FirstOrDefault(x => x.Symbol == Enum.Parse<AtomsEnum>(symbol));
+            if (Enum.TryParse<AtomsEnum>(symbol, out var atomEnumValue))
+            {
+                return GetAtomProperties(atomEnumValue);
+
+            }
+            else
+            {
+                return _atomProperties.FirstOrDefault(x => string.Equals(x.Name, symbol, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         public static Atom? GetAtomProperties(AtomsEnum symbol)
