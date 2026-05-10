@@ -39,4 +39,5 @@
     <Project Path="Utilities/UtilitiesServices/UtilitiesServices.csproj" />
   </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
+  <Project Path="MoleculesViewer/MoleculesViewer.csproj" Id="a7b4d24b-1863-4616-9946-0cc969ae4b9c" />
 </Solution>
