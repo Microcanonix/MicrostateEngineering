@@ -2,7 +2,7 @@
   <Folder Name="/Common/">
     <Project Path="Common/CommonDomain/CommonDomain.csproj" Id="b20d0b38-df6c-4881-9edb-c3d85dd441dc" />
   </Folder>
-  <Folder Name="/Graph/">
+  <Folder Name="/Common/Graph/">
     <Project Path="WorkflowGraph/Engine/Engine.csproj" />
   </Folder>
   <Folder Name="/Molecules/" />
