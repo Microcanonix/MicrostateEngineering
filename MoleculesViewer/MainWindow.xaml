@@ -4,9 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MoleculesViewer"
+        xmlns:vm="clr-namespace:MoleculesViewer.ViewModels"
+        xmlns:views="clr-namespace:MoleculesViewer.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:MoleculeViewerControlViewModel}">
+                <views:MoleculeViewerControl />
+        </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:WorkflowExecuterControlViewModel}">
+                <views:WorkflowExecuterControl />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Workflow">
+                <MenuItem Header="Execution"
+                      Command="{Binding ShowWorkflowRunnerCommand}" />
+            </MenuItem>
+            <MenuItem Header="Molecule">
+                <MenuItem Header="ShowMolecule"
+                    Command="{Binding ShowMoleculeViewerCommand}"/>
+            </MenuItem>
+        </Menu>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

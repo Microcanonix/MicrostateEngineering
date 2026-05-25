@@ -4,13 +4,10 @@ using MoleculeProcessFactory;
 using MoleculeProcessService;
 using MoleculeRepository;
 using MoleculeServices;
+using MoleculesViewer.ViewModels;
 using ResearchDefinitionRepository;
 using ResearchDefinitionService;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using System.Windows.Threading;
 using UtilityServices;
 
 namespace MoleculesViewer
@@ -25,11 +22,12 @@ namespace MoleculesViewer
         protected override void OnStartup(StartupEventArgs e)
         {
             var serviceCollection = new ServiceCollection();
-
             Register(serviceCollection, ServiceLifetime.Singleton);
-
             Services = serviceCollection.BuildServiceProvider();
 
+            // Resolve MainWindow from DI so its constructor receives MainWindowViewModel
+            var mainWindow = Services.GetRequiredService<MainWindow>();
+            mainWindow.Show();
             base.OnStartup(e);
         }
 
@@ -40,15 +38,19 @@ namespace MoleculesViewer
 
         public IServiceCollection Register(IServiceCollection services, ServiceLifetime serviceLifetime)
         {
-            return services.RegisterUtilities(serviceLifetime)
+            services.RegisterUtilities(serviceLifetime)
                             .RegisterResearchDefinitionRepo(serviceLifetime)
                             .RegisterResearchDefinitionSvc(serviceLifetime)
                             .RegisterMoleculeRepository(serviceLifetime)
                             .RegisterMoleculeFactory(serviceLifetime)
                             .RegisterMoleculeService(serviceLifetime)
                             .RegisterMoleculeProcessService(serviceLifetime)
-                            .RegisterMoleculeProcessFactory(serviceLifetime);
+                            .RegisterMoleculeProcessFactory(serviceLifetime)
+                            .RegisterViewModels();
 
+            services.AddSingleton<MainWindow>();
+
+            return services;
         }
 
     }
