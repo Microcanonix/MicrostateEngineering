@@ -3,6 +3,6 @@ namespace IMoleculeProcessServices
 {
     public interface IMoleculeWorkflowService
     {
-        Task RunAsync();
+        Task RunAsync(string sourcePath);
     }
 }

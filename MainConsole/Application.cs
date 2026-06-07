@@ -1,6 +1,8 @@
 ﻿using IMoleculeProcessServices;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using ResearchDefinitionDomain.GamessCalculation;
 
 namespace MainConsole
 {
@@ -10,11 +12,15 @@ namespace MainConsole
 
         private readonly IEnumerable<IMoleculeWorkflowService> _workflowRunners;
 
-        public Application(ILogger<Application> logger, 
-                        IEnumerable<IMoleculeWorkflowService> workFlowRunners)
+        private readonly ResearchDefinitionSettings _settings;
+
+        public Application(ILogger<Application> logger
+                        , IEnumerable<IMoleculeWorkflowService> workFlowRunners
+                        , IOptions<ResearchDefinitionSettings> settings)
         {
             _logger = logger;
             _workflowRunners = workFlowRunners;
+            _settings = settings.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -26,7 +32,7 @@ namespace MainConsole
                 _logger.LogInformation("Application running at: {time}", DateTimeOffset.Now);
                 foreach (var workflow in _workflowRunners)
                 {
-                    await workflow.RunAsync();
+                    await workflow.RunAsync(_settings.MoleculesLocation);
                 }
                 await Task.Delay(3600000, stoppingToken);
             }

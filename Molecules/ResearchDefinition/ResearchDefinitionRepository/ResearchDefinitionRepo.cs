@@ -17,8 +17,6 @@ namespace ResearchDefinitionRepository
 
         private readonly IYamlParser<MoleculesResearchDefinition>   _yamlParser;
 
-        private readonly ResearchDefinitionSettings                 _settings;
-
 
         public ResearchDefinitionRepo(IDirectoryServices directoryServices,
                                             IFileServices fileServices,
@@ -30,13 +28,11 @@ namespace ResearchDefinitionRepository
             _fileServices = fileServices;
             _directoryServices = directoryServices;
             _yamlParser = yamlParser;
-            _settings = settings.Value;
         }
 
 
-        public List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions()
+        public List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions(string sourcePath)
         {
-            var sourcePath = _settings.MoleculesLocation;
             _logger.LogInformation("Reading MoleculesResearchDefinitions from {MoleculesLocation}", sourcePath);
             List<MoleculesResearchDefinition> result = [];
             if (_directoryServices.DirectoryExists(sourcePath))

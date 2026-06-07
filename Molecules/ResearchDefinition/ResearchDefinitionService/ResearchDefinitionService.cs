@@ -12,18 +12,18 @@ namespace ResearchDefinitionService
         private readonly IResearchDefinitionRepo        _repository;
 
         public ResearchDefinitionService(
-                            IResearchDefinitionRepo repository,
-                            ILogger<ResearchDefinitionService> logger
+                            IResearchDefinitionRepo repository
+                            , ILogger<ResearchDefinitionService> logger
                                 )
         {
             _logger = logger;
             _repository = repository;
         }
 
-        public List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions()
+        public List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions(string sourcePath)
         {
             _logger.LogInformation($"{nameof(GetMoleculesResearchDefinitions)}");
-            return _repository.GetMoleculesResearchDefinitions();
+            return _repository.GetMoleculesResearchDefinitions(sourcePath);
         }
     }
 }

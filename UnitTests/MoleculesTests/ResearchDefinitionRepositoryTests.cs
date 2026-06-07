@@ -39,13 +39,6 @@ namespace MoleculesTests
                                                         options,
                                                             logger);
         }
-
-
-        [Fact]
-        public void TestParse()
-        {
-            var result = serviceToTest.GetMoleculesResearchDefinitions();
-
-        }
+     
     }
 }

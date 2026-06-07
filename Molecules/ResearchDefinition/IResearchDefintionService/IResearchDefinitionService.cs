@@ -4,6 +4,6 @@ namespace IResearchDefintionService
 {
     public interface IResearchDefinitionService
     {
-        List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions();
+        List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions(string sourcePath);
     }
 }
