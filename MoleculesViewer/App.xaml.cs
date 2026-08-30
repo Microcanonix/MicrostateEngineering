@@ -4,6 +4,7 @@ using MoleculeProcessFactory;
 using MoleculeProcessService;
 using MoleculeRepository;
 using MoleculeServices;
+using MoleculesViewer.Services;
 using MoleculesViewer.ViewModels;
 using ResearchDefinitionRepository;
 using ResearchDefinitionService;
@@ -46,7 +47,8 @@ namespace MoleculesViewer
                             .RegisterMoleculeService(serviceLifetime)
                             .RegisterMoleculeProcessService(serviceLifetime)
                             .RegisterMoleculeProcessFactory(serviceLifetime)
-                            .RegisterViewModels();
+                            .RegisterViewModels()
+                            .RegisterClientServices();
 
             services.AddSingleton<MainWindow>();
 

@@ -27,12 +27,11 @@ namespace MoleculeProcessFactory
                 {
                     MoleculeName = molecule.Name
                 };
-                foreach(var process in researchDefinition.Processes)
+                foreach(var researchDefinitionProcess in researchDefinition.Processes)
                 {
-                    if ( process.Type == ProcessType.moleculeproperties )
+                    if (researchDefinitionProcess.Type == ProcessType.moleculeproperties )
                     {
-                        MoleculeContext context = new()
-                        {
+                        MoleculeContext context = new() {
                             Basisset = researchDefinition.Basisset,
                             PackageRoot = researchDefinition.PackageRoot,
                             XyzfilesFolder = researchDefinition.Xyzfiles,
@@ -45,7 +44,7 @@ namespace MoleculeProcessFactory
                             Charge = molecule.Charge
                         };
 
-                        foreach (var step in process.Steps)
+                        foreach (var step in researchDefinitionProcess.Steps)
                         {
                             switch (step.Type)
                             {
@@ -95,7 +94,8 @@ namespace MoleculeProcessFactory
                                     break;
                             }
                         }
-                        foreach(var edge in process.Dependencies)
+                        
+                        foreach(var edge in researchDefinitionProcess.Dependencies)
                         {
 
                             currentWorkflow.AddDependency(edge.Dependency, edge.Dependant);
