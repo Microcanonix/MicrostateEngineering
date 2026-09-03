@@ -38,6 +38,9 @@
     <Project Path="Utilities/UtilitiesDomain/UtilitiesDomain.csproj" />
     <Project Path="Utilities/UtilitiesServices/UtilitiesServices.csproj" />
   </Folder>
+  <Folder Name="/Web/">
+    <File Path="Web/seed.txt" />
+  </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
   <Project Path="MicrostateEngineering.AppHost/MicrostateEngineering.AppHost.csproj" />
 </Solution>
