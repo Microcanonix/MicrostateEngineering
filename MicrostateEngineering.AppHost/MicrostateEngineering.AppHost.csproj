@@ -13,4 +13,8 @@
     <ProjectReference Include="..\MainConsole\MainConsole.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.5.3" />
+  </ItemGroup>
+
 </Project>
