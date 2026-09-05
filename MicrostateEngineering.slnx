@@ -39,7 +39,29 @@
     <Project Path="Utilities/UtilitiesServices/UtilitiesServices.csproj" />
   </Folder>
   <Folder Name="/Web/">
-    <File Path="Web/seed.txt" />
+    <File Path="Web/.editorconfig" />
+    <File Path="Web/.gitignore" />
+    <File Path="Web/.prettierrc" />
+    <File Path="Web/angular.json" />
+    <File Path="Web/package-lock.json" />
+    <File Path="Web/package.json" />
+    <File Path="Web/README.md" />
+    <File Path="Web/tsconfig.app.json" />
+    <File Path="Web/tsconfig.json" />
+    <File Path="Web/tsconfig.spec.json" />
+  </Folder>
+  <Folder Name="/Web/src/">
+    <File Path="Web/src/index.html" />
+    <File Path="Web/src/main.ts" />
+    <File Path="Web/src/styles.scss" />
+  </Folder>
+  <Folder Name="/Web/src/app/">
+    <File Path="Web/src/app/app.config.ts" />
+    <File Path="Web/src/app/app.html" />
+    <File Path="Web/src/app/app.routes.ts" />
+    <File Path="Web/src/app/app.scss" />
+    <File Path="Web/src/app/app.spec.ts" />
+    <File Path="Web/src/app/app.ts" />
   </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
   <Project Path="MicrostateEngineering.AppHost/MicrostateEngineering.AppHost.csproj" />
