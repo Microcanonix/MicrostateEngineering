@@ -15,7 +15,7 @@
           <th>Basis set</th>
           <th>Package root</th>
           <th>Process types</th>
-          <th class="text-end">Action</th>
+          <th class="text-end">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -30,7 +30,8 @@
               }
             </td>
             <td class="text-end">
-              <a class="btn btn-outline-primary btn-sm" [routerLink]="['/workflows', workflow.id]">Edit</a>
+              <a class="btn btn-outline-primary btn-sm me-2" [routerLink]="['/workflows', workflow.id]">Edit</a>
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteWorkflow(workflow)">Delete</button>
             </td>
           </tr>
         } @empty {
