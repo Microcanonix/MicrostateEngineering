@@ -1,0 +1,11 @@
+.yaml-editor {
+  min-height: 68vh;
+  resize: vertical;
+  font-family: var(--bs-font-monospace);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.yaml-editor:focus {
+  box-shadow: none;
+}

@@ -63,6 +63,16 @@
     <File Path="Web/src/app/app.spec.ts" />
     <File Path="Web/src/app/app.ts" />
   </Folder>
+  <Folder Name="/Web/src/app/workflows/">
+    <File Path="Web/src/app/workflows/workflow-editor.html" />
+    <File Path="Web/src/app/workflows/workflow-editor.scss" />
+    <File Path="Web/src/app/workflows/workflow-editor.ts" />
+    <File Path="Web/src/app/workflows/workflow-list.html" />
+    <File Path="Web/src/app/workflows/workflow-list.ts" />
+    <File Path="Web/src/app/workflows/workflow-template.ts" />
+    <File Path="Web/src/app/workflows/workflow.model.ts" />
+    <File Path="Web/src/app/workflows/workflow.repository.ts" />
+  </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
   <Project Path="MicrostateEngineering.AppHost/MicrostateEngineering.AppHost.csproj" />
 </Solution>

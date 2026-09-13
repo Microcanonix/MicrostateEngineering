@@ -1,0 +1,32 @@
+@if (workflow) {
+  <div class="d-flex justify-content-between align-items-start mb-3">
+    <div>
+      <h1 class="h2 mb-1">{{ workflow.name }}</h1>
+      <p class="text-body-secondary mb-0">Edit the research definition as YAML.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Back</button>
+      <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+    </div>
+  </div>
+
+  @if (saved) {
+    <div class="alert alert-success py-2">Workflow saved.</div>
+  }
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <textarea
+        class="form-control yaml-editor border-0 rounded-0"
+        spellcheck="false"
+        [(ngModel)]="workflow.yaml"
+        (ngModelChange)="saved = false"
+        aria-label="Workflow YAML"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="mt-3 text-body-secondary small">
+    YAML validation and diagnostics will be added as the next evolution of this editor.
+  </div>
+}
