@@ -15,11 +15,25 @@ export class WorkflowList implements OnInit {
   workflows: WorkflowSummary[] = [];
 
   ngOnInit(): void {
-    this.workflows = this.repository.getAll();
+    this.loadWorkflows();
   }
 
   addWorkflow(): void {
     const workflow = this.repository.create();
     void this.router.navigate(['/workflows', workflow.id]);
+  }
+
+  deleteWorkflow(workflow: WorkflowSummary): void {
+    const confirmed = window.confirm(`Delete workflow "${workflow.name}"?`);
+    if (!confirmed) {
+      return;
+    }
+
+    this.repository.delete(workflow.id);
+    this.loadWorkflows();
+  }
+
+  private loadWorkflows(): void {
+    this.workflows = this.repository.getAll();
   }
 }
