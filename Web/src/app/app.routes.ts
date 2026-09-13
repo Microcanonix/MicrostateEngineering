@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { WorkflowEditor } from './workflows/workflow-editor';
-import { WorkflowList } from './workflows/workflow-list';
+import { WorkflowEditor } from './features/workflows/components/workflow-editor';
+import { WorkflowList } from './features/workflows/components/workflow-list';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'workflows' },
