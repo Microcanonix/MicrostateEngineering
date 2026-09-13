@@ -77,4 +77,5 @@
   </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
   <Project Path="MicrostateEngineering.AppHost/MicrostateEngineering.AppHost.csproj" />
+  <Project Path="WebApi/WebApi.csproj" Id="8ce6d954-52eb-476d-95aa-60896af487fc" />
 </Solution>
