@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MainConsole\MainConsole.csproj" />
+    <ProjectReference Include="..\WebApi\WebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
