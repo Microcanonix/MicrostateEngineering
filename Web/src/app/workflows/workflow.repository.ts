@@ -76,6 +76,11 @@ export class WorkflowRepository {
     return updated;
   }
 
+  delete(id: string): void {
+    const workflows = this.read().filter((workflow) => workflow.id !== id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(workflows));
+  }
+
   private read(): WorkflowDocument[] {
     const json = localStorage.getItem(STORAGE_KEY);
     if (!json) {
