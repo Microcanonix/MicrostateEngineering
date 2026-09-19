@@ -17,6 +17,8 @@ namespace ResearchDefinitionRepository
 
         private readonly IYamlParser<MoleculesResearchDefinition>   _yamlParser;
 
+        private readonly ResearchDefinitionSettings _settings;
+
 
         public ResearchDefinitionRepo(IDirectoryServices directoryServices,
                                             IFileServices fileServices,
@@ -28,16 +30,31 @@ namespace ResearchDefinitionRepository
             _fileServices = fileServices;
             _directoryServices = directoryServices;
             _yamlParser = yamlParser;
+            _settings = settings.Value;
         }
 
-
-        public List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions(string sourcePath)
+        public void DeleteMoleculesResearchDefintion(string researchDefinitionName)
         {
-            _logger.LogInformation("Reading MoleculesResearchDefinitions from {MoleculesLocation}", sourcePath);
-            List<MoleculesResearchDefinition> result = [];
-            if (_directoryServices.DirectoryExists(sourcePath))
+            if (_directoryServices.DirectoryExists(_settings.MoleculesLocation))
             {
-                var yamlFiles = _directoryServices.GetFilePaths(sourcePath, "*.yaml");
+                var yamlFiles = _directoryServices.GetFilePaths(_settings.MoleculesLocation, $"{researchDefinitionName}.yaml");
+                foreach(var file in yamlFiles)
+                {
+                    _fileServices.DeleteFile(file);
+                }
+            }
+            else
+            {
+                _logger.LogError("{MoleculesLocation} does not exist !", _settings.MoleculesLocation);
+            }
+        }
+
+        public List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions()
+        {
+            List<MoleculesResearchDefinition> result = [];
+            if (_directoryServices.DirectoryExists(_settings.MoleculesLocation))
+            {
+                var yamlFiles = _directoryServices.GetFilePaths(_settings.MoleculesLocation, "*.yaml");
                 foreach (var yamlFile in yamlFiles)
                 {
                     var fileContent = _fileServices.ReadFile(yamlFile);
@@ -47,9 +64,22 @@ namespace ResearchDefinitionRepository
             }
             else
             {
-                _logger.LogError("{MoleculesLocation} does not exist !", sourcePath);
+                _logger.LogError("{MoleculesLocation} does not exist !", _settings.MoleculesLocation);
             }
             return result;
+        }
+
+        public void SaveMoleculesResearchDefintion(MoleculesResearchDefinition researchDefintion)
+        {
+            if (_directoryServices.DirectoryExists(_settings.MoleculesLocation))
+            {
+                string content = _yamlParser.Serialize(researchDefintion);
+                _fileServices.WriteFile(Path.Combine(_settings.MoleculesLocation, $"{researchDefintion}.yaml"), content);
+            }
+            else
+            {
+                _logger.LogError("{MoleculesLocation} does not exist !", _settings.MoleculesLocation);
+            }
         }
     }
 }

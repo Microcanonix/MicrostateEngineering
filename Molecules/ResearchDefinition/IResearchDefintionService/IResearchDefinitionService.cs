@@ -4,6 +4,10 @@ namespace IResearchDefintionService
 {
     public interface IResearchDefinitionService
     {
-        List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions(string sourcePath);
+        List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions();
+
+        void DeleteMoleculesResearchDefintion(string researchDefintionName);
+
+        void SaveMoleculesResearchDefintion(MoleculesResearchDefinition researchDefintion);
     }
 }

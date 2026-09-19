@@ -37,9 +37,9 @@ namespace MoleculeProcessService
             _researchDefinitionReportService = researchDefinitionReportService;
         }
 
-        public async Task RunAsync(string sourcePath)
+        public async Task RunAsync()
         {          
-            var researchDefinitions = _researchDefinitionService.GetMoleculesResearchDefinitions(sourcePath);
+            var researchDefinitions = _researchDefinitionService.GetMoleculesResearchDefinitions();
             foreach(var researchDefinition in researchDefinitions)
             {
                 _logger.LogInformation($"Start Running workflow {researchDefinition.Name}");

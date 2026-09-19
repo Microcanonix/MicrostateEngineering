@@ -12,15 +12,11 @@ namespace MainConsole
 
         private readonly IEnumerable<IMoleculeWorkflowService> _workflowRunners;
 
-        private readonly ResearchDefinitionSettings _settings;
-
         public Application(ILogger<Application> logger
-                        , IEnumerable<IMoleculeWorkflowService> workFlowRunners
-                        , IOptions<ResearchDefinitionSettings> settings)
+                        , IEnumerable<IMoleculeWorkflowService> workFlowRunners)
         {
             _logger = logger;
             _workflowRunners = workFlowRunners;
-            _settings = settings.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -32,7 +28,7 @@ namespace MainConsole
                 _logger.LogInformation("Application running at: {time}", DateTimeOffset.Now);
                 foreach (var workflow in _workflowRunners)
                 {
-                    await workflow.RunAsync(_settings.MoleculesLocation);
+                    await workflow.RunAsync();
                 }
                 await Task.Delay(3600000, stoppingToken);
             }
