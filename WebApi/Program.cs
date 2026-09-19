@@ -1,3 +1,4 @@
+using Serilog;
 
 namespace WebApi
 {
@@ -7,33 +8,39 @@ namespace WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.Register(ServiceLifetime.Scoped);
+            builder.Host.UseSerilog((hostContext, services, loggerConfig) =>
+            {
+                loggerConfig
+                    .ReadFrom.Configuration(hostContext.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext()
+                    .WriteTo.Console();
+            });
 
+            // services...
             builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
                 app.UseSwagger();
-                app.UseSwaggerUI();
+
+                // Ensure the swagger UI is hosted at /swagger so AppHost-discovered URLs contain "swagger"
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                    c.RoutePrefix = "swagger";
+                });
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }
