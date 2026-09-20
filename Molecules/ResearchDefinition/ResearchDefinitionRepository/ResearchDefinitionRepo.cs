@@ -74,7 +74,7 @@ namespace ResearchDefinitionRepository
             if (_directoryServices.DirectoryExists(_settings.MoleculesLocation))
             {
                 string content = _yamlParser.Serialize(researchDefintion);
-                _fileServices.WriteFile(Path.Combine(_settings.MoleculesLocation, $"{researchDefintion}.yaml"), content);
+                _fileServices.WriteFile(Path.Combine(_settings.MoleculesLocation, $"{researchDefintion.Name}.yaml"), content);
             }
             else
             {
