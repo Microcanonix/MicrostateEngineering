@@ -5,7 +5,7 @@ import {
   ResearchDefinition,
   processTypeLabel,
 } from './research-definition.model';
-import { ResearchDefinitionService } from './research-definition.service';
+import { ResearchDefinitionService, describeHttpError } from './research-definition.service';
 
 @Component({
   selector: 'app-workflow-list',
@@ -37,8 +37,9 @@ export class WorkflowList implements OnInit {
     this.errorMessage = '';
     this.researchDefinitions.delete(definition.name).subscribe({
       next: () => this.load(),
-      error: () => {
-        this.errorMessage = `Could not delete research definition "${definition.name}".`;
+      error: (error) => {
+        console.error('Delete research definition failed', error);
+        this.errorMessage = `Could not delete research definition "${definition.name}". ${describeHttpError(error)}`;
       },
     });
   }
@@ -56,10 +57,11 @@ export class WorkflowList implements OnInit {
         this.definitions = definitions;
         this.loading = false;
       },
-      error: () => {
+      error: (error) => {
+        console.error('Load research definitions failed', error);
         this.definitions = [];
         this.loading = false;
-        this.errorMessage = 'Could not load research definitions from the WebAPI.';
+        this.errorMessage = `Could not load research definitions from the WebAPI. ${describeHttpError(error)}`;
       },
     });
   }
