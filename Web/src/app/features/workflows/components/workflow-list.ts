@@ -1,7 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { WorkflowSummary } from './workflow.model';
-import { WorkflowRepository } from './workflow.repository';
+import {
+  ResearchDefinition,
+  processTypeLabel,
+} from './research-definition.model';
+import { ResearchDefinitionService } from './research-definition.service';
 
 @Component({
   selector: 'app-workflow-list',
@@ -9,31 +12,54 @@ import { WorkflowRepository } from './workflow.repository';
   templateUrl: './workflow-list.html',
 })
 export class WorkflowList implements OnInit {
-  private readonly repository = inject(WorkflowRepository);
+  private readonly researchDefinitions = inject(ResearchDefinitionService);
   private readonly router = inject(Router);
 
-  workflows: WorkflowSummary[] = [];
+  definitions: ResearchDefinition[] = [];
+  loading = false;
+  errorMessage = '';
 
   ngOnInit(): void {
-    this.loadWorkflows();
+    this.load();
   }
 
   addWorkflow(): void {
-    const workflow = this.repository.create();
-    void this.router.navigate(['/workflows', workflow.id]);
+    void this.router.navigate(['/workflows', 'new']);
   }
 
-  deleteWorkflow(workflow: WorkflowSummary): void {
-    const confirmed = window.confirm(`Delete workflow "${workflow.name}"?`);
+  deleteWorkflow(definition: ResearchDefinition): void {
+    const confirmed = window.confirm(`Delete research definition "${definition.name}"?`);
     if (!confirmed) {
       return;
     }
 
-    this.repository.delete(workflow.id);
-    this.loadWorkflows();
+    this.errorMessage = '';
+    this.researchDefinitions.delete(definition.name).subscribe({
+      next: () => this.load(),
+      error: () => {
+        this.errorMessage = `Could not delete research definition "${definition.name}".`;
+      },
+    });
   }
 
-  private loadWorkflows(): void {
-    this.workflows = this.repository.getAll();
+  processLabel(type: number): string {
+    return processTypeLabel(type);
+  }
+
+  private load(): void {
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.researchDefinitions.getAll().subscribe({
+      next: (definitions) => {
+        this.definitions = definitions;
+        this.loading = false;
+      },
+      error: () => {
+        this.definitions = [];
+        this.loading = false;
+        this.errorMessage = 'Could not load research definitions from the WebAPI.';
+      },
+    });
   }
 }
