@@ -34,7 +34,7 @@ export class WorkflowEditor implements OnInit {
   errorMessage = '';
 
   ngOnInit(): void {
-    const name = this.route.snapshot.paramMap.get('id');
+    const name = this.route.snapshot.paramMap.get('name');
     if (!name) {
       void this.router.navigate(['/workflows']);
       return;
