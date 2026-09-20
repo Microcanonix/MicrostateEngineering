@@ -1,97 +1,82 @@
-import { Injectable } from '@angular/core';
-import { WorkflowDocument, WorkflowSummary } from './workflow.model';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { ResearchDefinition, WorkflowDocument, WorkflowSummary } from './workflow.model';
 import { STARTER_WORKFLOW_YAML } from './workflow-template';
 
-const STORAGE_KEY = 'microstate-engineering.workflows.v1';
-
-const INITIAL_WORKFLOWS: WorkflowDocument[] = [
-  {
-    id: 'alcohol',
-    name: 'alcohol',
-    basisSet: 'B3_21G',
-    packageRoot: 'C:\\MoleculesDb',
-    processTypes: ['moleculeproperties'],
-    yaml: STARTER_WORKFLOW_YAML.replace('new-workflow', 'alcohol').replace('example-molecule', 'ethanol'),
-  },
-  {
-    id: 'aminoacidsidechain',
-    name: 'aminoacidsidechain',
-    basisSet: 'B3_21G',
-    packageRoot: 'C:\\MoleculesDb',
-    processTypes: ['moleculeproperties'],
-    yaml: STARTER_WORKFLOW_YAML.replace('new-workflow', 'aminoacidsidechain').replace('example-molecule', 'alanine-reference'),
-  },
-  {
-    id: 'medicalplants',
-    name: 'medicalplants',
-    basisSet: 'B3_21G',
-    packageRoot: 'C:\\MoleculesDb',
-    processTypes: ['moleculeproperties'],
-    yaml: STARTER_WORKFLOW_YAML.replace('new-workflow', 'medicalplants').replace('example-molecule', 'absinthin'),
-  },
-  {
-    id: 'medicalplants-2nd',
-    name: 'medicalplants-2nd',
-    basisSet: 'B6_31G',
-    packageRoot: 'C:\\MoleculesDb',
-    processTypes: ['moleculeproperties'],
-    yaml: STARTER_WORKFLOW_YAML.replace('new-workflow', 'medicalplants-2nd').replace('B3_21G', 'B6_31G').replace('example-molecule', 'alpha-d-glucopyranose'),
-  },
-];
+const API_URL = '/api/ResearchDefinition';
 
 @Injectable({ providedIn: 'root' })
 export class WorkflowRepository {
-  getAll(): WorkflowSummary[] {
-    return this.read().map(({ yaml, ...summary }) => summary);
+  private readonly http = inject(HttpClient);
+
+  getAll(): Observable<WorkflowSummary[]> {
+    return this.http.get<ResearchDefinition[]>(API_URL).pipe(
+      map((definitions) => definitions.map((definition) => this.toSummary(definition))),
+    );
   }
 
-  getById(id: string): WorkflowDocument | undefined {
-    return this.read().find((workflow) => workflow.id === id);
+  getById(id: string): Observable<WorkflowDocument> {
+    return this.http
+      .get(`${API_URL}/${encodeURIComponent(id)}/yaml`, { responseType: 'text' })
+      .pipe(
+        map((yaml) => ({
+          id,
+          yaml,
+          ...this.extractSummary(yaml),
+        })),
+      );
   }
 
   create(): WorkflowDocument {
-    const id = crypto.randomUUID();
-    return this.save({
-      id,
-      name: 'new-workflow',
-      basisSet: 'B3_21G',
-      packageRoot: 'C:\\MoleculesDb',
-      processTypes: ['moleculeproperties'],
+    return {
+      id: 'new',
       yaml: STARTER_WORKFLOW_YAML,
-    });
+      ...this.extractSummary(STARTER_WORKFLOW_YAML),
+    };
   }
 
-  save(workflow: WorkflowDocument): WorkflowDocument {
-    const updated = { ...workflow, ...this.extractSummary(workflow.yaml) };
-    const workflows = this.read();
-    const index = workflows.findIndex((item) => item.id === updated.id);
+  save(workflow: WorkflowDocument): Observable<WorkflowDocument> {
+    return this.http.post<void>(`${API_URL}/yaml`, { yaml: workflow.yaml }).pipe(
+      map(() => {
+        const summary = this.extractSummary(workflow.yaml);
+        return {
+          ...workflow,
+          ...summary,
+          id: summary.name,
+        };
+      }),
+    );
+  }
 
-    if (index >= 0) {
-      workflows[index] = updated;
-    } else {
-      workflows.push(updated);
+  delete(name: string): Observable<void> {
+    return this.http.delete<void>(`${API_URL}/${encodeURIComponent(name)}`);
+  }
+
+  private toSummary(definition: ResearchDefinition): WorkflowSummary {
+    return {
+      id: definition.name,
+      name: definition.name,
+      basisSet: definition.basisset,
+      packageRoot: definition.packageRoot,
+      processTypes: definition.processes
+        .map((process) => this.processTypeName(process.type))
+        .filter((type) => type.length > 0),
+    };
+  }
+
+  private processTypeName(type: number): string {
+    switch (type) {
+      case 1:
+        return 'moleculeproperties';
+      default:
+        return type === 0 ? 'dummy' : `process-${type}`;
     }
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(workflows));
-    return updated;
   }
 
-  delete(id: string): void {
-    const workflows = this.read().filter((workflow) => workflow.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(workflows));
-  }
-
-  private read(): WorkflowDocument[] {
-    const json = localStorage.getItem(STORAGE_KEY);
-    if (!json) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_WORKFLOWS));
-      return structuredClone(INITIAL_WORKFLOWS);
-    }
-
-    return JSON.parse(json) as WorkflowDocument[];
-  }
-
-  private extractSummary(yaml: string): Pick<WorkflowSummary, 'name' | 'basisSet' | 'packageRoot' | 'processTypes'> {
+  private extractSummary(
+    yaml: string,
+  ): Pick<WorkflowSummary, 'name' | 'basisSet' | 'packageRoot' | 'processTypes'> {
     const name = this.matchScalar(yaml, 'name') ?? 'Unnamed workflow';
     const basisSet = this.matchScalar(yaml, 'basisset') ?? '';
     const packageRoot = this.matchScalar(yaml, 'package_root') ?? '';
