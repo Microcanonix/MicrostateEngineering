@@ -17,6 +17,9 @@ export class WorkflowEditor implements OnInit {
 
   workflow?: WorkflowDocument;
   saved = false;
+  loading = false;
+  saving = false;
+  errorMessage = '';
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -25,16 +28,47 @@ export class WorkflowEditor implements OnInit {
       return;
     }
 
-    this.workflow = this.repository.getById(id);
-    if (!this.workflow) {
-      void this.router.navigate(['/workflows']);
+    if (id === 'new') {
+      this.workflow = this.repository.create();
+      return;
     }
+
+    this.loading = true;
+    this.repository.getById(id).subscribe({
+      next: (workflow) => {
+        this.workflow = workflow;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+        this.errorMessage = `Could not load workflow "${id}" from the WebAPI.`;
+      },
+    });
   }
 
   save(): void {
-    if (!this.workflow) return;
-    this.workflow = this.repository.save(this.workflow);
-    this.saved = true;
+    if (!this.workflow || this.saving) return;
+
+    this.saving = true;
+    this.saved = false;
+    this.errorMessage = '';
+
+    this.repository.save(this.workflow).subscribe({
+      next: (workflow) => {
+        const wasNew = this.workflow?.id === 'new';
+        this.workflow = workflow;
+        this.saving = false;
+        this.saved = true;
+
+        if (wasNew) {
+          void this.router.navigate(['/workflows', workflow.id], { replaceUrl: true });
+        }
+      },
+      error: () => {
+        this.saving = false;
+        this.errorMessage = 'Could not save the workflow. Check the YAML and the WebAPI logs.';
+      },
+    });
   }
 
   cancel(): void {
