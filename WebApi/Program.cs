@@ -1,3 +1,4 @@
+using ResearchDefinitionDomain.GamessCalculation;
 using Serilog;
 
 namespace WebApi
@@ -17,7 +18,10 @@ namespace WebApi
                     .WriteTo.Console();
             });
 
-            // services...
+            builder.Services.Configure<ResearchDefinitionSettings>(
+                builder.Configuration.GetSection(ResearchDefinitionSettings.Section));
+
+            builder.Services.Register(ServiceLifetime.Singleton);
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer();
@@ -30,7 +34,6 @@ namespace WebApi
                 app.MapOpenApi();
                 app.UseSwagger();
 
-                // Ensure the swagger UI is hosted at /swagger so AppHost-discovered URLs contain "swagger"
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
