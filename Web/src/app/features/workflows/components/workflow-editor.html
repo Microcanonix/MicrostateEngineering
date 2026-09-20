@@ -1,19 +1,29 @@
-@if (workflow) {
-  <div class="d-flex justify-content-between align-items-start mb-3">
-    <div>
-      <h1 class="h2 mb-1">{{ workflow.name }}</h1>
-      <p class="text-body-secondary mb-0">Edit the research definition as YAML.</p>
-    </div>
-    <div class="d-flex gap-2">
-      <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Back</button>
-      <button type="button" class="btn btn-primary" (click)="save()">Save</button>
-    </div>
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <div>
+    <h1 class="h2 mb-1">{{ workflow?.name ?? 'Workflow' }}</h1>
+    <p class="text-body-secondary mb-0">Edit the research definition as YAML.</p>
   </div>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Back</button>
+    <button type="button" class="btn btn-primary" [disabled]="!workflow || saving" (click)="save()">
+      {{ saving ? 'Saving…' : 'Save' }}
+    </button>
+  </div>
+</div>
 
-  @if (saved) {
-    <div class="alert alert-success py-2">Workflow saved.</div>
-  }
+@if (errorMessage) {
+  <div class="alert alert-danger py-2">{{ errorMessage }}</div>
+}
 
+@if (saved) {
+  <div class="alert alert-success py-2">Workflow saved.</div>
+}
+
+@if (loading) {
+  <div class="card shadow-sm">
+    <div class="card-body text-body-secondary">Loading workflow…</div>
+  </div>
+} @else if (workflow) {
   <div class="card shadow-sm">
     <div class="card-body p-0">
       <textarea
