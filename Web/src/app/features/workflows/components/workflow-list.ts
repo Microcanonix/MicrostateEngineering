@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
+  ProcessType,
   ResearchDefinition,
   processTypeLabel,
 } from './research-definition.model';
@@ -42,7 +43,7 @@ export class WorkflowList implements OnInit {
     });
   }
 
-  processLabel(type: number): string {
+  processLabel(type: ProcessType): string {
     return processTypeLabel(type);
   }
 
