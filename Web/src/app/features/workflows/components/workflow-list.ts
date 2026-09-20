@@ -13,14 +13,15 @@ export class WorkflowList implements OnInit {
   private readonly router = inject(Router);
 
   workflows: WorkflowSummary[] = [];
+  loading = false;
+  errorMessage = '';
 
   ngOnInit(): void {
     this.loadWorkflows();
   }
 
   addWorkflow(): void {
-    const workflow = this.repository.create();
-    void this.router.navigate(['/workflows', workflow.id]);
+    void this.router.navigate(['/workflows', 'new']);
   }
 
   deleteWorkflow(workflow: WorkflowSummary): void {
@@ -29,11 +30,29 @@ export class WorkflowList implements OnInit {
       return;
     }
 
-    this.repository.delete(workflow.id);
-    this.loadWorkflows();
+    this.errorMessage = '';
+    this.repository.delete(workflow.name).subscribe({
+      next: () => this.loadWorkflows(),
+      error: () => {
+        this.errorMessage = `Could not delete workflow "${workflow.name}".`;
+      },
+    });
   }
 
   private loadWorkflows(): void {
-    this.workflows = this.repository.getAll();
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.repository.getAll().subscribe({
+      next: (workflows) => {
+        this.workflows = workflows;
+        this.loading = false;
+      },
+      error: () => {
+        this.workflows = [];
+        this.loading = false;
+        this.errorMessage = 'Could not load workflows from the WebAPI.';
+      },
+    });
   }
 }
