@@ -5,6 +5,6 @@ import { WorkflowList } from './features/workflows/components/workflow-list';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'workflows' },
   { path: 'workflows', component: WorkflowList },
-  { path: 'workflows/:id', component: WorkflowEditor },
+  { path: 'workflows/:name', component: WorkflowEditor },
   { path: '**', redirectTo: 'workflows' },
 ];
