@@ -72,11 +72,12 @@
     <File Path="Web/src/app/features/workflows/components/workflow-editor.ts" />
     <File Path="Web/src/app/features/workflows/components/workflow-list.html" />
     <File Path="Web/src/app/features/workflows/components/workflow-list.ts" />
-    <File Path="Web/src/app/features/workflows/components/research-definition.model.ts" />
-    <File Path="Web/src/app/features/workflows/components/research-definition.service.ts" />
   </Folder>
   <Folder Name="/Web/src/app/Features/Workflows/Models/">
-    <File Path="Web/src/app/features/workflows/components/research-definition.model.ts" />
+    <File Path="Web/src/app/features/workflows/models/research-definition.model.ts" />
+  </Folder>
+  <Folder Name="/Web/src/app/Features/Workflows/Services/">
+    <File Path="Web/src/app/features/workflows/services/research-definition.service.ts" />
   </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
   <Project Path="MicrostateEngineering.AppHost/MicrostateEngineering.AppHost.csproj" />
