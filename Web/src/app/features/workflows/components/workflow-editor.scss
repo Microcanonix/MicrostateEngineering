@@ -1,11 +1,19 @@
-.yaml-editor {
-  min-height: 68vh;
-  resize: vertical;
-  font-family: var(--bs-font-monospace);
-  font-size: 0.9rem;
-  line-height: 1.5;
+.process-select {
+  width: 14rem;
 }
 
-.yaml-editor:focus {
-  box-shadow: none;
+.id-column {
+  width: 7rem;
+}
+
+.charge-column {
+  width: 9rem;
+}
+
+.execute-column {
+  width: 9rem;
+}
+
+.action-column {
+  width: 8rem;
 }

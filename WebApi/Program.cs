@@ -1,9 +1,12 @@
+using ResearchDefinitionDomain.GamessCalculation;
 using Serilog;
 
 namespace WebApi
 {
     public class Program
     {
+        private const string DevelopmentCorsPolicy = "DevelopmentCors";
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +20,22 @@ namespace WebApi
                     .WriteTo.Console();
             });
 
-            // services...
+            builder.Services.Configure<ResearchDefinitionSettings>(
+                builder.Configuration.GetSection(ResearchDefinitionSettings.Section));
+
+            builder.Services.Register(ServiceLifetime.Singleton);
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(DevelopmentCorsPolicy, policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer();
@@ -30,12 +48,13 @@ namespace WebApi
                 app.MapOpenApi();
                 app.UseSwagger();
 
-                // Ensure the swagger UI is hosted at /swagger so AppHost-discovered URLs contain "swagger"
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
                     c.RoutePrefix = "swagger";
                 });
+
+                app.UseCors(DevelopmentCorsPolicy);
             }
 
             app.UseHttpsRedirection();

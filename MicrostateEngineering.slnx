@@ -45,6 +45,7 @@
     <File Path="Web/angular.json" />
     <File Path="Web/package-lock.json" />
     <File Path="Web/package.json" />
+    <File Path="Web/proxy.conf.json" />
     <File Path="Web/README.md" />
     <File Path="Web/tsconfig.app.json" />
     <File Path="Web/tsconfig.json" />
@@ -71,9 +72,8 @@
     <File Path="Web/src/app/features/workflows/components/workflow-editor.ts" />
     <File Path="Web/src/app/features/workflows/components/workflow-list.html" />
     <File Path="Web/src/app/features/workflows/components/workflow-list.ts" />
-    <File Path="Web/src/app/features/workflows/components/workflow-template.ts" />
-    <File Path="Web/src/app/features/workflows/components/workflow.model.ts" />
-    <File Path="Web/src/app/features/workflows/components/workflow.repository.ts" />
+    <File Path="Web/src/app/features/workflows/components/research-definition.model.ts" />
+    <File Path="Web/src/app/features/workflows/components/research-definition.service.ts" />
   </Folder>
   <Project Path="MainConsole/MainConsole.csproj" />
   <Project Path="MicrostateEngineering.AppHost/MicrostateEngineering.AppHost.csproj" />
