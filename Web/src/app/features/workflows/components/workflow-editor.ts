@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -22,6 +22,7 @@ export class WorkflowEditor implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly researchDefinitions = inject(ResearchDefinitionService);
+  private readonly changeDetector = inject(ChangeDetectorRef);
 
   readonly processTypeOptions = PROCESS_TYPE_OPTIONS;
   readonly stepTypeOptions = STEP_TYPE_OPTIONS;
@@ -51,11 +52,13 @@ export class WorkflowEditor implements OnInit {
       next: (definition) => {
         this.definition = definition;
         this.loading = false;
+        this.changeDetector.markForCheck();
       },
       error: (error) => {
         console.error('Load research definition failed', error);
         this.loading = false;
         this.errorMessage = `Could not load research definition "${name}". ${describeHttpError(error)}`;
+        this.changeDetector.markForCheck();
       },
     });
   }
@@ -85,11 +88,14 @@ export class WorkflowEditor implements OnInit {
         if (wasNew) {
           void this.router.navigate(['/workflows', this.definition!.name], { replaceUrl: true });
         }
+
+        this.changeDetector.markForCheck();
       },
       error: (error) => {
         console.error('Save research definition failed', error);
         this.saving = false;
         this.errorMessage = `Could not save the research definition. ${describeHttpError(error)}`;
+        this.changeDetector.markForCheck();
       },
     });
   }
