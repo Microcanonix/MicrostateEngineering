@@ -10,7 +10,7 @@ import {
   StepType,
   createResearchDefinition,
 } from './research-definition.model';
-import { ResearchDefinitionService } from './research-definition.service';
+import { ResearchDefinitionService, describeHttpError } from './research-definition.service';
 
 @Component({
   selector: 'app-workflow-editor',
@@ -52,9 +52,10 @@ export class WorkflowEditor implements OnInit {
         this.definition = definition;
         this.loading = false;
       },
-      error: () => {
+      error: (error) => {
+        console.error('Load research definition failed', error);
         this.loading = false;
-        this.errorMessage = `Could not load research definition "${name}".`;
+        this.errorMessage = `Could not load research definition "${name}". ${describeHttpError(error)}`;
       },
     });
   }
@@ -85,9 +86,10 @@ export class WorkflowEditor implements OnInit {
           void this.router.navigate(['/workflows', this.definition!.name], { replaceUrl: true });
         }
       },
-      error: () => {
+      error: (error) => {
+        console.error('Save research definition failed', error);
         this.saving = false;
-        this.errorMessage = 'Could not save the research definition.';
+        this.errorMessage = `Could not save the research definition. ${describeHttpError(error)}`;
       },
     });
   }

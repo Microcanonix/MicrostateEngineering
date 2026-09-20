@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ResearchDefinition } from './research-definition.model';
@@ -36,4 +36,37 @@ export class ResearchDefinitionService {
   delete(name: string): Observable<void> {
     return this.http.delete<void>(`${API_URL}/${encodeURIComponent(name)}`);
   }
+}
+
+export function describeHttpError(error: unknown): string {
+  if (error instanceof HttpErrorResponse) {
+    const location = error.url ? ` ${error.url}` : '';
+    const status = error.status === 0
+      ? 'Network error'
+      : `HTTP ${error.status} ${error.statusText}`;
+
+    let details = '';
+
+    if (typeof error.error === 'string' && error.error.trim()) {
+      details = error.error.trim();
+    } else if (error.error && typeof error.error === 'object') {
+      try {
+        details = JSON.stringify(error.error);
+      } catch {
+        details = String(error.error);
+      }
+    } else if (error.message) {
+      details = error.message;
+    }
+
+    return details
+      ? `${status}${location}: ${details}`
+      : `${status}${location}`;
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return String(error);
 }
