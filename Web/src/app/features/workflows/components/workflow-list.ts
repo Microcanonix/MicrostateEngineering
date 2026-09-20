@@ -4,8 +4,8 @@ import {
   ProcessType,
   ResearchDefinition,
   processTypeLabel,
-} from './research-definition.model';
-import { ResearchDefinitionService, describeHttpError } from './research-definition.service';
+} from '../models/research-definition.model';
+import { ResearchDefinitionService, describeHttpError } from '../services/research-definition.service';
 
 @Component({
   selector: 'app-workflow-list',

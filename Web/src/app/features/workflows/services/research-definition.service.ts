@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ResearchDefinition } from './research-definition.model';
+import { ResearchDefinition } from '../models/research-definition.model';
 
 const API_URL = 'https://localhost:7094/ResearchDefinition';
 
