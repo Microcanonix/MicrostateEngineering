@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
   ProcessType,
@@ -15,6 +15,7 @@ import { ResearchDefinitionService, describeHttpError } from './research-definit
 export class WorkflowList implements OnInit {
   private readonly researchDefinitions = inject(ResearchDefinitionService);
   private readonly router = inject(Router);
+  private readonly changeDetector = inject(ChangeDetectorRef);
 
   definitions: ResearchDefinition[] = [];
   loading = false;
@@ -40,6 +41,7 @@ export class WorkflowList implements OnInit {
       error: (error) => {
         console.error('Delete research definition failed', error);
         this.errorMessage = `Could not delete research definition "${definition.name}". ${describeHttpError(error)}`;
+        this.changeDetector.markForCheck();
       },
     });
   }
@@ -56,12 +58,14 @@ export class WorkflowList implements OnInit {
       next: (definitions) => {
         this.definitions = definitions;
         this.loading = false;
+        this.changeDetector.markForCheck();
       },
       error: (error) => {
         console.error('Load research definitions failed', error);
         this.definitions = [];
         this.loading = false;
         this.errorMessage = `Could not load research definitions from the WebAPI. ${describeHttpError(error)}`;
+        this.changeDetector.markForCheck();
       },
     });
   }
