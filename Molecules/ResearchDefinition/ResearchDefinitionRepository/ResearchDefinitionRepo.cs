@@ -49,6 +49,25 @@ namespace ResearchDefinitionRepository
             }
         }
 
+        public MoleculesResearchDefinition? GetMoleculesResearchDefinition(string researchDefinitionName)
+        {
+            if (_directoryServices.DirectoryExists(_settings.MoleculesLocation))
+            {
+                var yamlFiles = _directoryServices.GetFilePaths(_settings.MoleculesLocation, $"{researchDefinitionName}.yaml");
+                if ( yamlFiles.Any())
+                {
+                    var fileContent = _fileServices.ReadFile(yamlFiles.First());
+                    return _yamlParser.Parse(fileContent);
+                }
+                return null;
+            }
+            else
+            {
+                _logger.LogError("{MoleculesLocation} does not exist !", _settings.MoleculesLocation);
+                return null;
+            }
+        }
+
         public List<MoleculesResearchDefinition> GetMoleculesResearchDefinitions()
         {
             List<MoleculesResearchDefinition> result = [];

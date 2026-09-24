@@ -33,6 +33,19 @@ namespace ResearchDefinitionService
             }
         }
 
+        public MoleculesResearchDefinition? GetMoleculesResearchDefinition(string researchDefinitionName)
+        {
+            try
+            {
+                return _repository.GetMoleculesResearchDefinition(researchDefinitionName);
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e, "Error while retrieving research definition");
+                throw;
+            }
+        }
+
         public void DeleteMoleculesResearchDefintion(string researchDefintionName)
         {
             try
@@ -58,5 +71,7 @@ namespace ResearchDefinitionService
                 throw;
             }
         }
+
+
     }
 }

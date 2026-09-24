@@ -92,6 +92,58 @@ namespace MoleculeProcessService
             _logger.LogInformation("Finished Running workflow");
         }
 
+        public async Task<MoleculeResearchDefinitionReport?> RunAsync(string researchDefintionName)
+        {
+            MoleculeResearchDefinitionReport? reportResult = null;
+            var researchDefinition = _researchDefinitionService.GetMoleculesResearchDefinition(researchDefintionName);
+            if (researchDefinition != null)
+            {
+                reportResult = _researchDefinitionReportService.Read(researchDefinition.Name);
+                if (reportResult is null)
+                {
+                    reportResult = new MoleculeResearchDefinitionReport()
+                    {
+                        Name = researchDefinition.Name,
+                        MoleculeResult = researchDefinition.Molecules.Select(x => new MoleculeResearchDefinitionReportItem()
+                        {
+                            MoleculeName = x.Name,
+                            Succeeded = false
+                        }).ToList()
+                    };
+                }
+
+                var workflows = _moleculeWorkFlowFactory.BuildGmsWorkflow(researchDefinition);
+                foreach (var workflow in workflows)
+                {
+
+                    if (reportResult.MoleculeResult.Any(x => x.Succeeded && x.MoleculeName == workflow.MoleculeName))
+                    {
+                        continue;
+                    }
+
+
+                    var item = reportResult.MoleculeResult.Find(x => x.MoleculeName == workflow.MoleculeName);
+                    var workflowReport = await _workflowExecutor.RunAsync(workflow, new WorkflowExecutorOptions()
+                    {
+                        MaxDegreeOfParallelism = 1,
+                        FailFast = false,
+                        SkipDependentsOnFailure = true
+                    });
+
+                    if (workflowReport.Succeeded)
+                    {
+                        item?.Succeeded = true;
+                    }
+                    else
+                    {
+                        item?.Succeeded = false;
+                    }
+                    _researchDefinitionReportService.Save(reportResult);
+                }
+            }
+            return await Task.FromResult(reportResult);
+        }
+
         private void Executor_NodeStateChanged(object? sender, WorkflowNodeStateChangedEventArgs<StepType> e)
         {
             if ( e.NodeId == StepType.import_data && e.State == NodeState.WaitingForInput)
