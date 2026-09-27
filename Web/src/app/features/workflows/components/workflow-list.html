@@ -31,7 +31,9 @@
         } @else {
           @for (definition of definitions; track definition.name) {
             <tr>
-              <td class="fw-semibold">{{ definition.name }}</td>
+              <td class="fw-semibold">
+                <a class="link-underline-opacity-0" [routerLink]="['/workflows', definition.name, 'run']">{{ definition.name }}</a>
+              </td>
               <td><code>{{ definition.basisset }}</code></td>
               <td><code>{{ definition.packageRoot }}</code></td>
               <td>
