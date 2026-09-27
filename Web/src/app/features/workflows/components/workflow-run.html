@@ -1,0 +1,98 @@
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h2 mb-1">{{ definition?.name ?? name }}</h1>
+    <p class="text-body-secondary mb-0">Run the workflow for this research definition and inspect the results.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-secondary" [routerLink]="['/workflows']">Back</a>
+    <a
+      class="btn btn-outline-primary"
+      [routerLink]="['/workflows', definition?.name ?? name]"
+    >
+      Edit
+    </a>
+    <button
+      type="button"
+      class="btn btn-success"
+      [disabled]="!definition || running"
+      (click)="runWorkflow()"
+    >
+      {{ running ? 'Running…' : 'Run workflow' }}
+    </button>
+  </div>
+</div>
+
+@if (errorMessage) {
+  <div class="alert alert-danger">{{ errorMessage }}</div>
+}
+
+@if (loading) {
+  <div class="card shadow-sm">
+    <div class="card-body text-body-secondary">Loading research definition…</div>
+  </div>
+} @else if (definition) {
+  <div class="card shadow-sm mb-4">
+    <div class="card-header fw-semibold">Definition</div>
+    <div class="card-body">
+      <dl class="row mb-0">
+        <dt class="col-sm-3">Basis set</dt>
+        <dd class="col-sm-9"><code>{{ definition.basisset }}</code></dd>
+        <dt class="col-sm-3">Package root</dt>
+        <dd class="col-sm-9"><code>{{ definition.packageRoot }}</code></dd>
+        <dt class="col-sm-3">Molecules</dt>
+        <dd class="col-sm-9">{{ definition.molecules.length }}</dd>
+        <dt class="col-sm-3">Processes</dt>
+        <dd class="col-sm-9">{{ definition.processes.length }}</dd>
+      </dl>
+    </div>
+  </div>
+
+  @if (running) {
+    <div class="d-flex align-items-center gap-2 mb-4" role="status">
+      <span class="spinner-border spinner-border-sm text-primary" aria-hidden="true"></span>
+      <span>Workflow is running…</span>
+    </div>
+  }
+
+  @if (report) {
+    <div class="card shadow-sm mb-4">
+      <div class="card-header fw-semibold d-flex justify-content-between">
+        <span>Results</span>
+        <span>
+          <span class="badge text-bg-success me-1">{{ succeededCount }} succeeded</span>
+          <span class="badge text-bg-danger">{{ failedCount }} failed</span>
+        </span>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Molecule</th>
+              <th>Outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of report.moleculeResult; track item.moleculeName) {
+              <tr>
+                <td>{{ item.moleculeName }}</td>
+                <td>
+                  @if (item.succeeded) {
+                    <span class="badge text-bg-success">Succeeded</span>
+                  } @else {
+                    <span class="badge text-bg-danger">Failed</span>
+                  }
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="2" class="text-center text-body-secondary py-4">
+                  The workflow produced no molecule results.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+}
