@@ -1,4 +1,4 @@
-﻿using MoleculeDomain.Reports;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -17,7 +17,7 @@ namespace MoleculeDomain.Reports
             get
             {
                 StringBuilder sb = new();
-                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFraction:0.00})"));
+                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFraction?.ToString("0.00",CultureInfo.InvariantCulture)})"));
                 return sb.ToString();
             }
         }
@@ -27,7 +27,7 @@ namespace MoleculeDomain.Reports
             get
             {
                 StringBuilder sb = new();
-                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFractionHOMO:0.00})"));
+                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFractionHOMO?.ToString("0.00", CultureInfo.InvariantCulture)})"));
                 return sb.ToString();
             }
         }
@@ -37,7 +37,7 @@ namespace MoleculeDomain.Reports
             get
             {
                 StringBuilder sb = new();
-                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFractionLUMO:0.00})"));
+                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFractionLUMO?.ToString("0.00", CultureInfo.InvariantCulture)})"));
                 return sb.ToString();
             }
         }
