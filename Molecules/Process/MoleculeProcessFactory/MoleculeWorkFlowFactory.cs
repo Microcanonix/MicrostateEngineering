@@ -39,6 +39,7 @@ namespace MoleculeProcessFactory
                             GmsOutputFolder = researchDefinition.GmsOutput,
                             MoleculeDataFolder = researchDefinition.MoleculeData,
                             WorkflowStatusFolder = researchDefinition.WorkflowStatusFolder,
+                            ReportFolder = researchDefinition.MoleculeReport,
                             ResearchName = researchDefinition.Name,
                             MoleculeName = molecule.Name,
                             Charge = molecule.Charge

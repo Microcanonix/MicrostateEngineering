@@ -9,6 +9,7 @@
         public required string GmsOutputFolder      { get; set; }
         public required string WorkflowStatusFolder { get; set; }
         public required string MoleculeDataFolder   { get; set; }
+        public required string ReportFolder         { get; set; }
         public required string MoleculeName         { get; set; }
         public required int Charge                  { get; set; }
         public required string ResearchName         { get; set; }

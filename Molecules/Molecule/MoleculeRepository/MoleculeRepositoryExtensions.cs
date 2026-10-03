@@ -14,6 +14,7 @@ namespace MoleculeRepository
                 services.AddTransient<IMoleculeGmsInputRepository, MoleculeGmsInputRepository>();
                 services.AddTransient<IMoleculeDataRepository, MoleculeDataRepository>();
                 services.AddTransient<IMoleculeXyzRepository, MoleculeXyzRepository>();
+                services.AddTransient<IMoleculeReportRepository, MoleculeReportRepository>();
             }
             else if (serviceLifetime == ServiceLifetime.Scoped)
             {
@@ -21,6 +22,7 @@ namespace MoleculeRepository
                 services.AddScoped<IMoleculeGmsInputRepository, MoleculeGmsInputRepository>();
                 services.AddScoped<IMoleculeDataRepository, MoleculeDataRepository>();
                 services.AddScoped<IMoleculeXyzRepository, MoleculeXyzRepository>();
+                services.AddScoped<IMoleculeReportRepository, MoleculeReportRepository>();
             }
             else if (serviceLifetime == ServiceLifetime.Singleton)
             {
@@ -28,6 +30,7 @@ namespace MoleculeRepository
                 services.AddSingleton<IMoleculeGmsInputRepository, MoleculeGmsInputRepository>();
                 services.AddSingleton<IMoleculeDataRepository, MoleculeDataRepository>();
                 services.AddSingleton<IMoleculeXyzRepository, MoleculeXyzRepository>();
+                services.AddSingleton<IMoleculeReportRepository, MoleculeReportRepository>();
             }
             return services;
         }
