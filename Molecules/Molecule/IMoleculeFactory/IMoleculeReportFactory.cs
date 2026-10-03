@@ -11,5 +11,6 @@ namespace IMoleculeFactory
         List<MoleculeBondsReport> GetMoleculeBondsReports(Molecule? molecule);
         List<MoleculeAtomOrbitalReport> GetMoleculeAtomOrbitalReport(Molecule? molecule);
         List<MoleculeAtomPositionReport> GetAtomPositionReport(Molecule? molecule);
+        MoleculeReport? GetMoleculeReport(Molecule? molecule);
     }
 }

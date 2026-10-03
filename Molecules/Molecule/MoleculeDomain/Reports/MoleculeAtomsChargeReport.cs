@@ -1,11 +1,11 @@
 ﻿namespace MoleculeDomain.Reports
 
 {
-    public class MoleculeAtomsChargeReport
+    public sealed class MoleculeAtomsChargeReport
     {
-        public string MoleculeName { get; set; } = "";
+        public string MoleculeName { get; set; } = string.Empty;
 
-        public string AtomID { get; set; } = "";
+        public string AtomID { get; set; } = string.Empty;
 
         public double? MullikenCharge { get; set; }
 

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace MoleculeDomain.Reports
 {
-    public class MoleculeAtomOrbitalReport
+    public sealed class MoleculeAtomOrbitalReport
     {
         public string MoleculeName { get; set; } = string.Empty;
 

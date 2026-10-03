@@ -1,6 +1,6 @@
 ﻿namespace MoleculeDomain.Reports
 {
-    public class GeneralMoleculeReport
+    public sealed class GeneralMoleculeReport
     {
         public string MoleculeName { get; set; } = string.Empty;
 

@@ -9,6 +9,7 @@
         public required string GmsOutput { get; set; }
         public required string WorkflowStatusFolder { get; set; }
         public required string MoleculeData { get; set; }
+        public required string MoleculeReport { get; set; }
         public required string Basisset { get; set; }
         public MoleculesResearchDefinitionMolecule[] Molecules { get; set; } = [];
         public MoleculesResearchDefinitionProcess[] Processes { get; set; } = [];

@@ -3,6 +3,7 @@ using IMoleculeFactory;
 using MoleculeDomain;
 using MoleculeDomain.Reports;
 using MoleculeFactory.Conversion;
+using System.Xml.XPath;
 using UtilitiesServices;
 
 namespace MoleculeFactory
@@ -180,6 +181,23 @@ namespace MoleculeFactory
                 });
             }
             return report;
+        }
+
+        public MoleculeReport? GetMoleculeReport(Molecule? molecule)
+        {
+            if ( molecule is null)
+            {
+                return null;
+            }
+            
+            MoleculeReport result = new MoleculeReport();
+            result.AtomPositionsReport = GetAtomPositionReport(molecule);
+            result.GeneralReport = GetGeneralMoleculeReport(molecule);
+            result.AtomOrbitalReport = GetMoleculeAtomOrbitalReport(molecule);
+            result.AtomChargeReport = GetMoleculeAtomsChargeReport(molecule);
+            result.MoleculeBondsReport = GetMoleculeBondsReports(molecule);
+            result.AtomPopulationReport = GetMoleculePopulationReport(molecule);
+            return result;
         }
     }
 }
