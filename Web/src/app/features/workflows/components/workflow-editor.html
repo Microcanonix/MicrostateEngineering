@@ -83,6 +83,16 @@
         </div>
 
         <div class="col-md-6">
+          <label class="form-label" for="moleculeReport">Molecule report folder</label>
+          <input
+            id="moleculeReport"
+            class="form-control"
+            [(ngModel)]="definition.moleculeReport"
+            (ngModelChange)="saved = false"
+          />
+        </div>
+
+        <div class="col-md-6">
           <label class="form-label" for="gmsInput">GAMESS input folder</label>
           <input
             id="gmsInput"

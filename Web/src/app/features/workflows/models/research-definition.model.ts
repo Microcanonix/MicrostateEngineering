@@ -43,6 +43,7 @@ export interface ResearchDefinition {
   gmsOutput: string;
   workflowStatusFolder: string;
   moleculeData: string;
+  moleculeReport: string;
   basisset: string;
   molecules: ResearchDefinitionMolecule[];
   processes: ResearchDefinitionProcess[];
@@ -76,6 +77,7 @@ export function createResearchDefinition(): ResearchDefinition {
     gmsOutput: 'output',
     workflowStatusFolder: 'status',
     moleculeData: 'molecules',
+    moleculeReport: 'reports',
     basisset: 'B3_21G',
     molecules: [],
     processes: [
