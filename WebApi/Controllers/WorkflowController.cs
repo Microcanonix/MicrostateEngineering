@@ -1,6 +1,5 @@
 ﻿using IMoleculeProcessServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Controllers
