@@ -188,7 +188,6 @@ namespace MoleculeFactory
             {
                 return null;
             }
-            
             MoleculeReport result = new MoleculeReport();
             result.AtomPositionsReport = GetAtomPositionReport(molecule);
             result.AtomOrbitalReport = GetMoleculeAtomOrbitalReport(molecule);
