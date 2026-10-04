@@ -3,7 +3,6 @@ using IMoleculeFactory;
 using MoleculeDomain;
 using MoleculeDomain.Reports;
 using MoleculeFactory.Conversion;
-using System.Xml.XPath;
 using UtilitiesServices;
 
 namespace MoleculeFactory
@@ -70,15 +69,15 @@ namespace MoleculeFactory
 
                     toAdd.ConfigurationItems.Add(new ConfigurationReportItem(orbitalReport.OrbitalSymbol,
                                                                                 orbitalReport.Population,
-                                                                                    orbitalReport.PopulationFraction));
+                                                                                orbitalReport.PopulationFraction));
 
                     toAdd.ConfigurationItemsLewisBase.Add(new ConfigurationReportItem(orbitalReport.OrbitalSymbol,
-                                                                                orbitalReport.PopulationHOMO,
-                                                                                    orbitalReport.PopulationFractionHOMO));
+                                                                                        orbitalReport.PopulationHOMO,
+                                                                                        orbitalReport.PopulationFractionHOMO));
 
                     toAdd.ConfigurationItemsLewisAcid.Add(new ConfigurationReportItem(orbitalReport.OrbitalSymbol,
-                                                                                orbitalReport.PopulationLUMO,
-                                                                                    orbitalReport.PopulationFractionLUMO));
+                                                                                        orbitalReport.PopulationLUMO,
+                                                                                        orbitalReport.PopulationFractionLUMO));
                 }
                 report.Add(toAdd);
             }
@@ -192,7 +191,6 @@ namespace MoleculeFactory
             
             MoleculeReport result = new MoleculeReport();
             result.AtomPositionsReport = GetAtomPositionReport(molecule);
-            result.GeneralReport = GetGeneralMoleculeReport(molecule);
             result.AtomOrbitalReport = GetMoleculeAtomOrbitalReport(molecule);
             result.AtomChargeReport = GetMoleculeAtomsChargeReport(molecule);
             result.MoleculeBondsReport = GetMoleculeBondsReports(molecule);

@@ -12,11 +12,21 @@
         private double? _populationHOMO;
         private double? _populationLUMO;
 
+        /// <summary>
+        /// The name of the molecule to whom this orbital belongs
+        /// </summary>
+        public string MoleculeName { get; set; } = string.Empty;
 
-        public string MoleculeName { get; set; } = "";
-        public string AtomID { get; set; } = "";
+        /// <summary>
+        /// The symbol of the atom follow by the position in the list of atoms
+        /// </summary>
+        public string AtomID { get; set; } = string.Empty;
         public int OrbitalPosition { get; set; } = 0;
-        public string OrbitalSymbol { get; set; } = "";
+        public string OrbitalSymbol { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The orbital population devided by the total atom population
+        /// </summary>
         public double? PopulationFraction
         {
             get
@@ -28,6 +38,10 @@
                 _populationFraction = value.HasValue ? Math.Round(value.Value, 6) : null;
             }
         }
+
+        /// <summary>
+        /// The homo orbital population devided by the total atom HOMO population
+        /// </summary>
         public double? PopulationFractionHOMO
         {
             get
@@ -39,6 +53,10 @@
                 _populationFractionHOMO = value.HasValue ? Math.Round(value.Value, 6) : null;
             }
         }
+
+        /// <summary>
+        /// The lumo orbital population evided by the total atom LUMO population
+        /// </summary>
         public double? PopulationFractionLUMO
         {
             get
@@ -50,6 +68,10 @@
                 _populationFractionLUMO = value.HasValue ? Math.Round(value.Value, 6) : null;
             }
         }
+
+        /// <summary>
+        /// The orbital population
+        /// </summary>
         public double? Population
         {
             get
@@ -61,6 +83,10 @@
                 _population = value.HasValue ? Math.Round(value.Value, 6) : null;
             }
         }
+
+        /// <summary>
+        /// The homo population of this orbital
+        /// </summary>
         public double? PopulationHOMO
         {
             get
@@ -72,6 +98,10 @@
                 _populationHOMO = value.HasValue ? Math.Round(value.Value, 6) : null;
             }
         }
+
+        /// <summary>
+        /// The lumo population of this orbital
+        /// </summary>
         public double? PopulationLUMO
         {
             get
