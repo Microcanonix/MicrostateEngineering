@@ -24,38 +24,51 @@ namespace MoleculeDomain.Reports
         /// <summary>
         /// The partitioning of the electron density across the orbitals of this atom ( as fraction of the total atom population )
         /// </summary>
-        public string ElectronConfiguration
+        public string ElectronFractionConfiguration
         {
             get
             {
                 StringBuilder sb = new();
-                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFraction?.ToString("0.00",CultureInfo.InvariantCulture)})"));
+                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({(orbital.PopulationFraction?.ToString("0.0000",CultureInfo.InvariantCulture))??"-"})"));
                 return sb.ToString();
             }
         }
 
         /// <summary>
-        /// The partitioning of the electron HOMO density across the orbitals of this atom ( as fraction of the homo atom population )
+        /// The partitioning of the electron density across the orbitals of this atom
+        /// </summary>
+        public string ElectronConfiguration
+        {
+            get
+            {
+                StringBuilder sb = new();
+                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({(orbital.Population?.ToString("0.0000", CultureInfo.InvariantCulture)) ?? "-"})"));
+                return sb.ToString();
+            }
+        }
+
+        /// <summary>
+        /// The partitioning of the electron HOMO density across the orbitals of this atom
         /// </summary>
         public string ElectronConfigurationHOMO
         {
             get
             {
                 StringBuilder sb = new();
-                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFractionHOMO?.ToString("0.00", CultureInfo.InvariantCulture)})"));
+                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({(orbital.PopulationHOMO?.ToString("0.0000", CultureInfo.InvariantCulture)) ?? "-"})"));
                 return sb.ToString();
             }
         }
 
         /// <summary>
-        /// The partitioning of the electron LUMO density across the orbitals of this atom ( as fraction of the lumo atom population )
+        /// The partitioning of the electron LUMO density across the orbitals of this atom.
         /// </summary>
         public string ElectronConfigurationLUMO
         {
             get
             {
                 StringBuilder sb = new();
-                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({orbital.PopulationFractionLUMO?.ToString("0.00", CultureInfo.InvariantCulture)})"));
+                OrbitalReport.ForEach(orbital => sb.Append($"{orbital.OrbitalSymbol}({(orbital.PopulationLUMO?.ToString("0.0000", CultureInfo.InvariantCulture)) ?? "-"})"));
                 return sb.ToString();
             }
         }

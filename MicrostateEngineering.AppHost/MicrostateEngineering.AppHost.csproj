@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.5.3" />
+    <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.6.2" />
+    <PackageReference Include="MessagePack" Version="3.1.12" />
   </ItemGroup>
 
 </Project>

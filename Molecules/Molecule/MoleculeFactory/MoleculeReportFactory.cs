@@ -54,30 +54,21 @@ namespace MoleculeFactory
                                     Population = item.MullikenPopulation?.Population,
                                     PopulationHOMO = item.MullikenPopulation?.PopulationHOMO,
                                     PopulationLUMO = item.MullikenPopulation?.PopulationLUMO,
-                                    PopulationFraction = item.MullikenPopulation?.Population / atom.MullikenPopulation?.Population,
-                                    PopulationFractionHOMO = item.MullikenPopulation?.PopulationHOMO / atom.MullikenPopulation?.PopulationHOMO,
-                                    PopulationFractionLUMO = item.MullikenPopulation?.PopulationLUMO / atom.MullikenPopulation?.PopulationLUMO
+                                    PopulationFraction = item.MullikenPopulation?.Population / atom.MullikenPopulation?.Population
                                 })
                 {
                     toAdd.Configuration += orbitalReport.OrbitalSymbol
                         + "(" + StringConversion.ToString(orbitalReport.PopulationFraction, "0.00") + ")";
-                    toAdd.ConfigurationLewisAcid += orbitalReport.OrbitalSymbol
-                        + "(" + StringConversion.ToString(orbitalReport.PopulationFractionLUMO, "0.00") + ")";
-                    toAdd.ConfigurationLewisBase += orbitalReport.OrbitalSymbol
-                        + "(" + StringConversion.ToString(orbitalReport.PopulationFractionHOMO, "0.00") + ")";
 
 
                     toAdd.ConfigurationItems.Add(new ConfigurationReportItem(orbitalReport.OrbitalSymbol,
-                                                                                orbitalReport.Population,
-                                                                                orbitalReport.PopulationFraction));
+                                                                                orbitalReport.Population));
 
                     toAdd.ConfigurationItemsLewisBase.Add(new ConfigurationReportItem(orbitalReport.OrbitalSymbol,
-                                                                                        orbitalReport.PopulationHOMO,
-                                                                                        orbitalReport.PopulationFractionHOMO));
+                                                                                        orbitalReport.PopulationHOMO));
 
                     toAdd.ConfigurationItemsLewisAcid.Add(new ConfigurationReportItem(orbitalReport.OrbitalSymbol,
-                                                                                        orbitalReport.PopulationLUMO,
-                                                                                        orbitalReport.PopulationFractionLUMO));
+                                                                                        orbitalReport.PopulationLUMO));
                 }
                 report.Add(toAdd);
             }
@@ -88,6 +79,23 @@ namespace MoleculeFactory
         {
             List<MoleculeAtomOrbitalReport> report = [];
             if (molecule == null) return report;
+            
+            
+            static double? CalculateFraction(double? numerator, double? denominator, double threshHold = 0.05)
+            {
+                if ( !denominator.HasValue || !numerator.HasValue)
+                {
+                    return null;
+                }
+
+                if ( Math.Abs(denominator.Value) < threshHold)
+                {
+                    return null;
+                }
+                return numerator / denominator;
+            }
+            
+            
             foreach (var atom in molecule.Atoms)
             {
                 report.Add(new MoleculeAtomOrbitalReport()
@@ -103,9 +111,10 @@ namespace MoleculeFactory
                                          MoleculeName = molecule.Name,
                                          OrbitalPosition = item.Position,
                                          OrbitalSymbol = $"{item.Symbol}",
-                                         PopulationFraction = item.MullikenPopulation?.Population / atom.MullikenPopulation?.Population,
-                                         PopulationFractionHOMO = item.MullikenPopulation?.PopulationHOMO / atom.MullikenPopulation?.PopulationHOMO,
-                                         PopulationFractionLUMO = item.MullikenPopulation?.PopulationLUMO / atom.MullikenPopulation?.PopulationLUMO
+                                         PopulationFraction = CalculateFraction(item.MullikenPopulation?.Population, atom.MullikenPopulation?.Population),
+                                         Population = item.MullikenPopulation?.Population,
+                                         PopulationHOMO = item.MullikenPopulation?.PopulationHOMO,
+                                         PopulationLUMO = item.MullikenPopulation?.PopulationLUMO
                                      }).ToList()
                 });
             }

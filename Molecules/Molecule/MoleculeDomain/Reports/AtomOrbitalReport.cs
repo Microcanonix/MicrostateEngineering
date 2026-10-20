@@ -4,9 +4,6 @@
     {
 
         private double? _populationFraction;
-        private double? _populationFractionHOMO;
-        private double? _populationFractionLUMO;
-
 
         private double? _population;
         private double? _populationHOMO;
@@ -36,36 +33,6 @@
             set
             {
                 _populationFraction = value.HasValue ? Math.Round(value.Value, 6) : null;
-            }
-        }
-
-        /// <summary>
-        /// The homo orbital population devided by the total atom HOMO population
-        /// </summary>
-        public double? PopulationFractionHOMO
-        {
-            get
-            {
-                return _populationFractionHOMO;
-            }
-            set
-            {
-                _populationFractionHOMO = value.HasValue ? Math.Round(value.Value, 6) : null;
-            }
-        }
-
-        /// <summary>
-        /// The lumo orbital population evided by the total atom LUMO population
-        /// </summary>
-        public double? PopulationFractionLUMO
-        {
-            get
-            {
-                return _populationFractionLUMO;
-            }
-            set
-            {
-                _populationFractionLUMO = value.HasValue ? Math.Round(value.Value, 6) : null;
             }
         }
 
