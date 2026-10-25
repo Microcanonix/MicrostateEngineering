@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Utilities\IUtilitiesServices\IUtilitiesServices.csproj" />
     <ProjectReference Include="..\IResearchDefinitionRepository\IResearchDefinitionRepository.csproj" />
-    <ProjectReference Include="..\IResearchDefintionService\IResearchDefintionService.csproj" />
+    <ProjectReference Include="..\IResearchDefintionService\IResearchDefintionServices.csproj" />
   </ItemGroup>
 
 </Project>

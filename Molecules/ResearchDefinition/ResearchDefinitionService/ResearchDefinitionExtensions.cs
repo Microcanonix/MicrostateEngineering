@@ -1,7 +1,7 @@
-﻿using IResearchDefintionService;
+﻿using IResearchDefintionServices;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ResearchDefinitionService
+namespace ResearchDefinitionServices
 {
     public static class ResearchDefinitionExtensions
     {

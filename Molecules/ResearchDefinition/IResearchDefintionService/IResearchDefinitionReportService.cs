@@ -1,6 +1,6 @@
 ﻿using ResearchDefinitionDomain.GamessCalculation.Report;
 
-namespace IResearchDefintionService
+namespace IResearchDefintionServices
 {
     public interface IResearchDefinitionReportService
     {

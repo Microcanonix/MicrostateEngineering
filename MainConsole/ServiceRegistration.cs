@@ -4,7 +4,7 @@ using MoleculeProcessService;
 using MoleculeRepository;
 using MoleculeServices;
 using ResearchDefinitionRepository;
-using ResearchDefinitionService;
+using ResearchDefinitionServices;
 using UtilityServices;
 using MoleculeProcessFactory;
 

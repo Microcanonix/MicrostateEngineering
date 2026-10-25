@@ -1,4 +1,4 @@
-using IResearchDefintionService;
+using IResearchDefintionServices;
 using Microsoft.AspNetCore.Mvc;
 using ResearchDefinitionDomain.GamessCalculation;
 

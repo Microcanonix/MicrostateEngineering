@@ -1,9 +1,9 @@
 ﻿using IResearchDefinitionRepository;
-using IResearchDefintionService;
+using IResearchDefintionServices;
 using Microsoft.Extensions.Logging;
 using ResearchDefinitionDomain.GamessCalculation.Report;
 
-namespace ResearchDefinitionService
+namespace ResearchDefinitionServices
 {
     public sealed class ResearchDefinitionReportService : IResearchDefinitionReportService
     {

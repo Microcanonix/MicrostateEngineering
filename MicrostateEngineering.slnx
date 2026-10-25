@@ -24,10 +24,15 @@
   </Folder>
   <Folder Name="/Molecules/ResearchDefinition/">
     <Project Path="Molecules/ResearchDefinition/IResearchDefinitionRepository/IResearchDefinitionRepository.csproj" />
-    <Project Path="Molecules/ResearchDefinition/IResearchDefintionService/IResearchDefintionService.csproj" />
+    <Project Path="Molecules/ResearchDefinition/IResearchDefintionService/IResearchDefintionServices.csproj" />
     <Project Path="Molecules/ResearchDefinition/ResearchDefinitionDomain/ResearchDefinitionDomain.csproj" />
     <Project Path="Molecules/ResearchDefinition/ResearchDefinitionRepository/ResearchDefinitionRepository.csproj" />
-    <Project Path="Molecules/ResearchDefinition/ResearchDefinitionService/ResearchDefinitionService.csproj" />
+    <Project Path="Molecules/ResearchDefinition/ResearchDefinitionService/ResearchDefinitionServices.csproj" />
+  </Folder>
+  <Folder Name="/Molecules/ScientificReport/">
+    <Project Path="IScientificReportServices/IScientificReportServices.csproj" Id="dc85bdff-8a4f-41da-a826-919aa8f2a2db" />
+    <Project Path="ScientificReportDomain/ScientificReportDomain.csproj" Id="174b8ba4-dba4-4575-bf8f-d62e98b0bafd" />
+    <Project Path="ScientificReportService/ScientificReportServices.csproj" Id="92548e89-9dde-4978-955f-3d5c61ff253a" />
   </Folder>
   <Folder Name="/UnitTests/">
     <Project Path="UnitTests/GraphTests/GraphTests.csproj" Id="f1dc4545-1857-49e8-b1b1-e1b9e3812d2c" />

@@ -3,7 +3,7 @@ using Engine.Workflow;
 using Engine.WorkflowExecution;
 using IMoleculeProcessFactory;
 using IMoleculeProcessServices;
-using IResearchDefintionService;
+using IResearchDefintionServices;
 using Microsoft.Extensions.Logging;
 using ResearchDefinitionDomain.GamessCalculation.Report;
 
