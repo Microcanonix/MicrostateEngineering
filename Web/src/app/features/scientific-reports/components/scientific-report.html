@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h2 mb-1">Scientific report</h1>
+    <p class="text-body-secondary mb-0">
+      Research definition <code>{{ name }}</code>
+    </p>
+  </div>
+  <a class="btn btn-outline-secondary" routerLink="/workflows">Back to workflows</a>
+</div>
+
+@if (errorMessage) {
+  <div class="alert alert-danger">{{ errorMessage }}</div>
+}
+
+@if (loading) {
+  <div class="alert alert-info">Loading scientific report…</div>
+} @else if (report) {
+  <div class="row g-4">
+    <div class="col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header">Molecules</div>
+        <ul class="list-group list-group-flush">
+          @for (molecule of report.moleculeReports; track molecule.moleculeName) {
+            <li
+              class="list-group-item list-group-item-action"
+              [class.active]="molecule === selectedMolecule"
+              (click)="selectMolecule(molecule)"
+            >
+              {{ molecule.moleculeName }}
+            </li>
+          } @empty {
+            <li class="list-group-item text-body-secondary">No molecule reports found.</li>
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      @if (selectedMolecule) {
+        <div class="card shadow-sm">
+          <div class="card-header">
+            Report for <code>{{ selectedMolecule.moleculeName }}</code>
+          </div>
+          <div class="card-body">
+            @if (selectedReportJson) {
+              <pre class="scientific-report-json mb-0">{{ selectedReportJson }}</pre>
+            } @else {
+              <p class="text-body-secondary mb-0">No report data available for this molecule.</p>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="alert alert-secondary">Select a molecule to see its report.</div>
+      }
+    </div>
+  </div>
+} @else if (!errorMessage) {
+  <div class="alert alert-warning">
+    No scientific report was found for research definition "{{ name }}". Run the workflow first.
+  </div>
+}
