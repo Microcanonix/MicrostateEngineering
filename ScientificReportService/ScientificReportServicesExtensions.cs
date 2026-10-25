@@ -5,7 +5,7 @@ namespace ScientificReportServices
 {
     public static class ScientificReportServicesExtensions
     {
-        public static IServiceCollection RegisterMoleculeService(this IServiceCollection services, ServiceLifetime serviceLifetime)
+        public static IServiceCollection RegisterScientificReportService(this IServiceCollection services, ServiceLifetime serviceLifetime)
         {
             if (serviceLifetime == ServiceLifetime.Transient)
             {

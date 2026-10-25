@@ -6,6 +6,7 @@ using MoleculeServices;
 using ResearchDefinitionRepository;
 using ResearchDefinitionServices;
 using UtilityServices;
+using ScientificReportServices;
 
 namespace WebApi
 {
@@ -21,7 +22,8 @@ namespace WebApi
                         .RegisterMoleculeFactory(serviceLifetime)
                         .RegisterMoleculeService(serviceLifetime)
                         .RegisterMoleculeProcessService(serviceLifetime)
-                        .RegisterMoleculeProcessFactory(serviceLifetime);
+                        .RegisterMoleculeProcessFactory(serviceLifetime)
+                        .RegisterScientificReportService(serviceLifetime);
 
         }
     }

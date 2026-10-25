@@ -16,9 +16,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet(Name = "ResearchDefinition")]
-        public IEnumerable<MoleculesResearchDefinition> Get()
+        public IActionResult Get()
         {
-            return _researchDefinitionService.GetMoleculesResearchDefinitions();
+            return Ok(_researchDefinitionService.GetMoleculesResearchDefinitions());
         }
 
         [HttpPost]

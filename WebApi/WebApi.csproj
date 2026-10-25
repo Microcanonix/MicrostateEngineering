@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Molecules\Process\MoleculeProcessService\MoleculeProcessService.csproj" />
     <ProjectReference Include="..\Molecules\ResearchDefinition\ResearchDefinitionRepository\ResearchDefinitionRepository.csproj" />
     <ProjectReference Include="..\Molecules\ResearchDefinition\ResearchDefinitionService\ResearchDefinitionServices.csproj" />
+    <ProjectReference Include="..\ScientificReportService\ScientificReportServices.csproj" />
     <ProjectReference Include="..\Utilities\UtilitiesServices\UtilitiesServices.csproj" />
   </ItemGroup>
 
