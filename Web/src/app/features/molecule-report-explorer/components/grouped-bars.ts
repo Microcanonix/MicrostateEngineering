@@ -45,16 +45,26 @@ export class GroupedBars {
   readonly ticks = computed(() => {
     const max = this.maxAbs();
     const step = niceStep(max / 2);
+    const rounded = (v: number) => Number(v.toFixed(6));
+    const seen = new Set<number>();
     const values: number[] = [];
-    for (let v = -step; v < max; v += step) {
-      values.push(v);
-    }
-    for (let v = step; v < max; v += step) {
-      if (!values.includes(v)) {
-        values.push(v);
+
+    const add = (v: number): void => {
+      const key = rounded(v);
+      if (!seen.has(key)) {
+        seen.add(key);
+        values.push(key);
       }
+    };
+
+    for (let v = -step; v < max; v += step) {
+      add(v);
     }
-    values.push(0);
+    add(0);
+    for (let v = step; v < max; v += step) {
+      add(v);
+    }
+
     return values.sort((a, b) => a - b);
   });
 
