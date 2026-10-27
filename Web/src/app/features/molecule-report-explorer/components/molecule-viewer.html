@@ -1,0 +1,8 @@
+<div #canvasHost class="molecule-viewer-host"></div>
+@if (legend(); as legend) {
+  <div class="molecule-viewer-legend">
+    <span class="molecule-viewer-legend-min">{{ legend.min.toFixed(3) }}</span>
+    <span class="molecule-viewer-legend-gradient"></span>
+    <span class="molecule-viewer-legend-max">+{{ legend.max.toFixed(3) }}</span>
+  </div>
+}

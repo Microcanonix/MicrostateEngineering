@@ -1,0 +1,48 @@
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+  <div class="d-flex gap-1">
+    @for (entry of modes; track entry.key) {
+      <button
+        type="button"
+        class="btn btn-sm"
+        [class.btn-primary]="mode() === entry.key"
+        [class.btn-outline-secondary]="mode() !== entry.key"
+        (click)="setMode(entry.key)"
+      >
+        {{ entry.label }}
+      </button>
+    }
+  </div>
+  <small class="text-body-secondary">
+    Basis order: {{ isHydrogen() ? hydrogenBasisOrder : heavyBasisOrder }}
+  </small>
+</div>
+
+@if (orbital(); as orbital) {
+  <div class="ao-chart-stats mb-2">
+    <span>Mulliken population: <strong>{{ mullikenPopulation().toFixed(4) }}</strong></span>
+    <span>HOMO share: <strong>{{ homoShare().toFixed(4) }}</strong></span>
+    <span>LUMO share: <strong>{{ lumoShare().toFixed(4) }}</strong></span>
+    <span>Σ displayed: <strong>{{ sum().toFixed(4) }}</strong></span>
+  </div>
+  <div class="ao-chart">
+    @for (bar of bars(); track $index) {
+      <div class="ao-bar-slot" [title]="bar.label + ' = ' + bar.value.toFixed(4)">
+        <div class="ao-bar-track">
+          <div class="ao-bar-zero"></div>
+          <div
+            class="ao-bar"
+            [class.ao-bar-positive]="bar.value >= 0"
+            [class.ao-bar-negative]="bar.value < 0"
+            [style.height.%]="heightPercent(bar.value)"
+            [class.ao-bar-up]="bar.value >= 0"
+            [class.ao-bar-down]="bar.value < 0"
+          ></div>
+        </div>
+        <div class="ao-bar-value">{{ bar.value.toFixed(4) }}</div>
+        <div class="ao-bar-label">{{ bar.label }}{{ $index }}</div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="text-body-secondary">Select or hover an atom to see its AO populations.</div>
+}

@@ -1,0 +1,53 @@
+.grouped-bars-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.25rem;
+}
+
+.grouped-bars-svg {
+  width: 100%;
+  height: auto;
+}
+
+.grouped-bars-zero {
+  stroke: #475569;
+  stroke-width: 1.2;
+}
+
+.grouped-bars-grid {
+  stroke: #e2e8f0;
+  stroke-width: 0.8;
+}
+
+.grouped-bars-tick {
+  font-size: 9px;
+  fill: #64748b;
+  text-anchor: end;
+}
+
+.grouped-bars-bar:hover {
+  opacity: 0.8;
+}
+
+.grouped-bars-category {
+  font-size: 10px;
+  fill: #334155;
+}
+
+.grouped-bars-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: #475569;
+  margin-top: 0.25rem;
+}
+
+.grouped-bars-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 0.3rem;
+}

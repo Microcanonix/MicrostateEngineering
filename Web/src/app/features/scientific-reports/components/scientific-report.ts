@@ -3,10 +3,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MoleculeScientificReport, ResearchDefinitionScientificReport } from '../models/scientific-report.model';
 import { ScientificReportService } from '../services/scientific-report.service';
 import { describeHttpError } from '../../workflows/services/research-definition.service';
+import { MoleculeReportExplorer } from '../../molecule-report-explorer/components/molecule-report-explorer';
 
 @Component({
   selector: 'app-scientific-report',
-  imports: [RouterLink],
+  imports: [RouterLink, MoleculeReportExplorer],
   templateUrl: './scientific-report.html',
   styleUrls: ['./scientific-report.scss'],
 })
