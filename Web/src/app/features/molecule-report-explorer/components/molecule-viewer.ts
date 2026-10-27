@@ -24,11 +24,11 @@ import {
 } from '../services/molecule-report-explorer-state.service';
 import { MoleculeBondReport } from '../models/molecule-report.model';
 
-const ATOM_BASE_RADIUS = 0.06;
-const ATOM_SELECT_SCALE = 1.6;
+const ATOM_BASE_RADIUS = 0.17;
+const ATOM_SELECT_SCALE = 1.5;
 const BOND_BASE_RADIUS = 0.05;
-const BOND_MIN_RADIUS = 0.03;
-const BOND_MAX_RADIUS = 0.16;
+const BOND_MIN_RADIUS = 0.025;
+const BOND_MAX_RADIUS = 0.06;
 
 interface AtomMesh {
   mesh: THREE.Mesh;
