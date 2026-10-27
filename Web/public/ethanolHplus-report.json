@@ -1,0 +1,483 @@
+{
+  "atomPositionsReport": [
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 1,
+      "atomSymbol": "C",
+      "posX": -3.6771225232,
+      "posY": -0.0699276984,
+      "posZ": 0.4384857361
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 2,
+      "atomSymbol": "H",
+      "posX": -4.3137085549,
+      "posY": -0.7024630223,
+      "posZ": -0.1939331179
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 3,
+      "atomSymbol": "H",
+      "posX": -3.9082864854,
+      "posY": -0.2946508102,
+      "posZ": 1.4826726927
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 4,
+      "atomSymbol": "H",
+      "posX": -0.3705799537,
+      "posY": 0.2541043567,
+      "posZ": 1.1642485748
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 5,
+      "atomSymbol": "H",
+      "posX": -3.9250116413,
+      "posY": 0.9712972833,
+      "posZ": 0.2056330384
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 6,
+      "atomSymbol": "C",
+      "posX": -2.2394337388,
+      "posY": -0.3998589006,
+      "posZ": 0.1085250783
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 7,
+      "atomSymbol": "O",
+      "posX": -1.3361885021,
+      "posY": 0.4677674878,
+      "posZ": 1.0609304743
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 8,
+      "atomSymbol": "H",
+      "posX": -1.9315867519,
+      "posY": -0.1316503167,
+      "posZ": -0.9026938216
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 9,
+      "atomSymbol": "H",
+      "posX": -1.5898211178,
+      "posY": 1.4166134705,
+      "posZ": 1.2152092561
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomPosition": 10,
+      "atomSymbol": "H",
+      "posX": -1.9469007309,
+      "posY": -1.41407185,
+      "posZ": 0.3784420887
+    }
+  ],
+  "atomChargeReport": [
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "C1",
+      "mullikenCharge": -0.6635439999999999,
+      "lowdinCharge": -0.2860339999999999,
+      "cHelpGHCharge": -0.3964,
+      "geoDiscCharge": -0.4275
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H2",
+      "mullikenCharge": 0.298407,
+      "lowdinCharge": 0.153107,
+      "cHelpGHCharge": 0.1771,
+      "geoDiscCharge": 0.1874
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H3",
+      "mullikenCharge": 0.28083499999999995,
+      "lowdinCharge": 0.13541199999999998,
+      "cHelpGHCharge": 0.1594,
+      "geoDiscCharge": 0.1667
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H4",
+      "mullikenCharge": 0.526015,
+      "lowdinCharge": 0.366213,
+      "cHelpGHCharge": 0.5371,
+      "geoDiscCharge": 0.5302
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H5",
+      "mullikenCharge": 0.257189,
+      "lowdinCharge": 0.12303900000000001,
+      "cHelpGHCharge": 0.1558,
+      "geoDiscCharge": 0.1629
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "C6",
+      "mullikenCharge": -0.1566099999999997,
+      "lowdinCharge": 0.09199499999999983,
+      "cHelpGHCharge": 0.2115,
+      "geoDiscCharge": 0.2039
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "O7",
+      "mullikenCharge": -0.6939100000000007,
+      "lowdinCharge": -0.22428400000000082,
+      "cHelpGHCharge": -0.6203,
+      "geoDiscCharge": -0.6054
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H8",
+      "mullikenCharge": 0.3083,
+      "lowdinCharge": 0.13446800000000003,
+      "cHelpGHCharge": 0.1075,
+      "geoDiscCharge": 0.1135
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H9",
+      "mullikenCharge": 0.524222,
+      "lowdinCharge": 0.363467,
+      "cHelpGHCharge": 0.5353,
+      "geoDiscCharge": 0.5331
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H10",
+      "mullikenCharge": 0.31909699999999996,
+      "lowdinCharge": 0.142617,
+      "cHelpGHCharge": 0.133,
+      "geoDiscCharge": 0.1352
+    }
+  ],
+  "atomPopulationReport": [
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "C1",
+      "mullikenPopulation": 6.663544,
+      "mullikenPopulationHOMO": -0.002966999999999942,
+      "mullikenPopulationLUMO": -0.06172799999999956,
+      "lowdinPopulation": 6.286034,
+      "lowdinPopulationHOMO": 0.1953389999999997,
+      "lowdinPopulationLUMO": -0.021109000000000044
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H2",
+      "mullikenPopulation": 0.701593,
+      "mullikenPopulationHOMO": 0.15807100000000007,
+      "mullikenPopulationLUMO": 0.10765999999999998,
+      "lowdinPopulation": 0.846893,
+      "lowdinPopulationHOMO": 0.08978399999999997,
+      "lowdinPopulationLUMO": 0.07434600000000002
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H3",
+      "mullikenPopulation": 0.719165,
+      "mullikenPopulationHOMO": 0.28395700000000007,
+      "mullikenPopulationLUMO": 0.06626399999999999,
+      "lowdinPopulation": 0.864588,
+      "lowdinPopulationHOMO": 0.255506,
+      "lowdinPopulationLUMO": 0.039046000000000025
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H4",
+      "mullikenPopulation": 0.473985,
+      "mullikenPopulationHOMO": 0.050337999999999994,
+      "mullikenPopulationLUMO": 0.36664399999999997,
+      "lowdinPopulation": 0.633787,
+      "lowdinPopulationHOMO": 0.03947199999999995,
+      "lowdinPopulationLUMO": 0.27151500000000006
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H5",
+      "mullikenPopulation": 0.742811,
+      "mullikenPopulationHOMO": 0.245085,
+      "mullikenPopulationLUMO": 0.05381999999999998,
+      "lowdinPopulation": 0.876961,
+      "lowdinPopulationHOMO": 0.19398099999999996,
+      "lowdinPopulationLUMO": 0.03296600000000005
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "C6",
+      "mullikenPopulation": 6.15661,
+      "mullikenPopulationHOMO": -0.031798000000000215,
+      "mullikenPopulationLUMO": 0.0876020000000004,
+      "lowdinPopulation": 5.908005,
+      "lowdinPopulationHOMO": 0.005151000000000572,
+      "lowdinPopulationLUMO": 0.14794399999999985
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "O7",
+      "mullikenPopulation": 8.69391,
+      "mullikenPopulationHOMO": 0.00467700000000093,
+      "mullikenPopulationLUMO": -0.14788700000000077,
+      "lowdinPopulation": 8.224284,
+      "lowdinPopulationHOMO": 0.00993000000000066,
+      "lowdinPopulationLUMO": 0.11080999999999896
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H8",
+      "mullikenPopulation": 0.6917,
+      "mullikenPopulationHOMO": 0.14164699999999997,
+      "mullikenPopulationLUMO": 0.10286000000000006,
+      "lowdinPopulation": 0.865532,
+      "lowdinPopulationHOMO": 0.10515299999999994,
+      "lowdinPopulationLUMO": 0.05466199999999999
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H9",
+      "mullikenPopulation": 0.475778,
+      "mullikenPopulationHOMO": 0.028009000000000006,
+      "mullikenPopulationLUMO": 0.32076,
+      "lowdinPopulation": 0.636533,
+      "lowdinPopulationHOMO": 0.02110600000000007,
+      "lowdinPopulationLUMO": 0.23392099999999993
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H10",
+      "mullikenPopulation": 0.680903,
+      "mullikenPopulationHOMO": 0.12297800000000003,
+      "mullikenPopulationLUMO": 0.10400599999999993,
+      "lowdinPopulation": 0.857383,
+      "lowdinPopulationHOMO": 0.08457700000000001,
+      "lowdinPopulationLUMO": 0.05589900000000003
+    }
+  ],
+  "atomOrbitalReport": [
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "C1",
+      "mullikenPopulation": 6.663544,
+      "electronFractionConfiguration": "S(0.2984)S(0.0529)X(0.0766)Y(0.0843)Z(0.0856)S(0.1741)X(0.0472)Y(0.0896)Z(0.0913)",
+      "electronConfiguration": "S(1.9882)S(0.3525)X(0.5105)Y(0.5618)Z(0.5702)S(1.1603)X(0.3146)Y(0.5971)Z(0.6085)",
+      "electronConfigurationHOMO": "S(-0.0011)S(-0.0330)X(-0.0933)Y(0.0116)Z(0.1165)S(-0.1066)X(-0.0779)Y(0.0297)Z(0.1511)",
+      "electronConfigurationLUMO": "S(-0.0000)S(0.0016)X(0.0232)Y(-0.0184)Z(-0.0229)S(-0.0333)X(0.0718)Y(-0.0387)Z(-0.0450)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H2",
+      "mullikenPopulation": 0.701593,
+      "electronFractionConfiguration": "S(0.6393)S(0.3607)",
+      "electronConfiguration": "S(0.4485)S(0.2531)",
+      "electronConfigurationHOMO": "S(0.0189)S(0.1391)",
+      "electronConfigurationLUMO": "S(0.0190)S(0.0887)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H3",
+      "mullikenPopulation": 0.719165,
+      "electronFractionConfiguration": "S(0.6351)S(0.3649)",
+      "electronConfiguration": "S(0.4567)S(0.2624)",
+      "electronConfigurationHOMO": "S(0.0934)S(0.1906)",
+      "electronConfigurationLUMO": "S(0.0100)S(0.0563)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H4",
+      "mullikenPopulation": 0.473985,
+      "electronFractionConfiguration": "S(0.7514)S(0.2486)",
+      "electronConfiguration": "S(0.3562)S(0.1178)",
+      "electronConfigurationHOMO": "S(0.0214)S(0.0289)",
+      "electronConfigurationLUMO": "S(0.0174)S(0.3492)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H5",
+      "mullikenPopulation": 0.742811,
+      "electronFractionConfiguration": "S(0.6173)S(0.3827)",
+      "electronConfiguration": "S(0.4585)S(0.2843)",
+      "electronConfigurationHOMO": "S(0.0674)S(0.1777)",
+      "electronConfigurationLUMO": "S(0.0089)S(0.0449)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "C6",
+      "mullikenPopulation": 6.15661,
+      "electronFractionConfiguration": "S(0.3231)S(0.0611)X(0.0822)Y(0.0805)Z(0.0791)S(0.1774)X(0.0550)Y(0.0740)Z(0.0677)",
+      "electronConfiguration": "S(1.9889)S(0.3762)X(0.5058)Y(0.4956)Z(0.4869)S(1.0920)X(0.3389)Y(0.4556)Z(0.4168)",
+      "electronConfigurationHOMO": "S(-0.0000)S(-0.0022)X(0.0272)Y(-0.0232)Z(-0.0096)S(-0.0232)X(0.0768)Y(-0.0374)Z(-0.0400)",
+      "electronConfigurationLUMO": "S(-0.0007)S(-0.0177)X(0.0002)Y(0.0215)Z(0.0210)S(-0.0619)X(0.0285)Y(0.0474)Z(0.0494)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "O7",
+      "mullikenPopulation": 8.69391,
+      "electronFractionConfiguration": "S(0.2283)S(0.0464)X(0.0749)Y(0.0760)Z(0.0960)S(0.1654)X(0.0971)Y(0.0982)Z(0.1178)",
+      "electronConfiguration": "S(1.9848)S(0.4035)X(0.6509)Y(0.6605)Z(0.8343)S(1.4380)X(0.8441)Y(0.8534)Z(1.0243)",
+      "electronConfigurationHOMO": "S(0.0001)S(0.0006)X(-0.0090)Y(-0.0043)Z(0.0111)S(0.0013)X(-0.0167)Y(0.0013)Z(0.0203)",
+      "electronConfigurationLUMO": "S(0.0032)S(0.0379)X(-0.0323)Y(-0.0343)Z(-0.0243)S(-0.0133)X(-0.0344)Y(-0.0382)Z(-0.0123)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H8",
+      "mullikenPopulation": 0.6917,
+      "electronFractionConfiguration": "S(0.6814)S(0.3187)",
+      "electronConfiguration": "S(0.4713)S(0.2204)",
+      "electronConfigurationHOMO": "S(0.0402)S(0.1015)",
+      "electronConfigurationLUMO": "S(0.0054)S(0.0974)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H9",
+      "mullikenPopulation": 0.475778,
+      "electronFractionConfiguration": "S(0.7499)S(0.2501)",
+      "electronConfiguration": "S(0.3568)S(0.1190)",
+      "electronConfigurationHOMO": "S(0.0098)S(0.0182)",
+      "electronConfigurationLUMO": "S(0.0210)S(0.2998)"
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atomID": "H10",
+      "mullikenPopulation": 0.680903,
+      "electronFractionConfiguration": "S(0.6890)S(0.3110)",
+      "electronConfiguration": "S(0.4691)S(0.2118)",
+      "electronConfigurationHOMO": "S(0.0310)S(0.0920)",
+      "electronConfigurationLUMO": "S(0.0057)S(0.0983)"
+    }
+  ],
+  "moleculeBondsReport": [
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 2,
+      "atom2Pos": 1,
+      "bondID": "H2-C1",
+      "distance": 1.098,
+      "bondOrder": 0.875,
+      "overlapPopulation": 0.3659183,
+      "overlapPopulationHOMO": 0.05079229999999996,
+      "overlapPopulationLUMO": -0.004303599999999963
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 3,
+      "atom2Pos": 1,
+      "bondID": "H3-C1",
+      "distance": 1.093,
+      "bondOrder": 0.893,
+      "overlapPopulation": 0.3715531,
+      "overlapPopulationHOMO": 0.16545400000000002,
+      "overlapPopulationLUMO": 0.0051070999999999755
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 5,
+      "atom2Pos": 1,
+      "bondID": "H5-C1",
+      "distance": 1.095,
+      "bondOrder": 0.903,
+      "overlapPopulation": 0.3740169,
+      "overlapPopulationHOMO": 0.11128889999999997,
+      "overlapPopulationLUMO": 0.005947399999999992
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 6,
+      "atom2Pos": 1,
+      "bondID": "C6-C1",
+      "distance": 1.512,
+      "bondOrder": 0.9,
+      "overlapPopulation": 0.1968737,
+      "overlapPopulationHOMO": 0.0013245000000000062,
+      "overlapPopulationLUMO": 0.05741489999999996
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 6,
+      "atom2Pos": 4,
+      "bondID": "C6-H4",
+      "distance": 2.244,
+      "bondOrder": null,
+      "overlapPopulation": -0.0130704,
+      "overlapPopulationHOMO": -0.0000999999999999994,
+      "overlapPopulationLUMO": 0.1078799
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 7,
+      "atom2Pos": 4,
+      "bondID": "O7-H4",
+      "distance": 0.994,
+      "bondOrder": 0.693,
+      "overlapPopulation": 0.2576947,
+      "overlapPopulationHOMO": 0.008089299999999994,
+      "overlapPopulationLUMO": -0.4744834
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 8,
+      "atom2Pos": 6,
+      "bondID": "H8-C6",
+      "distance": 1.091,
+      "bondOrder": 0.867,
+      "overlapPopulation": 0.3606496,
+      "overlapPopulationHOMO": 0.04602280000000003,
+      "overlapPopulationLUMO": 0.019229799999999964
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 9,
+      "atom2Pos": 4,
+      "bondID": "H9-H4",
+      "distance": 1.685,
+      "bondOrder": null,
+      "overlapPopulation": -0.0149811,
+      "overlapPopulationHOMO": -0.0030309000000000013,
+      "overlapPopulationLUMO": 0.1582287
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 9,
+      "atom2Pos": 6,
+      "bondID": "H9-C6",
+      "distance": 2.224,
+      "bondOrder": null,
+      "overlapPopulation": -0.0169153,
+      "overlapPopulationHOMO": 0.0002644999999999974,
+      "overlapPopulationLUMO": 0.10190389999999999
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 9,
+      "atom2Pos": 7,
+      "bondID": "H9-O7",
+      "distance": 0.994,
+      "bondOrder": 0.692,
+      "overlapPopulation": 0.2566394,
+      "overlapPopulationHOMO": 0.004153300000000026,
+      "overlapPopulationLUMO": -0.409005
+    },
+    {
+      "moleculeName": "ethanolHplus",
+      "atom1Pos": 10,
+      "atom2Pos": 6,
+      "bondID": "H10-C6",
+      "distance": 1.09,
+      "bondOrder": 0.87,
+      "overlapPopulation": 0.3631039,
+      "overlapPopulationHOMO": 0.03732629999999998,
+      "overlapPopulationLUMO": 0.01603500000000002
+    }
+  ]
+}

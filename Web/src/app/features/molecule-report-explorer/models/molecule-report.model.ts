@@ -40,11 +40,12 @@ export interface MoleculeBondReport {
   Atom1Pos: number;
   Atom2Pos: number;
   BondID: string;
-  Distance: number;
-  BondOrder: number;
-  OverlapPopulation: number;
-  OverlapPopulationHOMO: number;
-  OverlapPopulationLUMO: number;
+  /** Null when GAMESS omits the bond from its bond-order printout. */
+  Distance: number | null;
+  BondOrder: number | null;
+  OverlapPopulation: number | null;
+  OverlapPopulationHOMO: number | null;
+  OverlapPopulationLUMO: number | null;
 }
 
 export interface MoleculeReportData {

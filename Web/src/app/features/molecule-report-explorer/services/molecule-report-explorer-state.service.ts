@@ -157,7 +157,7 @@ export class MoleculeReportExplorerState {
       { key: 'GeoDiscCharge', label: 'GeoDisc' },
     ];
     for (const scheme of chargeSchemes) {
-      const sum = report.AtomChargeReport.reduce((acc, c) => acc + (c[scheme.key] as number), 0);
+      const sum = report.AtomChargeReport.reduce((acc, c) => acc + (num(c[scheme.key]) ?? 0), 0);
       chips.push({
         label: `Σ ${scheme.label} charge`,
         value: fmt(sum),
@@ -170,8 +170,8 @@ export class MoleculeReportExplorerState {
       { homo: 'LowdinPopulationHOMO', lumo: 'LowdinPopulationLUMO', label: 'Lowdin' },
     ];
     for (const scheme of shareSchemes) {
-      const homoSum = report.AtomPopulationReport.reduce((acc, p) => acc + (p[scheme.homo] as number), 0);
-      const lumoSum = report.AtomPopulationReport.reduce((acc, p) => acc + (p[scheme.lumo] as number), 0);
+      const homoSum = report.AtomPopulationReport.reduce((acc, p) => acc + (num(p[scheme.homo]) ?? 0), 0);
+      const lumoSum = report.AtomPopulationReport.reduce((acc, p) => acc + (num(p[scheme.lumo]) ?? 0), 0);
       chips.push({
         label: `Σ ${scheme.label} HOMO shares`,
         value: fmt(homoSum),
@@ -186,6 +186,7 @@ export class MoleculeReportExplorerState {
 
     const positions = new Map(report.AtomPositionsReport.map((p) => [p.AtomPosition, p]));
     const atomicNumbers: Record<string, number> = { H: 1, C: 6, N: 7, O: 8 };
+    const num = (value: unknown): number | null => (typeof value === 'number' ? value : null);
     const neutrality = (populationKey: 'MullikenPopulation' | 'LowdinPopulation', label: string): void => {
       let maxDeviation = 0;
       let worst = '';
@@ -196,7 +197,9 @@ export class MoleculeReportExplorerState {
         }
         const position = positions.get(atomPositionFromId(charge.AtomID));
         const z = position ? (atomicNumbers[position.AtomSymbol] ?? 0) : 0;
-        const deviation = Math.abs((population[populationKey] as number) + (charge[schemeKey(populationKey)] as number) - z);
+        const deviation = Math.abs(
+          (num(population[populationKey]) ?? 0) + (num(charge[schemeKey(populationKey)]) ?? 0) - z,
+        );
         if (deviation > maxDeviation) {
           maxDeviation = deviation;
           worst = charge.AtomID;
@@ -228,7 +231,7 @@ export class MoleculeReportExplorerState {
         }
         const values = parseAoConfiguration(orbital[configKey] as string);
         const sum = values.reduce((acc, v) => acc + v.value, 0);
-        const deviation = Math.abs(sum - (populations[targetKey] as number));
+        const deviation = Math.abs(sum - (num(populations[targetKey]) ?? 0));
         if (deviation > maxDeviation) {
           maxDeviation = deviation;
         }

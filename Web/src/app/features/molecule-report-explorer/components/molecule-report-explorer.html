@@ -45,10 +45,10 @@
                 (click)="onAtomRowClick(atom.id)"
               >
                 <td class="fw-semibold">{{ atom.id }}</td>
-                <td class="text-end">{{ atom.population?.MullikenPopulationHOMO.toFixed(4) }}</td>
-                <td class="text-end">{{ atom.population?.MullikenPopulationLUMO.toFixed(4) }}</td>
-                <td class="text-end {{ chargeClass(atom.charge?.MullikenCharge ?? 0) }}">
-                  {{ (atom.charge?.MullikenCharge ?? 0).toFixed(3) }}
+                <td class="text-end">{{ formatNumber(atom.population?.MullikenPopulationHOMO, 4) }}</td>
+                <td class="text-end">{{ formatNumber(atom.population?.MullikenPopulationLUMO, 4) }}</td>
+                <td class="text-end {{ chargeClass(atom.charge?.MullikenCharge) }}">
+                  {{ formatNumber(atom.charge?.MullikenCharge, 3) }}
                 </td>
               </tr>
             }
@@ -214,14 +214,14 @@
             (mouseleave)="onBondHovered(null)"
           >
             <td class="fw-semibold">{{ bond.BondID }}</td>
-            <td class="text-end">{{ bond.Distance.toFixed(3) }}</td>
-            <td class="text-end">{{ bond.BondOrder.toFixed(3) }}</td>
-            <td class="text-end">{{ bond.OverlapPopulation.toFixed(4) }}</td>
+            <td class="text-end">{{ formatNumber(bond.Distance, 3) }}</td>
+            <td class="text-end">{{ formatNumber(bond.BondOrder, 3) }}</td>
+            <td class="text-end">{{ formatNumber(bond.OverlapPopulation, 4) }}</td>
             <td class="text-end {{ frontierClass(bond.OverlapPopulationHOMO) }}">
-              {{ bond.OverlapPopulationHOMO.toFixed(4) }}
+              {{ formatNumber(bond.OverlapPopulationHOMO, 4) }}
             </td>
             <td class="text-end {{ frontierClass(bond.OverlapPopulationLUMO) }}">
-              {{ bond.OverlapPopulationLUMO.toFixed(4) }}
+              {{ formatNumber(bond.OverlapPopulationLUMO, 4) }}
             </td>
           </tr>
         }

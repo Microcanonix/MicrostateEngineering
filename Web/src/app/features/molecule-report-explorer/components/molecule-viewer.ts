@@ -496,9 +496,12 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     return sprite;
   }
 
-  private bondRadius(bondOrder: number): number {
-    const maxOrder = Math.max(...this.bonds().map((b) => b.BondOrder), 0.01);
-    const normalized = Math.max(0, Math.min(1, bondOrder / maxOrder));
+  private bondRadius(bondOrder: number | null): number {
+    const orders = this.bonds()
+      .map((b) => b.BondOrder)
+      .filter((o): o is number => typeof o === 'number');
+    const maxOrder = Math.max(...orders, 0.01);
+    const normalized = Math.max(0, Math.min(1, (bondOrder ?? 0) / maxOrder));
     const max = Math.max(this.bondMaxRadius(), BOND_MIN_RADIUS);
     return BOND_MIN_RADIUS + (max - BOND_MIN_RADIUS) * normalized;
   }
@@ -529,10 +532,12 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     if (mode === 'none') {
       return 0x9aa4b2;
     }
-    const values = this.bonds().map((b) => (mode === 'homo' ? b.OverlapPopulationHOMO : b.OverlapPopulationLUMO));
+    const values = this.bonds()
+      .map((bondItem) => (mode === 'homo' ? bondItem.OverlapPopulationHOMO : bondItem.OverlapPopulationLUMO))
+      .filter((v): v is number => typeof v === 'number');
     const max = Math.max(...values.map(Math.abs), 0.000001);
     const value = mode === 'homo' ? bond.OverlapPopulationHOMO : bond.OverlapPopulationLUMO;
-    const [r, g, b] = bondModeColor(value, max);
+    const [r, g, b] = bondModeColor(typeof value === 'number' ? value : 0, max);
     return (r << 16) | (g << 8) | b;
   }
 
