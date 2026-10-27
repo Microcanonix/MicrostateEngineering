@@ -1,0 +1,239 @@
+<div class="mb-4">
+  <h1 class="h3 mb-1">Molecule report explorer</h1>
+  <p class="text-body-secondary mb-0">
+    GAMESS/DFT calculation report: <strong>{{ moleculeName() }}</strong>
+  </p>
+</div>
+
+<!-- Verification strip -->
+<div class="mre-chips mb-4">
+  @for (chip of verificationChips(); track chip.label) {
+    <span class="mre-chip" [class.mre-chip-pass]="chip.pass" [class.mre-chip-fail]="!chip.pass">
+      @if (chip.pass) {
+        <span class="mre-chip-mark">✓</span>
+      } @else {
+        <span class="mre-chip-mark mre-chip-mark-fail">✗</span>
+      }
+      {{ chip.label }} = {{ chip.value }}
+    </span>
+  }
+</div>
+
+<!-- 3D row: atom table left, viewer right -->
+<div class="row g-3 mb-4">
+  <div class="col-lg-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header py-2">Atoms</div>
+      <div class="table-responsive mre-atom-table">
+        <table class="table table-sm align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Atom</th>
+              <th class="text-end">HOMO share</th>
+              <th class="text-end">LUMO share</th>
+              <th class="text-end">Mulliken charge</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (atom of atoms(); track atom.id) {
+              <tr
+                class="mre-atom-row"
+                [class.mre-row-selected]="selectedAtomId() === atom.id"
+                [class.mre-row-hovered]="hoveredAtomId() === atom.id"
+                (mouseenter)="onAtomRowHover(atom.id)"
+                (mouseleave)="onAtomRowLeave()"
+                (click)="onAtomRowClick(atom.id)"
+              >
+                <td class="fw-semibold">{{ atom.id }}</td>
+                <td class="text-end">{{ atom.population?.MullikenPopulationHOMO.toFixed(4) }}</td>
+                <td class="text-end">{{ atom.population?.MullikenPopulationLUMO.toFixed(4) }}</td>
+                <td class="text-end {{ chargeClass(atom.charge?.MullikenCharge ?? 0) }}">
+                  {{ (atom.charge?.MullikenCharge ?? 0).toFixed(3) }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card shadow-sm h-100">
+      <div class="card-header py-2 d-flex flex-wrap gap-3 align-items-center">
+        <div class="d-flex align-items-center gap-2">
+          <label class="form-label mb-0 small fw-semibold" for="atomRadiusRange">Atom size</label>
+          <input
+            id="atomRadiusRange"
+            type="range"
+            class="form-range mre-range"
+            min="0.05"
+            max="0.4"
+            step="0.01"
+            [value]="atomRadius()"
+            (input)="setAtomRadius($any($event.target).valueAsNumber)"
+          />
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label class="form-label mb-0 small fw-semibold" for="bondRadiusRange">Bond width</label>
+          <input
+            id="bondRadiusRange"
+            type="range"
+            class="form-range mre-range"
+            min="0.025"
+            max="0.2"
+            step="0.005"
+            [value]="bondMaxRadius()"
+            (input)="setBondMaxRadius($any($event.target).valueAsNumber)"
+          />
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label class="form-label mb-0 small fw-semibold">Atom colour</label>
+          <select
+            class="form-select form-select-sm w-auto"
+            (change)="setAtomColorMode($any($event.target).value)"
+          >
+            @for (mode of atomColorModes; track mode.value) {
+              <option [value]="mode.value" [selected]="atomColorMode() === mode.value">{{ mode.label }}</option>
+            }
+          </select>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label class="form-label mb-0 small fw-semibold">Bond colour</label>
+          <select
+            class="form-select form-select-sm w-auto"
+            (change)="setBondColorMode($any($event.target).value)"
+          >
+            <option value="none" [selected]="bondColorMode() === 'none'">None</option>
+            <option value="homo" [selected]="bondColorMode() === 'homo'">HOMO overlap</option>
+            <option value="lumo" [selected]="bondColorMode() === 'lumo'">LUMO overlap</option>
+          </select>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="form-check form-switch mb-0">
+            <input
+              id="atomLabelsSwitch"
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              [checked]="showAtomLabels()"
+              (change)="toggleAtomLabels($any($event.target).checked)"
+            />
+            <label class="form-check-label small fw-semibold" for="atomLabelsSwitch">Atom labels</label>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-2 mre-viewer-body">
+        <app-molecule-viewer
+          [atoms]="atoms()"
+          [bonds]="bonds()"
+          [atomColorMode]="atomColorMode()"
+          [bondColorMode]="bondColorMode()"
+          [atomRadius]="atomRadius()"
+          [bondMaxRadius]="bondMaxRadius()"
+          [showAtomLabels]="showAtomLabels()"
+          [selectedAtomId]="selectedAtomId()"
+          [hoveredAtomId]="hoveredAtomId()"
+          [hoveredBondId]="hoveredBondId()"
+          (atomHovered)="onAtomHovered($event)"
+          (atomClicked)="onAtomClicked($event)"
+          (bondHovered)="onBondHovered($event)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AO configuration -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header py-2">
+    Electron configuration —
+    @if (aoChartAtom(); as atom) {
+      <strong>{{ atom.id }}</strong>
+    } @else {
+      <span class="text-body-secondary">no atom selected</span>
+    }
+  </div>
+  <div class="card-body">
+    <app-ao-config-chart
+      [orbital]="aoChartAtom()?.orbital ?? null"
+      [mullikenPopulation]="aoChartAtom()?.population?.MullikenPopulation ?? 0"
+      [homoShare]="aoChartAtom()?.population?.MullikenPopulationHOMO ?? 0"
+      [lumoShare]="aoChartAtom()?.population?.MullikenPopulationLUMO ?? 0"
+      [mode]="aoChartMode()"
+      (modeChange)="setAoChartMode($event)"
+    />
+  </div>
+</div>
+
+<!-- Comparison charts -->
+<div class="row g-3 mb-4">
+  <div class="col-xl-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <app-grouped-bars
+          title="Charge schemes per atom"
+          [categories]="atomCategories()"
+          [series]="chargeSeries()"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <app-grouped-bars
+          title="HOMO / LUMO shares per atom"
+          [categories]="atomCategories()"
+          [series]="shareSeries()"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bonds table -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header py-2">Bonds</div>
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Bond</th>
+          <th class="text-end">Distance (Å)</th>
+          <th class="text-end">Bond order</th>
+          <th class="text-end">Overlap pop.</th>
+          <th class="text-end">HOMO overlap</th>
+          <th class="text-end">LUMO overlap</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (bond of bonds(); track bond.BondID) {
+          <tr
+            [class.mre-row-hovered]="hoveredBondId() === bond.BondID"
+            (mouseenter)="onBondHovered(bond.BondID)"
+            (mouseleave)="onBondHovered(null)"
+          >
+            <td class="fw-semibold">{{ bond.BondID }}</td>
+            <td class="text-end">{{ bond.Distance.toFixed(3) }}</td>
+            <td class="text-end">{{ bond.BondOrder.toFixed(3) }}</td>
+            <td class="text-end">{{ bond.OverlapPopulation.toFixed(4) }}</td>
+            <td class="text-end {{ frontierClass(bond.OverlapPopulationHOMO) }}">
+              {{ bond.OverlapPopulationHOMO.toFixed(4) }}
+            </td>
+            <td class="text-end {{ frontierClass(bond.OverlapPopulationLUMO) }}">
+              {{ bond.OverlapPopulationLUMO.toFixed(4) }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Footer notes -->
+<div class="mre-notes small text-body-secondary">
+  <p class="mb-1">HOMO distribution = where the molecule responds to Lewis acid attack; LUMO distribution = where it responds to Lewis base attack.</p>
+  <p class="mb-1">Positive frontier-MO overlap population = bonding contribution; negative = antibonding contribution.</p>
+  <p class="mb-1">Mulliken values are conventions, not observables; values are shown exactly as reported. Lowdin values are shown as a cross-check.</p>
+  <p class="mb-0">Bond membership follows GAMESS's bond-order printout (a chemical criterion), not a distance criterion.</p>
+</div>

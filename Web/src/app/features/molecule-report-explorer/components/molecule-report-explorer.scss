@@ -1,0 +1,85 @@
+.mre-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.mre-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  border-radius: 1rem;
+  padding: 0.2rem 0.6rem;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+}
+
+.mre-chip-pass {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+}
+
+.mre-chip-fail {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.mre-chip-mark {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.mre-chip-mark-fail {
+  color: #dc2626;
+}
+
+.mre-atom-row {
+  cursor: pointer;
+}
+
+.mre-row-hovered {
+  background: #e0f2fe;
+}
+
+.mre-row-selected {
+  background: #bae6fd;
+  font-weight: 600;
+}
+
+.mre-positive {
+  color: #15803d;
+}
+
+.mre-negative {
+  color: #dc2626;
+}
+
+.mre-viewer-body {
+  height: 480px;
+}
+
+.mre-atom-table {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.mre-range {
+  width: 110px;
+}
+
+.mre-notes {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.75rem;
+}
+
+@media (max-width: 991px) {
+  .mre-atom-table {
+    max-height: 240px;
+  }
+
+  .mre-viewer-body {
+    height: 360px;
+  }
+}

@@ -1,0 +1,59 @@
+<figure class="mb-0">
+  <figcaption class="grouped-bars-title">{{ title() }}</figcaption>
+  <svg
+    [attr.viewBox]="'0 0 ' + width + ' ' + height"
+    class="grouped-bars-svg"
+    role="img"
+    [attr.aria-label]="title()"
+  >
+    <!-- zero line -->
+    <line
+      [attr.x1]="margin.left"
+      [attr.y1]="zeroY()"
+      [attr.x2]="width - margin.right"
+      [attr.y2]="zeroY()"
+      class="grouped-bars-zero"
+    />
+    <!-- y ticks -->
+    @for (tick of ticks(); track tick) {
+      <line
+        [attr.x1]="margin.left"
+        [attr.y1]="y(tick)"
+        [attr.x2]="width - margin.right"
+        [attr.y2]="y(tick)"
+        class="grouped-bars-grid"
+      />
+      <text [attr.x]="margin.left - 6" [attr.y]="y(tick) + 3" class="grouped-bars-tick">
+        {{ tickText(tick) }}
+      </text>
+    }
+    <!-- bars -->
+    @for (category of categories(); track $index; let ci = $index) {
+      @for (s of series(); track s.label; let si = $index) {
+        <rect
+          [attr.x]="x(ci, si)"
+          [attr.y]="s.values[ci] >= 0 ? y(s.values[ci]) : zeroY()"
+          [attr.width]="barWidth() - 1"
+          [attr.height]="barHeight(s.values[ci])"
+          [attr.fill]="s.color"
+          class="grouped-bars-bar"
+        >
+          <title>{{ category }} — {{ s.label }}: {{ s.values[ci].toFixed(4) }}</title>
+        </rect>
+      }
+      <text
+        [attr.x]="margin.left + ci * groupWidth() + groupWidth() / 2"
+        [attr.y]="height - 12"
+        class="grouped-bars-category"
+        text-anchor="middle"
+      >
+        {{ category }}
+      </text>
+    }
+  </svg>
+  <div class="grouped-bars-legend">
+    @for (s of series(); track s.label) {
+      <span><span class="grouped-bars-swatch" [style.background]="s.color"></span>{{ s.label }}</span>
+    }
+  </div>
+</figure>

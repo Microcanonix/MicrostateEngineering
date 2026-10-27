@@ -41,8 +41,8 @@
             Report for <code>{{ selectedMolecule.moleculeName }}</code>
           </div>
           <div class="card-body">
-            @if (selectedReportJson) {
-              <pre class="scientific-report-json mb-0">{{ selectedReportJson }}</pre>
+            @if (selectedMolecule.report) {
+              <app-molecule-report-explorer [report]="selectedMolecule.report" />
             } @else {
               <p class="text-body-secondary mb-0">No report data available for this molecule.</p>
             }
