@@ -406,6 +406,12 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
 
       const atomsByPos = new Map(atoms.map((a) => [a.pos, a]));
       for (const bond of bonds) {
+        // Bonds without a Mayer bond order are not chemical bonds (GAMESS did
+        // not print them in its bond-order output); keep them out of the 3D
+        // view.
+        if (typeof bond.BondOrder !== 'number') {
+          continue;
+        }
         const atom1 = atomsByPos.get(bond.Atom1Pos);
         const atom2 = atomsByPos.get(bond.Atom2Pos);
         if (!atom1 || !atom2) {
