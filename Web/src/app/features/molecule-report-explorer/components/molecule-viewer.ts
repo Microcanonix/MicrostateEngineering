@@ -492,7 +492,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
     const sprite = new THREE.Sprite(material);
     sprite.scale.set(0.42, (0.42 * canvas.height) / canvas.width, 1);
-    sprite.userData.isAtomLabel = true;
+    sprite.userData['isAtomLabel'] = true;
     return sprite;
   }
 
