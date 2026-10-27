@@ -24,11 +24,8 @@ import {
 } from '../services/molecule-report-explorer-state.service';
 import { MoleculeBondReport } from '../models/molecule-report.model';
 
-const ATOM_BASE_RADIUS = 0.17;
 const ATOM_SELECT_SCALE = 1.5;
-const BOND_BASE_RADIUS = 0.05;
 const BOND_MIN_RADIUS = 0.025;
-const BOND_MAX_RADIUS = 0.06;
 
 interface AtomMesh {
   mesh: THREE.Mesh;
@@ -55,6 +52,8 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   readonly bonds = input.required<MoleculeBondReport[]>();
   readonly atomColorMode = input.required<AtomColorMode>();
   readonly bondColorMode = input.required<BondColorMode>();
+  readonly atomRadius = input.required<number>();
+  readonly bondMaxRadius = input.required<number>();
   readonly selectedAtomId = input<string | null>(null);
   readonly hoveredAtomId = input<string | null>(null);
   readonly hoveredBondId = input<string | null>(null);
@@ -89,6 +88,8 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     effect(() => {
       this.atoms();
       this.bonds();
+      this.atomRadius();
+      this.bondMaxRadius();
       this.needsRebuild = true;
       this.requestRender();
     });
@@ -378,7 +379,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
       }
       centroid.divideScalar(atoms.length);
 
-      const atomGeometry = new THREE.SphereGeometry(ATOM_BASE_RADIUS, 24, 24);
+      const atomGeometry = new THREE.SphereGeometry(Math.max(this.atomRadius(), 0.01), 24, 24);
       for (const atom of atoms) {
         const color = this.currentAtomColor(atom);
         const material = new THREE.MeshStandardMaterial({ color });
@@ -432,7 +433,8 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   private bondRadius(bondOrder: number): number {
     const maxOrder = Math.max(...this.bonds().map((b) => b.BondOrder), 0.01);
     const normalized = Math.max(0, Math.min(1, bondOrder / maxOrder));
-    return BOND_MIN_RADIUS + (BOND_MAX_RADIUS - BOND_MIN_RADIUS) * normalized;
+    const max = Math.max(this.bondMaxRadius(), BOND_MIN_RADIUS);
+    return BOND_MIN_RADIUS + (max - BOND_MIN_RADIUS) * normalized;
   }
 
   private currentAtomColor(atom: AtomView): number {

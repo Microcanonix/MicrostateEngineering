@@ -39,6 +39,8 @@ export class MoleculeReportExplorer {
   readonly atomColorMode = this.state.atomColorMode;
   readonly bondColorMode = this.state.bondColorMode;
   readonly aoChartMode = this.state.aoChartMode;
+  readonly atomRadius = this.state.atomRadius;
+  readonly bondMaxRadius = this.state.bondMaxRadius;
 
   constructor() {
     effect(() => {
@@ -81,6 +83,14 @@ export class MoleculeReportExplorer {
 
   setAoChartMode(mode: AoChartMode): void {
     this.state.aoChartMode.set(mode);
+  }
+
+  setAtomRadius(value: number): void {
+    this.state.atomRadius.set(value);
+  }
+
+  setBondMaxRadius(value: number): void {
+    this.state.bondMaxRadius.set(value);
   }
 
   chargeClass(value: number): string {

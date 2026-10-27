@@ -102,6 +102,11 @@ export class MoleculeReportExplorerState {
   readonly bondColorMode = signal<BondColorMode>('none');
   readonly aoChartMode = signal<AoChartMode>('ground');
 
+  /** Atom marker radius (Angstrom), adjustable from the UI. */
+  readonly atomRadius = signal<number>(0.17);
+  /** Maximum bond cylinder radius (Angstrom), adjustable from the UI. */
+  readonly bondMaxRadius = signal<number>(0.06);
+
   readonly selectedAtomId = signal<string | null>(null);
   readonly hoveredAtomId = signal<string | null>(null);
   readonly hoveredBondId = signal<string | null>(null);
