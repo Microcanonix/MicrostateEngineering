@@ -107,6 +107,9 @@ export class MoleculeReportExplorerState {
   /** Maximum bond cylinder radius (Angstrom), adjustable from the UI. */
   readonly bondMaxRadius = signal<number>(0.06);
 
+  /** Whether atom labels (e.g. C1) are shown beside the spheres. */
+  readonly showAtomLabels = signal<boolean>(false);
+
   readonly selectedAtomId = signal<string | null>(null);
   readonly hoveredAtomId = signal<string | null>(null);
   readonly hoveredBondId = signal<string | null>(null);

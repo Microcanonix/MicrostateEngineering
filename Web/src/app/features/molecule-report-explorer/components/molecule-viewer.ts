@@ -54,6 +54,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   readonly bondColorMode = input.required<BondColorMode>();
   readonly atomRadius = input.required<number>();
   readonly bondMaxRadius = input.required<number>();
+  readonly showAtomLabels = input(false);
   readonly selectedAtomId = input<string | null>(null);
   readonly hoveredAtomId = input<string | null>(null);
   readonly hoveredBondId = input<string | null>(null);
@@ -83,6 +84,8 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   private lastHoverAtomId: string | null = null;
   private lastHoverBondId: string | null = null;
   private bondHighlight?: THREE.Mesh;
+  private labelSprites: THREE.Sprite[] = [];
+  private labelTextures: THREE.Texture[] = [];
 
   constructor() {
     effect(() => {
@@ -90,6 +93,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
       this.bonds();
       this.atomRadius();
       this.bondMaxRadius();
+      this.showAtomLabels();
       this.needsRebuild = true;
       this.requestRender();
     });
@@ -143,6 +147,11 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
         (object.material as THREE.Material).dispose();
       }
     });
+    for (const texture of this.labelTextures) {
+      texture.dispose();
+    }
+    this.labelTextures = [];
+    this.labelSprites = [];
   }
 
   private setupScene(): void {
@@ -371,6 +380,8 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     this.atomMeshes = [];
     this.bondMeshes = [];
     this.bondHighlight = undefined;
+    this.labelSprites = [];
+    this.labelTextures = [];
 
     if (atoms.length) {
       const centroid = new THREE.Vector3();
@@ -420,6 +431,19 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
       }
 
       this.applyBondHighlight(this.hoveredBondId());
+
+      if (this.showAtomLabels()) {
+        for (const atom of atoms) {
+          const sprite = this.createLabelSprite(atom.id);
+          sprite.position.set(
+            atom.position.PosX - centroid.x,
+            atom.position.PosY - centroid.y,
+            atom.position.PosZ - centroid.z + this.atomRadius() * 1.4,
+          );
+          group.add(sprite);
+          this.labelSprites.push(sprite);
+        }
+      }
     }
 
     this.atomGroup = group;
@@ -428,6 +452,48 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     this.applyAtomColors();
     this.applyBondColors();
     this.applyAtomHighlights(this.selectedAtomId(), this.hoveredAtomId());
+  }
+
+  private createLabelSprite(text: string): THREE.Sprite {
+    const canvas = document.createElement('canvas');
+    const fontPx = 48;
+    const context = canvas.getContext('2d')!;
+    context.font = `bold ${fontPx}px sans-serif`;
+    const width = Math.ceil(context.measureText(text).width) + 16;
+    canvas.width = width;
+    canvas.height = fontPx + 12;
+
+    const ctx = canvas.getContext('2d')!;
+    ctx.font = `bold ${fontPx}px sans-serif`;
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+    const padding = 6;
+    ctx.beginPath();
+    const radius = 10;
+    const x = padding;
+    const y = padding;
+    const w = canvas.width - 2 * padding;
+    const h = canvas.height - 2 * padding;
+    ctx.moveTo(x + radius, y);
+    ctx.arcTo(x + w, y, x + w, y + h, radius);
+    ctx.arcTo(x + w, y + h, x, y + h, radius);
+    ctx.arcTo(x, y + h, x, y, radius);
+    ctx.arcTo(x, y, x + w, y, radius);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#1e293b';
+    ctx.fillText(text, canvas.width / 2, canvas.height / 2 + 2);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    this.labelTextures.push(texture);
+
+    const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+    const sprite = new THREE.Sprite(material);
+    sprite.scale.set(0.42, (0.42 * canvas.height) / canvas.width, 1);
+    sprite.userData.isAtomLabel = true;
+    return sprite;
   }
 
   private bondRadius(bondOrder: number): number {
