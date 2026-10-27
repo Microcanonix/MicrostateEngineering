@@ -37,8 +37,16 @@
     <div class="col-lg-8">
       @if (selectedMolecule) {
         <div class="card shadow-sm">
-          <div class="card-header">
-            Report for <code>{{ selectedMolecule.moleculeName }}</code>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Report for <code>{{ selectedMolecule.moleculeName }}</code></span>
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm"
+              [disabled]="!selectedMolecule.report"
+              (click)="downloadSelectedReportJson()"
+            >
+              Download JSON
+            </button>
           </div>
           <div class="card-body">
             @if (selectedMolecule.report) {
