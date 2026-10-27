@@ -65,4 +65,26 @@ export class ScientificReport implements OnInit {
       this.selectedReportJson = String(molecule.report);
     }
   }
+
+  downloadSelectedReportJson(): void {
+    const molecule = this.selectedMolecule;
+    if (!molecule?.report) {
+      return;
+    }
+
+    try {
+      const json = JSON.stringify(molecule.report, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = `${this.name}-${molecule.moleculeName}-report.json`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download report JSON failed', error);
+      this.errorMessage = `Could not download the report JSON for "${molecule.moleculeName}".`;
+      this.changeDetector.markForCheck();
+    }
+  }
 }

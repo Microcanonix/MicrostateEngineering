@@ -98,7 +98,14 @@ export class MoleculeReportExplorer {
     this.state.showAtomLabels.set(checked);
   }
 
-  chargeClass(value: number): string {
+  formatNumber(value: number | null | undefined, decimals: number): string {
+    return typeof value === 'number' ? value.toFixed(decimals) : '—';
+  }
+
+  chargeClass(value: number | null | undefined): string {
+    if (typeof value !== 'number') {
+      return '';
+    }
     if (value > 0) {
       return 'text-primary';
     }
@@ -108,7 +115,10 @@ export class MoleculeReportExplorer {
     return '';
   }
 
-  frontierClass(value: number): string {
+  frontierClass(value: number | null | undefined): string {
+    if (typeof value !== 'number') {
+      return '';
+    }
     if (value > 0) {
       return 'mre-positive';
     }
