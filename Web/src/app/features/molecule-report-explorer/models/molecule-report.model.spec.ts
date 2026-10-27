@@ -46,6 +46,38 @@ describe('parseMoleculeReport', () => {
     expect(report).not.toBeNull();
   });
 
+  it('maps camelCase record fields onto the PascalCase convention', () => {
+    const report = parseMoleculeReport({
+      AtomPositionsReport: [
+        { moleculeName: 'ethanol', atomPosition: 1, atomSymbol: 'C', posX: 0.1, posY: 0.2, posZ: 0.3 },
+      ],
+      AtomChargeReport: [
+        { moleculeName: 'ethanol', atomID: 'C1', mullikenCharge: -0.5, lowdinCharge: -0.2, chelpGHCharge: -0.3, geoDiscCharge: -0.3 },
+      ],
+      AtomPopulationReport: [
+        { atomID: 'C1', mullikenPopulation: 6.5, mullikenPopulationHOMO: 0.1, mullikenPopulationLUMO: 0.2, lowdinPopulation: 6.2, lowdinPopulationHOMO: 0.05, lowdinPopulationLUMO: 0.1 },
+      ],
+      AtomOrbitalReport: [
+        { atomID: 'C1', mullikenPopulation: 6.5, electronConfiguration: 'S(1.0)', electronConfigurationHOMO: 'S(0.1)', electronConfigurationLUMO: 'S(0.2)', electronFractionConfiguration: 'S(1.0)' },
+      ],
+      MoleculeBondsReport: [
+        { moleculeName: 'ethanol', atom1Pos: 1, atom2Pos: 2, bondID: 'C1-H2', distance: 1.09, bondOrder: 0.9, overlapPopulation: 0.37, overlapPopulationHOMO: 0.01, overlapPopulationLUMO: -0.004 },
+      ],
+    });
+
+    expect(report).not.toBeNull();
+    expect(report!.AtomPositionsReport[0].AtomSymbol).toBe('C');
+    expect(report!.AtomPositionsReport[0].AtomPosition).toBe(1);
+    expect(report!.AtomChargeReport[0].AtomID).toBe('C1');
+    expect(report!.AtomChargeReport[0].MullikenCharge).toBe(-0.5);
+    expect(report!.AtomChargeReport[0].CHelpGHCharge).toBe(-0.3);
+    expect(report!.AtomPopulationReport[0].MullikenPopulationHOMO).toBe(0.1);
+    expect(report!.AtomOrbitalReport[0].ElectronConfiguration).toBe('S(1.0)');
+    expect(report!.MoleculeBondsReport[0].BondID).toBe('C1-H2');
+    expect(report!.MoleculeBondsReport[0].Atom1Pos).toBe(1);
+    expect(report!.MoleculeBondsReport[0].OverlapPopulationLUMO).toBe(-0.004);
+  });
+
   it('returns null for objects without the expected shape', () => {
     expect(parseMoleculeReport(null)).toBeNull();
     expect(parseMoleculeReport({ unrelated: [] })).toBeNull();

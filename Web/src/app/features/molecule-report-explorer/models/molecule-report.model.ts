@@ -63,10 +63,84 @@ const SECTION_KEYS: Record<string, { pascal: string; camel: string }> = {
   MoleculeBondsReport: { pascal: 'MoleculeBondsReport', camel: 'moleculeBondsReport' },
 };
 
+/** Field names per section, in the PascalCase report-file convention. */
+const SECTION_FIELDS: Record<string, string[]> = {
+  AtomPositionsReport: ['MoleculeName', 'AtomPosition', 'AtomSymbol', 'PosX', 'PosY', 'PosZ'],
+  AtomChargeReport: ['MoleculeName', 'AtomID', 'MullikenCharge', 'LowdinCharge', 'CHelpGHCharge', 'GeoDiscCharge'],
+  AtomPopulationReport: [
+    'AtomID',
+    'MullikenPopulation',
+    'MullikenPopulationHOMO',
+    'MullikenPopulationLUMO',
+    'LowdinPopulation',
+    'LowdinPopulationHOMO',
+    'LowdinPopulationLUMO',
+  ],
+  AtomOrbitalReport: [
+    'AtomID',
+    'MullikenPopulation',
+    'ElectronFractionConfiguration',
+    'ElectronConfiguration',
+    'ElectronConfigurationHOMO',
+    'ElectronConfigurationLUMO',
+  ],
+  MoleculeBondsReport: [
+    'MoleculeName',
+    'Atom1Pos',
+    'Atom2Pos',
+    'BondID',
+    'Distance',
+    'BondOrder',
+    'OverlapPopulation',
+    'OverlapPopulationHOMO',
+    'OverlapPopulationLUMO',
+  ],
+};
+
+/**
+ * Normalizes a section of raw records: keeps objects that already use the
+ * PascalCase convention untouched and maps camelCase records (ASP.NET Core
+ * JSON serialization, e.g. "atomID", "chelpGHCharge") onto the PascalCase
+ * field names. Matching is case-insensitive so any serializer convention
+ * maps correctly.
+ */
+function normalizeSection<T>(section: unknown[], fields: string[]): T[] {
+  return section.map((record) => {
+    if (!record || typeof record !== 'object') {
+      return record as T;
+    }
+
+    const source = record as Record<string, unknown>;
+    // lowercase key -> original key in the raw record
+    const byLowercase = new Map<string, string>();
+    for (const key of Object.keys(source)) {
+      if (!byLowercase.has(key.toLowerCase())) {
+        byLowercase.set(key.toLowerCase(), key);
+      }
+    }
+
+    const normalized: Record<string, unknown> = {};
+    for (const field of fields) {
+      const originalKey = byLowercase.get(field.toLowerCase());
+      if (originalKey !== undefined) {
+        normalized[field] = source[originalKey];
+      }
+    }
+    // Preserve any fields not explicitly listed.
+    for (const [key, value] of Object.entries(source)) {
+      if (!(key.toLowerCase() in normalized) && !fields.some((f) => f.toLowerCase() === key.toLowerCase())) {
+        normalized[key] = value;
+      }
+    }
+    return normalized as T;
+  });
+}
+
 /**
  * Accepts a raw report object with either PascalCase (report file convention)
- * or camelCase (ASP.NET Core JSON serialization) section keys and returns a
- * normalized MoleculeReportData, or null if the object is not of this shape.
+ * or camelCase (ASP.NET Core JSON serialization) section and field names and
+ * returns a normalized MoleculeReportData, or null if the object is not of
+ * this shape.
  */
 export function parseMoleculeReport(raw: unknown): MoleculeReportData | null {
   if (!raw || typeof raw !== 'object') {
@@ -74,22 +148,44 @@ export function parseMoleculeReport(raw: unknown): MoleculeReportData | null {
   }
 
   const source = raw as Record<string, unknown>;
-  const sections: Record<string, unknown[]> = {};
 
-  for (const [canonical, keys] of Object.entries(SECTION_KEYS)) {
+  const readSection = (canonical: string): unknown[] | null => {
+    const keys = SECTION_KEYS[canonical];
     const section = source[keys.pascal] ?? source[keys.camel];
-    if (!Array.isArray(section)) {
-      return null;
-    }
-    sections[canonical] = section;
+    return Array.isArray(section) ? section : null;
+  };
+
+  const positions = readSection('AtomPositionsReport');
+  const charges = readSection('AtomChargeReport');
+  const populations = readSection('AtomPopulationReport');
+  const orbitals = readSection('AtomOrbitalReport');
+  const bonds = readSection('MoleculeBondsReport');
+
+  if (!positions || !charges || !populations || !orbitals || !bonds) {
+    return null;
   }
 
   return {
-    AtomPositionsReport: sections['AtomPositionsReport'] as AtomPositionReport[],
-    AtomChargeReport: sections['AtomChargeReport'] as AtomChargeReport[],
-    AtomPopulationReport: sections['AtomPopulationReport'] as AtomPopulationReport[],
-    AtomOrbitalReport: sections['AtomOrbitalReport'] as AtomOrbitalReport[],
-    MoleculeBondsReport: sections['MoleculeBondsReport'] as MoleculeBondReport[],
+    AtomPositionsReport: normalizeSection<AtomPositionReport>(
+      positions,
+      SECTION_FIELDS['AtomPositionsReport'],
+    ),
+    AtomChargeReport: normalizeSection<AtomChargeReport>(
+      charges,
+      SECTION_FIELDS['AtomChargeReport'],
+    ),
+    AtomPopulationReport: normalizeSection<AtomPopulationReport>(
+      populations,
+      SECTION_FIELDS['AtomPopulationReport'],
+    ),
+    AtomOrbitalReport: normalizeSection<AtomOrbitalReport>(
+      orbitals,
+      SECTION_FIELDS['AtomOrbitalReport'],
+    ),
+    MoleculeBondsReport: normalizeSection<MoleculeBondReport>(
+      bonds,
+      SECTION_FIELDS['MoleculeBondsReport'],
+    ),
   };
 }
 

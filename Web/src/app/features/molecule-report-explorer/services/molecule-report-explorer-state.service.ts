@@ -259,8 +259,8 @@ export class MoleculeReportExplorerState {
   }
 }
 
-function atomPositionFromId(atomId: string): number {
-  const match = atomId.match(/(?:\d+)$/);
+function atomPositionFromId(atomId: string | null | undefined): number {
+  const match = atomId?.match(/(?:\d+)$/);
   return match ? Number(match[0]) : -1;
 }
 
