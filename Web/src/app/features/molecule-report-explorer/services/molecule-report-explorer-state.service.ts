@@ -148,6 +148,7 @@ export class MoleculeReportExplorerState {
 
     const chips: VerificationChip[] = [];
     const tol = 0.005;
+    const num = (value: unknown): number | null => (typeof value === 'number' ? value : null);
     const fmt = (v: number) => v.toFixed(4);
 
     const chargeSchemes: { key: keyof AtomChargeReport; label: string }[] = [
@@ -186,7 +187,6 @@ export class MoleculeReportExplorerState {
 
     const positions = new Map(report.AtomPositionsReport.map((p) => [p.AtomPosition, p]));
     const atomicNumbers: Record<string, number> = { H: 1, C: 6, N: 7, O: 8 };
-    const num = (value: unknown): number | null => (typeof value === 'number' ? value : null);
     const neutrality = (populationKey: 'MullikenPopulation' | 'LowdinPopulation', label: string): void => {
       let maxDeviation = 0;
       let worst = '';
