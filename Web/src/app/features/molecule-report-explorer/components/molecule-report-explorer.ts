@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { MoleculeReportData, parseMoleculeReport } from '../models/molecule-report.model';
 import {
   ATOM_COLOR_MODES,
@@ -41,6 +51,11 @@ export class MoleculeReportExplorer {
   readonly atomRadius = this.state.atomRadius;
   readonly bondMaxRadius = this.state.bondMaxRadius;
   readonly showAtomLabels = this.state.showAtomLabels;
+
+  /** Whether the 3D row (atom table + viewer) is in fullscreen. */
+  readonly rowFullscreen = signal(false);
+
+  private readonly rowElement = viewChild<ElementRef<HTMLElement>>('mreThreeDRow');
 
   constructor() {
     effect(() => {
@@ -95,6 +110,23 @@ export class MoleculeReportExplorer {
 
   toggleAtomLabels(checked: boolean): void {
     this.state.showAtomLabels.set(checked);
+  }
+
+  toggleRowFullscreen(): void {
+    const element = this.rowElement()?.nativeElement;
+    if (!element) {
+      return;
+    }
+
+    if (document.fullscreenElement === element) {
+      void document.exitFullscreen().catch(() => undefined);
+    } else {
+      void element.requestFullscreen().catch(() => undefined);
+    }
+  }
+
+  onRowFullscreenChange(): void {
+    this.rowFullscreen.set(!!document.fullscreenElement);
   }
 
   formatNumber(value: number | null | undefined, decimals: number): string {

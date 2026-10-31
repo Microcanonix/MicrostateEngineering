@@ -20,7 +20,12 @@
 </div>
 
 <!-- 3D row: atom table left, viewer right -->
-<div class="row g-3 mb-4">
+<div
+  #mreThreeDRow
+  class="row g-3 mb-4 mre-3d-row"
+  [class.mre-3d-row-fullscreen]="rowFullscreen()"
+  (fullscreenchange)="onRowFullscreenChange()"
+>
   <div class="col-lg-4">
     <div class="card shadow-sm h-100">
       <div class="card-header py-2">Atoms</div>
@@ -120,6 +125,15 @@
             />
             <label class="form-check-label small fw-semibold" for="atomLabelsSwitch">Atom labels</label>
           </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+            (click)="toggleRowFullscreen()"
+          >
+            {{ rowFullscreen() ? 'Exit fullscreen' : 'Fullscreen' }}
+          </button>
         </div>
       </div>
       <div class="card-body p-2 mre-viewer-body">
