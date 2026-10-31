@@ -7,6 +7,14 @@
   min-height: 0;
 }
 
+/* The report column determines the row height; make the molecule card
+   stretch to match it (d-flex on the column, h-100 on the card) and keep
+   the list scrollable inside. */
+
+.card {
+  min-height: 100%;
+}
+
 .scientific-report-json {
   max-height: 70vh;
   overflow: auto;
