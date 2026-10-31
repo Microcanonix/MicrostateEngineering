@@ -165,32 +165,6 @@
   </div>
 </div>
 
-<!-- Comparison charts -->
-<div class="row g-3 mb-4">
-  <div class="col-xl-6">
-    <div class="card shadow-sm h-100">
-      <div class="card-body">
-        <app-grouped-bars
-          title="Charge schemes per atom"
-          [categories]="atomCategories()"
-          [series]="chargeSeries()"
-        />
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-6">
-    <div class="card shadow-sm h-100">
-      <div class="card-body">
-        <app-grouped-bars
-          title="HOMO / LUMO shares per atom"
-          [categories]="atomCategories()"
-          [series]="shareSeries()"
-        />
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Bonds table -->
 <div class="card shadow-sm mb-4">
   <div class="card-header py-2">Bonds</div>
