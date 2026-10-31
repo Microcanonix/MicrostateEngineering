@@ -43,9 +43,11 @@
   background: #e0f2fe;
 }
 
-.mre-row-selected {
-  background: #bae6fd;
+.mre-row-selected,
+.table-hover .mre-row-selected:hover {
+  background: #7dd3fc;
   font-weight: 600;
+  box-shadow: inset 3px 0 0 0 #0284c7;
 }
 
 .mre-positive {
