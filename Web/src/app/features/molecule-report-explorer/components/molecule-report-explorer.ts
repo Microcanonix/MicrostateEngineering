@@ -9,14 +9,13 @@ import {
 } from '../services/molecule-report-explorer-state.service';
 import { MoleculeViewer } from './molecule-viewer';
 import { AoConfigChart } from './ao-config-chart';
-import { GroupedBars, GroupedBarSeries } from './grouped-bars';
 
 @Component({
   selector: 'app-molecule-report-explorer',
   templateUrl: './molecule-report-explorer.html',
   styleUrl: './molecule-report-explorer.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MoleculeViewer, AoConfigChart, GroupedBars],
+  imports: [MoleculeViewer, AoConfigChart],
   providers: [MoleculeReportExplorerState],
 })
 export class MoleculeReportExplorer {
@@ -128,15 +127,5 @@ export class MoleculeReportExplorer {
     return '';
   }
 
-  readonly shareSeries = computed<GroupedBarSeries[]>(() => {
-    const atoms = this.atoms();
-    return [
-      { label: 'HOMO (Mulliken)', color: '#4169e1', values: atoms.map((a) => a.population?.MullikenPopulationHOMO ?? 0) },
-      { label: 'LUMO (Mulliken)', color: '#d64545', values: atoms.map((a) => a.population?.MullikenPopulationLUMO ?? 0) },
-      { label: 'HOMO (Lowdin)', color: '#7c9ef0', values: atoms.map((a) => a.population?.LowdinPopulationHOMO ?? 0) },
-      { label: 'LUMO (Lowdin)', color: '#f0a08a', values: atoms.map((a) => a.population?.LowdinPopulationLUMO ?? 0) },
-    ];
-  });
 
-  readonly atomCategories = computed(() => this.atoms().map((a) => a.id));
 }
