@@ -24,6 +24,8 @@ export class ScientificReport implements OnInit {
   loading = false;
   errorMessage = '';
   moleculesExpanded = true;
+  moleculeFilter = '';
+  filteredMolecules: MoleculeScientificReport[] = [];
 
   ngOnInit(): void {
     this.name = this.route.snapshot.paramMap.get('name') ?? '';
@@ -39,8 +41,9 @@ export class ScientificReport implements OnInit {
       next: (report) => {
         this.report = report ?? undefined;
         this.loading = false;
-        if (this.report?.moleculeReports.length) {
-          this.selectMolecule(this.report.moleculeReports[0]);
+        this.applyMoleculeFilter();
+        if (this.filteredMolecules.length) {
+          this.selectMolecule(this.filteredMolecules[0]);
         }
         this.changeDetector.markForCheck();
       },
@@ -59,6 +62,20 @@ export class ScientificReport implements OnInit {
   toggleMolecules(): void {
     this.moleculesExpanded = !this.moleculesExpanded;
     this.changeDetector.markForCheck();
+  }
+
+  setMoleculeFilter(filter: string): void {
+    this.moleculeFilter = filter;
+    this.applyMoleculeFilter();
+    this.changeDetector.markForCheck();
+  }
+
+  private applyMoleculeFilter(): void {
+    const molecules = this.report?.moleculeReports ?? [];
+    const needle = this.moleculeFilter.trim().toLowerCase();
+    this.filteredMolecules = needle
+      ? molecules.filter((molecule) => molecule.moleculeName.toLowerCase().includes(needle))
+      : molecules;
   }
 
   selectMolecule(molecule: MoleculeScientificReport): void {
