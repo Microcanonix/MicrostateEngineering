@@ -23,6 +23,7 @@ export class ScientificReport implements OnInit {
   selectedReportJson = '';
   loading = false;
   errorMessage = '';
+  moleculesExpanded = true;
 
   ngOnInit(): void {
     this.name = this.route.snapshot.paramMap.get('name') ?? '';
@@ -53,6 +54,11 @@ export class ScientificReport implements OnInit {
         this.changeDetector.markForCheck();
       },
     });
+  }
+
+  toggleMolecules(): void {
+    this.moleculesExpanded = !this.moleculesExpanded;
+    this.changeDetector.markForCheck();
   }
 
   selectMolecule(molecule: MoleculeScientificReport): void {
