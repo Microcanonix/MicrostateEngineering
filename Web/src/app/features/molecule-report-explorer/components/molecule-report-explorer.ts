@@ -128,16 +128,6 @@ export class MoleculeReportExplorer {
     return '';
   }
 
-  readonly chargeSeries = computed<GroupedBarSeries[]>(() => {
-    const atoms = this.atoms();
-    return [
-      { label: 'Mulliken', color: '#4169e1', values: atoms.map((a) => a.charge?.MullikenCharge ?? 0) },
-      { label: 'Lowdin', color: '#7c9ef0', values: atoms.map((a) => a.charge?.LowdinCharge ?? 0) },
-      { label: 'CHelpG(H)', color: '#d98a2b', values: atoms.map((a) => a.charge?.CHelpGHCharge ?? 0) },
-      { label: 'GeoDisc', color: '#d64545', values: atoms.map((a) => a.charge?.GeoDiscCharge ?? 0) },
-    ];
-  });
-
   readonly shareSeries = computed<GroupedBarSeries[]>(() => {
     const atoms = this.atoms();
     return [
