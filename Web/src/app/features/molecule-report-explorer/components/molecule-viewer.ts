@@ -27,6 +27,20 @@ import { MoleculeBondReport } from '../models/molecule-report.model';
 const ATOM_SELECT_SCALE = 1.5;
 const BOND_MIN_RADIUS = 0.025;
 
+/** Number of parallel cylinders to draw for a bond: 1 single, 2 double, 3 triple. */
+function bondMultiplicity(bondOrder: number | null): number {
+  if (typeof bondOrder !== 'number') {
+    return 1;
+  }
+  if (bondOrder >= 2.5) {
+    return 3;
+  }
+  if (bondOrder >= 1.5) {
+    return 2;
+  }
+  return 1;
+}
+
 interface AtomMesh {
   mesh: THREE.Mesh;
   atom: AtomView;
@@ -34,7 +48,8 @@ interface AtomMesh {
 }
 
 interface BondMesh {
-  mesh: THREE.Mesh;
+  /** All cylinders of the bond (2 for a double, 3 for a triple bond). */
+  meshes: THREE.Mesh[];
   bond: MoleculeBondReport;
 }
 
@@ -62,6 +77,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   readonly atomHovered = output<string | null>();
   readonly atomClicked = output<string>();
   readonly bondHovered = output<string | null>();
+  readonly bondClicked = output<string>();
 
   @ViewChild('canvasHost', { static: true })
   canvasHost!: ElementRef<HTMLElement>;
@@ -83,7 +99,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   private hoverTarget: 'atom' | 'bond' | null = null;
   private lastHoverAtomId: string | null = null;
   private lastHoverBondId: string | null = null;
-  private bondHighlight?: THREE.Mesh;
+  private bondHighlightMeshes: THREE.Mesh[] = [];
   private labelSprites: THREE.Sprite[] = [];
   private labelTextures: THREE.Texture[] = [];
 
@@ -273,7 +289,10 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     this.raycaster.setFromCamera(this.pointer, this.camera);
 
     const atomHits = this.raycaster.intersectObjects(this.atomMeshes.map((a) => a.mesh), false);
-    const bondHits = this.raycaster.intersectObjects(this.bondMeshes.map((b) => b.mesh), false);
+    const bondHits = this.raycaster.intersectObjects(
+      this.bondMeshes.flatMap((b) => b.meshes),
+      false,
+    );
 
     let newAtomId: string | null = null;
     let newBondId: string | null = null;
@@ -284,7 +303,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
       this.hoverTarget = 'atom';
     } else if (bondHits.length) {
       const mesh = bondHits[0].object as THREE.Mesh;
-      newBondId = this.bondMeshes.find((b) => b.mesh === mesh)?.bond.BondID ?? null;
+      newBondId = this.bondMeshes.find((b) => b.meshes.includes(mesh))?.bond.BondID ?? null;
       this.hoverTarget = 'bond';
     } else {
       this.hoverTarget = null;
@@ -310,6 +329,12 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     const atomId = this.lastHoverAtomId ?? this.hoveredAtomIdFromTarget();
     if (atomId) {
       this.zone.run(() => this.atomClicked.emit(atomId));
+      return;
+    }
+
+    const bondId = this.hoverTarget === 'bond' ? this.lastHoverBondId : null;
+    if (bondId) {
+      this.zone.run(() => this.bondClicked.emit(bondId));
     }
   }
 
@@ -379,7 +404,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
 
     this.atomMeshes = [];
     this.bondMeshes = [];
-    this.bondHighlight = undefined;
+    this.bondHighlightMeshes = [];
     this.labelSprites = [];
     this.labelTextures = [];
 
@@ -427,13 +452,32 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
         const length = direction.length();
         const radius = this.bondRadius(bond.BondOrder);
 
-        const geometry = new THREE.CylinderGeometry(radius, radius, length, 20);
-        const material = new THREE.MeshStandardMaterial({ color: this.currentBondColor(bond) });
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(start).add(end).multiplyScalar(0.5);
-        mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
-        group.add(mesh);
-        this.bondMeshes.push({ mesh, bond });
+        // Render double/triple bonds as parallel cylinders (perpendicular
+        // offset around the bond axis), like a classic ball-and-stick model.
+        const cylinderCount = bondMultiplicity(bond.BondOrder);
+        const unit = direction.clone().normalize();
+        // Any vector perpendicular to the bond axis for the offset direction.
+        const perpendicular = Math.abs(unit.z) < 0.9
+          ? new THREE.Vector3(0, 0, 1).cross(unit).normalize()
+          : new THREE.Vector3(1, 0, 0).cross(unit).normalize();
+        const spacing = radius * 2.2;
+
+        const meshes: THREE.Mesh[] = [];
+        for (let i = 0; i < cylinderCount; i++) {
+          const offsetIndex = cylinderCount === 1 ? 0 : i - (cylinderCount - 1) / 2;
+          const offset = perpendicular.clone().multiplyScalar(offsetIndex * spacing);
+          const perCylinderRadius = cylinderCount === 1 ? radius : radius * 0.6;
+
+          const geometry = new THREE.CylinderGeometry(perCylinderRadius, perCylinderRadius, length, 20);
+          const material = new THREE.MeshStandardMaterial({ color: this.currentBondColor(bond) });
+          const mesh = new THREE.Mesh(geometry, material);
+          const midpoint = start.clone().add(end).multiplyScalar(0.5);
+          mesh.position.copy(midpoint).add(offset);
+          mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), unit);
+          group.add(mesh);
+          meshes.push(mesh);
+        }
+        this.bondMeshes.push({ meshes, bond });
       }
 
       this.applyBondHighlight(this.hoveredBondId());
@@ -558,7 +602,9 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   private applyBondColors(): void {
     for (const entry of this.bondMeshes) {
       const color = this.currentBondColor(entry.bond);
-      (entry.mesh.material as THREE.MeshStandardMaterial).color.setHex(color);
+      for (const mesh of entry.meshes) {
+        (mesh.material as THREE.MeshStandardMaterial).color.setHex(color);
+      }
     }
   }
 
@@ -576,9 +622,10 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   }
 
   private applyBondHighlight(hoveredBondId: string | null): void {
-    if (this.bondHighlight) {
-      this.bondHighlight.visible = false;
+    for (const mesh of this.bondHighlightMeshes) {
+      mesh.visible = false;
     }
+    this.bondHighlightMeshes = [];
     if (!hoveredBondId || !this.atomGroup) {
       return;
     }
@@ -588,26 +635,24 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
       return;
     }
 
-    if (!this.bondHighlight) {
-      this.bondHighlight = new THREE.Mesh(
-        new THREE.CylinderGeometry(1, 1, 1, 12, 1, true),
+    for (const mesh of entry.meshes) {
+      const params = mesh.geometry as THREE.CylinderGeometry;
+      const highlight = new THREE.Mesh(
+        new THREE.CylinderGeometry(
+          params.parameters.radiusTop * 1.4,
+          params.parameters.radiusBottom * 1.4,
+          params.parameters.height,
+          12,
+          1,
+          true,
+        ),
         new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.35 }),
       );
-      this.atomGroup.add(this.bondHighlight);
+      highlight.position.copy(mesh.position);
+      highlight.quaternion.copy(mesh.quaternion);
+      this.atomGroup.add(highlight);
+      this.bondHighlightMeshes.push(highlight);
     }
-
-    const params = entry.mesh.geometry as THREE.CylinderGeometry;
-    this.bondHighlight.geometry = new THREE.CylinderGeometry(
-      params.parameters.radiusTop * 1.25,
-      params.parameters.radiusBottom * 1.25,
-      params.parameters.height,
-      12,
-      1,
-      true,
-    );
-    this.bondHighlight.position.copy(entry.mesh.position);
-    this.bondHighlight.quaternion.copy(entry.mesh.quaternion);
-    this.bondHighlight.visible = true;
   }
 
   readonly legend = computed(() => {

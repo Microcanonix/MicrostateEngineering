@@ -151,6 +151,7 @@
           (atomHovered)="onAtomHovered($event)"
           (atomClicked)="onAtomClicked($event)"
           (bondHovered)="onBondHovered($event)"
+          (bondClicked)="onBondClicked($event)"
         />
       </div>
     </div>
@@ -198,8 +199,10 @@
         @for (bond of bonds(); track bond.BondID) {
           <tr
             [class.mre-row-hovered]="hoveredBondId() === bond.BondID"
+            [class.mre-row-bond-selected]="selectedBondId() === bond.BondID"
             (mouseenter)="onBondHovered(bond.BondID)"
             (mouseleave)="onBondHovered(null)"
+            (click)="onBondClicked(bond.BondID)"
           >
             <td class="fw-semibold">{{ bond.BondID }}</td>
             <td class="text-end">{{ formatNumber(bond.Distance, 3) }}</td>

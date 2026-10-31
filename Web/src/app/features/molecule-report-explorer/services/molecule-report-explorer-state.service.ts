@@ -115,6 +115,8 @@ export class MoleculeReportExplorerState {
   private readonly lastSelectedAtomId = signal<string | null>(null);
   readonly hoveredAtomId = signal<string | null>(null);
   readonly hoveredBondId = signal<string | null>(null);
+  /** Bond selected by clicking it in the 3D view (highlight in the bonds table). */
+  readonly selectedBondId = signal<string | null>(null);
 
   /** Atom shown in the AO chart: last selected atom, else hovered atom. */
   readonly aoChartAtom = computed<AtomView | null>(() => {
@@ -137,6 +139,7 @@ export class MoleculeReportExplorerState {
     this.lastSelectedAtomId.set(null);
     this.hoveredAtomId.set(null);
     this.hoveredBondId.set(null);
+    this.selectedBondId.set(null);
   }
 
   /** Toggles an atom in the multi-selection; returns the new selection size. */
@@ -149,6 +152,10 @@ export class MoleculeReportExplorerState {
     }
     this.selectedAtomIds.set(current);
     this.lastSelectedAtomId.set(current.has(id) ? id : null);
+  }
+
+  selectBond(id: string): void {
+    this.selectedBondId.set(this.selectedBondId() === id ? null : id);
   }
 
   private computeVerification(): VerificationResult {
