@@ -39,7 +39,7 @@ export class MoleculeReportExplorer {
   readonly atoms = this.state.atoms;
   readonly bonds = this.state.bonds;
   readonly moleculeName = this.state.moleculeName;
-  readonly selectedAtomId = this.state.selectedAtomId;
+  readonly selectedAtomIds = this.state.selectedAtomIds;
   readonly hoveredAtomId = this.state.hoveredAtomId;
   readonly hoveredBondId = this.state.hoveredBondId;
   readonly aoChartAtom = this.state.aoChartAtom;

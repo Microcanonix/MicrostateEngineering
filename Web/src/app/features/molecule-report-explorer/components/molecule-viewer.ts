@@ -55,7 +55,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   readonly atomRadius = input.required<number>();
   readonly bondMaxRadius = input.required<number>();
   readonly showAtomLabels = input(false);
-  readonly selectedAtomId = input<string | null>(null);
+  readonly selectedAtomIds = input<ReadonlySet<string>>(new Set());
   readonly hoveredAtomId = input<string | null>(null);
   readonly hoveredBondId = input<string | null>(null);
 
@@ -113,7 +113,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     });
 
     effect(() => {
-      const selected = this.selectedAtomId();
+      const selected = this.selectedAtomIds();
       const hovered = this.hoveredAtomId();
       this.applyAtomHighlights(selected, hovered);
       this.requestRender();
@@ -457,7 +457,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
 
     this.applyAtomColors();
     this.applyBondColors();
-    this.applyAtomHighlights(this.selectedAtomId(), this.hoveredAtomId());
+    this.applyAtomHighlights(this.selectedAtomIds(), this.hoveredAtomId());
   }
 
   private createLabelSprite(text: string): THREE.Sprite {
@@ -562,9 +562,9 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     }
   }
 
-  private applyAtomHighlights(selected: string | null, hovered: string | null): void {
+  private applyAtomHighlights(selected: ReadonlySet<string>, hovered: string | null): void {
     for (const entry of this.atomMeshes) {
-      const isSelected = entry.atom.id === selected;
+      const isSelected = selected.has(entry.atom.id);
       const isHovered = entry.atom.id === hovered;
 
       const material = entry.mesh.material as THREE.MeshStandardMaterial;

@@ -110,13 +110,15 @@ export class MoleculeReportExplorerState {
   /** Whether atom labels (e.g. C1) are shown beside the spheres. */
   readonly showAtomLabels = signal<boolean>(false);
 
-  readonly selectedAtomId = signal<string | null>(null);
+  /** Currently selected atoms (multi-select); the last one added drives the AO chart. */
+  readonly selectedAtomIds = signal<ReadonlySet<string>>(new Set());
+  private readonly lastSelectedAtomId = signal<string | null>(null);
   readonly hoveredAtomId = signal<string | null>(null);
   readonly hoveredBondId = signal<string | null>(null);
 
-  /** Atom shown in the AO chart: selected atom, else hovered atom. */
+  /** Atom shown in the AO chart: last selected atom, else hovered atom. */
   readonly aoChartAtom = computed<AtomView | null>(() => {
-    const selected = this.selectedAtomId();
+    const selected = this.lastSelectedAtomId();
     if (selected) {
       return this.atoms().find((a) => a.id === selected) ?? null;
     }
@@ -131,13 +133,22 @@ export class MoleculeReportExplorerState {
 
   setReport(report: MoleculeReportData | null): void {
     this.report.set(report);
-    this.selectedAtomId.set(null);
+    this.selectedAtomIds.set(new Set());
+    this.lastSelectedAtomId.set(null);
     this.hoveredAtomId.set(null);
     this.hoveredBondId.set(null);
   }
 
+  /** Toggles an atom in the multi-selection; returns the new selection size. */
   selectAtom(id: string): void {
-    this.selectedAtomId.set(this.selectedAtomId() === id ? null : id);
+    const current = new Set(this.selectedAtomIds());
+    if (current.has(id)) {
+      current.delete(id);
+    } else {
+      current.add(id);
+    }
+    this.selectedAtomIds.set(current);
+    this.lastSelectedAtomId.set(current.has(id) ? id : null);
   }
 
   private computeVerification(): VerificationResult {
