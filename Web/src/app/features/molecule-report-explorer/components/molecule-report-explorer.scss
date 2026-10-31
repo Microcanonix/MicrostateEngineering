@@ -39,13 +39,22 @@
   cursor: pointer;
 }
 
-.mre-row-hovered {
-  background: #e0f2fe;
+.mre-row-hovered > * {
+  --bs-table-bg-state: #e0f2fe;
 }
 
-.mre-row-selected {
-  background: #bae6fd;
+/* Bootstrap paints the table cells, not the row: set the cell background
+   via Bootstrap's own state variable so it wins over the defaults. */
+.mre-row-selected > *,
+.table-hover .mre-row-selected:hover > * {
+  --bs-table-bg-state: #7dd3fc;
   font-weight: 600;
+}
+
+.mre-row-selected > :first-child {
+  box-shadow:
+    inset 3px 0 0 0 #0284c7,
+    inset 0 0 0 9999px var(--bs-table-bg-state, #7dd3fc);
 }
 
 .mre-positive {
