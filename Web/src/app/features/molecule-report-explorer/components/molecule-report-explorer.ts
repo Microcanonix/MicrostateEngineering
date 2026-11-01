@@ -42,6 +42,7 @@ export class MoleculeReportExplorer {
   readonly selectedAtomIds = this.state.selectedAtomIds;
   readonly hoveredAtomId = this.state.hoveredAtomId;
   readonly hoveredBondId = this.state.hoveredBondId;
+  readonly selectedBondIds = this.state.selectedBondIds;
   readonly aoChartAtom = this.state.aoChartAtom;
   readonly verificationChips = computed(() => this.state.verification().chips);
 
@@ -74,6 +75,10 @@ export class MoleculeReportExplorer {
 
   onBondHovered(id: string | null): void {
     this.state.hoveredBondId.set(id);
+  }
+
+  onBondClicked(id: string): void {
+    this.state.selectBond(id);
   }
 
   onAtomRowHover(atomId: string | null): void {
