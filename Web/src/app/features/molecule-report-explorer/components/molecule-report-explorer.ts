@@ -8,6 +8,7 @@ import {
   input,
   signal,
   viewChild,
+  viewChildren,
 } from '@angular/core';
 import { MoleculeReportData, parseMoleculeReport } from '../models/molecule-report.model';
 import {
@@ -57,11 +58,26 @@ export class MoleculeReportExplorer {
   readonly rowFullscreen = signal(false);
 
   private readonly rowElement = viewChild<ElementRef<HTMLElement>>('mreThreeDRow');
+  private readonly atomRowElements = viewChildren<ElementRef<HTMLElement>>('atomRow');
 
   constructor() {
     effect(() => {
       const normalized = parseMoleculeReport(this.report());
       this.state.setReport(normalized);
+    });
+
+    // Scroll the last-selected atom's row into view (selection may come from
+    // the 3D view or the table itself).
+    effect(() => {
+      const lastSelected = this.state.lastSelectedAtomId();
+      if (!lastSelected) {
+        return;
+      }
+
+      const row = this.atomRowElements().find(
+        (element) => element.nativeElement.dataset['atomId'] === lastSelected,
+      );
+      row?.nativeElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     });
   }
 

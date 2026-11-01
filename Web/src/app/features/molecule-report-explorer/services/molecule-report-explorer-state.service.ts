@@ -112,7 +112,8 @@ export class MoleculeReportExplorerState {
 
   /** Currently selected atoms (multi-select); the last one added drives the AO chart. */
   readonly selectedAtomIds = signal<ReadonlySet<string>>(new Set());
-  private readonly lastSelectedAtomId = signal<string | null>(null);
+  /** Atom selected last (drives the AO chart and table scrolling). */
+  readonly lastSelectedAtomId = signal<string | null>(null);
   readonly hoveredAtomId = signal<string | null>(null);
   readonly hoveredBondId = signal<string | null>(null);
   /** Currently selected bonds (multi-select), like the atom selection. */
