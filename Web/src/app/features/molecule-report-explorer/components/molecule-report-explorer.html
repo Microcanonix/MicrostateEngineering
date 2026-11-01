@@ -42,7 +42,9 @@
           <tbody>
             @for (atom of atoms(); track atom.id) {
               <tr
+                #atomRow
                 class="mre-atom-row"
+                [attr.data-atom-id]="atom.id"
                 [class.mre-row-selected]="selectedAtomIds().has(atom.id)"
                 [class.mre-row-hovered]="hoveredAtomId() === atom.id"
                 (mouseenter)="onAtomRowHover(atom.id)"
