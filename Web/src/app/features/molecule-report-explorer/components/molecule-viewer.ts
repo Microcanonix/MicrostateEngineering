@@ -71,6 +71,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
   readonly bondMaxRadius = input.required<number>();
   readonly showAtomLabels = input(false);
   readonly selectedAtomIds = input<ReadonlySet<string>>(new Set());
+  readonly selectedBondIds = input<ReadonlySet<string>>(new Set());
   readonly hoveredAtomId = input<string | null>(null);
   readonly hoveredBondId = input<string | null>(null);
 
@@ -137,7 +138,8 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
 
     effect(() => {
       const hoveredBond = this.hoveredBondId();
-      this.applyBondHighlight(hoveredBond);
+      const selectedBonds = this.selectedBondIds();
+      this.applyBondHighlight(hoveredBond, selectedBonds);
       this.requestRender();
     });
   }
@@ -480,7 +482,7 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
         this.bondMeshes.push({ meshes, bond });
       }
 
-      this.applyBondHighlight(this.hoveredBondId());
+      this.applyBondHighlight(this.hoveredBondId(), this.selectedBondIds());
 
       if (this.showAtomLabels()) {
         for (const atom of atoms) {
@@ -621,37 +623,59 @@ export class MoleculeViewer implements AfterViewInit, OnDestroy {
     }
   }
 
-  private applyBondHighlight(hoveredBondId: string | null): void {
+  private applyBondHighlight(
+    hoveredBondId: string | null,
+    selectedBondIds: ReadonlySet<string>,
+  ): void {
     for (const mesh of this.bondHighlightMeshes) {
       mesh.visible = false;
+      this.atomGroup?.remove(mesh);
+      mesh.geometry.dispose();
+      (mesh.material as THREE.Material).dispose();
     }
     this.bondHighlightMeshes = [];
-    if (!hoveredBondId || !this.atomGroup) {
+    if (!this.atomGroup) {
       return;
     }
 
-    const entry = this.bondMeshes.find((b) => b.bond.BondID === hoveredBondId);
-    if (!entry) {
-      return;
+    // Highlight the hovered bond and all selected bonds (hover style wins on
+    // the single hovered bond; selected bonds get a stronger persistent glow).
+    const toHighlight = new Map<string, 'hover' | 'selected'>();
+    if (hoveredBondId) {
+      toHighlight.set(hoveredBondId, 'hover');
+    }
+    for (const id of selectedBondIds) {
+      if (!toHighlight.has(id)) {
+        toHighlight.set(id, 'selected');
+      }
     }
 
-    for (const mesh of entry.meshes) {
-      const params = mesh.geometry as THREE.CylinderGeometry;
-      const highlight = new THREE.Mesh(
-        new THREE.CylinderGeometry(
-          params.parameters.radiusTop * 1.4,
-          params.parameters.radiusBottom * 1.4,
-          params.parameters.height,
-          12,
-          1,
-          true,
-        ),
-        new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.35 }),
-      );
-      highlight.position.copy(mesh.position);
-      highlight.quaternion.copy(mesh.quaternion);
-      this.atomGroup.add(highlight);
-      this.bondHighlightMeshes.push(highlight);
+    for (const [bondId, kind] of toHighlight) {
+      const entry = this.bondMeshes.find((b) => b.bond.BondID === bondId);
+      if (!entry) {
+        continue;
+      }
+
+      const color = kind === 'hover' ? 0x38bdf8 : 0x0284c7;
+      const opacity = kind === 'hover' ? 0.35 : 0.5;
+      for (const mesh of entry.meshes) {
+        const params = mesh.geometry as THREE.CylinderGeometry;
+        const highlight = new THREE.Mesh(
+          new THREE.CylinderGeometry(
+            params.parameters.radiusTop * 1.4,
+            params.parameters.radiusBottom * 1.4,
+            params.parameters.height,
+            12,
+            1,
+            true,
+          ),
+          new THREE.MeshBasicMaterial({ color, transparent: true, opacity }),
+        );
+        highlight.position.copy(mesh.position);
+        highlight.quaternion.copy(mesh.quaternion);
+        this.atomGroup.add(highlight);
+        this.bondHighlightMeshes.push(highlight);
+      }
     }
   }
 

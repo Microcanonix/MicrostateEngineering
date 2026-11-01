@@ -146,6 +146,7 @@
           [bondMaxRadius]="bondMaxRadius()"
           [showAtomLabels]="showAtomLabels()"
           [selectedAtomIds]="selectedAtomIds()"
+          [selectedBondIds]="selectedBondIds()"
           [hoveredAtomId]="hoveredAtomId()"
           [hoveredBondId]="hoveredBondId()"
           (atomHovered)="onAtomHovered($event)"
@@ -199,7 +200,7 @@
         @for (bond of bonds(); track bond.BondID) {
           <tr
             [class.mre-row-hovered]="hoveredBondId() === bond.BondID"
-            [class.mre-row-bond-selected]="selectedBondId() === bond.BondID"
+            [class.mre-row-bond-selected]="selectedBondIds().has(bond.BondID)"
             (mouseenter)="onBondHovered(bond.BondID)"
             (mouseleave)="onBondHovered(null)"
             (click)="onBondClicked(bond.BondID)"
